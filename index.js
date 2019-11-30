@@ -1,12 +1,24 @@
 const express = require('express');
-const config = require('./config.js');
+const Config = require('./Config.js');
+const path = require('path');
+
+const AppRouters = require('./routers');
+
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 
 class App {
     constructor() {
         this.httpApp = express();
-        this.stratServer(config.port).then(() => {
-            console.log('server runned on port 3000')
+        this.config = new Config;
+
+        this.stratServer(this.config.port).then(() => {
+            console.log(`server runned on port ${this.config.port}`)
         })
+
+        this.httpApp.use('/server', new AppRouters().router)
+        // this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
+
 
     }
 
@@ -21,3 +33,5 @@ class App {
 
 
 const app = new App;
+
+
