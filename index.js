@@ -10,7 +10,7 @@ const jsonParser = bodyParser.json();
 class App {
     constructor() {
         this.httpApp = express();
-        this.config = new Config;
+        this.config = new Config();
 
         this.stratServer(this.config.port).then(() => {
             console.log(`server runned on port ${this.config.port}`)
