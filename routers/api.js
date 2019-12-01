@@ -1,6 +1,6 @@
 const express = require('express');
-const Product = require('../controllers/Products.js');
-const Errors = require('../controllers/Errors.js');
+const Product = require('../controllers/products.js');
+const Errors = require('../controllers/errors.js');
 
 const Config = require('../config.js')
 
@@ -44,7 +44,7 @@ class ApiRouter {
                 res.status(200).send(response)
             })
             .catch(err => {
-                console.log('weszlo???'); new Errors(err, res)
+                console.log('błąd dodawania???'); new Errors(err, res)
             })
     }
 
