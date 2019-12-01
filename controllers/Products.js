@@ -20,10 +20,9 @@ class Product {
     //warunki zapytania
     addProduct(data) {
         return this._validate(data)
-            .then(response => this.db.post({
-                user,
-                second
-            }))
+            .then(response => this.db.post(
+                { ...data }
+            ))
     }
     changeProduct(id, data) {
         return this.getProduct(id)
