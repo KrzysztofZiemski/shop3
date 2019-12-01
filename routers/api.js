@@ -2,7 +2,7 @@ const express = require('express');
 const Product = require('../controllers/Products.js');
 const Errors = require('../controllers/Errors.js');
 
-const Config = require('../Config.js')
+const Config = require('../config.js')
 
 class ApiRouter {
     constructor() {

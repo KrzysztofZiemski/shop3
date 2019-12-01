@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const Config = require('../Config.js');
+const Config = require('../config.js');
 const ApiRouter = require('./api');
 const AdminRouter = require('./admin.js');
 const AuthenticationRouter = require('./authentication.js');

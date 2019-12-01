@@ -14,5 +14,8 @@
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "schema": "^0.2.1"
+  },
+  "devDependencies": {
+    "webpack-merge": "^4.2.2"
   }
 }

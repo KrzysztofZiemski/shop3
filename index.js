@@ -1,5 +1,5 @@
 const express = require('express');
-const Config = require('./Config.js');
+const Config = require('./config.js');
 const path = require('path');
 
 const AppRouters = require('./routers');
