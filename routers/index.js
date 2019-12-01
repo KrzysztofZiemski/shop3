@@ -20,9 +20,9 @@ class AppRouter {
 
     routes() {
         this.router.use('/api', jsonParser, new ApiRouter().router);
-        this.router.use('/admin', new AdminRouter().routers);
-        this.router.use('/authentication', new AuthenticationRouter().routers);
-        this.router.use('/users', new UsersRouter().routers);
+        // this.router.use('/admin', new AdminRouter().router);
+        // this.router.use('/authentication', new AuthenticationRouter().router);
+        this.router.use('/users', jsonParser, new UsersRouter().router);
     }
 }
 

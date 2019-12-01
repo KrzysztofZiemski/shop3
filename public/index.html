@@ -3,13 +3,69 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Kacper</title>
+    <title>Sklep</title>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- font-family: 'Roboto', sans-serif; -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <h1>ooo</h1>
+    <div id="root">
+        <header>
+            <div class="contact">
+                <span>tel: 888 - 888 - 888</span>
+                <span>krzysztofziemski@wp.pl</span>
+            </div>
+            <div class="logo"><a href="/"><img src="./img/LOGO.png" alt="logo"></a></div>
+            <div><a href="/login">Zaloguj</a></div>
+            <div class="basketIcon">
+                <i class="fas fa-shopping-basket"></i>
+                <span class="countBasket">(0)</span>
+            </div>
+        </header>
+        <nav class=mainNav>
+            <ul>
+                <li><a href="">Produkty</a></li>
+                <li><a href="">Nowości</a></li>
+                <li><a href="">Outlet</a></li>
+            </ul>
+        </nav>
+        <section class="main">
+            <nav class="categoryNav">
+                <ul>
+                    <li><a href="">Koraliki do wyrobu biżuterii</a></li>
+                    <li><a href="">Kamienie półszlachetne</a></li>
+                    <li><a href="">Półfabrykaty</a></li>
+                    <li><a href="">Włóczki</a></li>
+                    <li><a href="">Zawieszki</a></li>
+                    <li><a href="">Akcesoria</a></li>
+                </ul>
+            </nav>
+            <main>
+                <div class="filters">
+                    <h2>Filtry</h2>
+                    <div>
+                        <label for="colorFilter">Kolor: </label>
+                        <select name="" id="colorFilter"></select>
+                        <!-- dodać przez js kolory do wyboru czy przez html? -->
+                    </div>
+                    <label for="maxPriceFilter">Maksymalna cena:</label>
+                    <input type="number" id="maxPriceFilter" min="0">
+                    <label for="maxPriceFilter">Minimalna cena:</label>
+                    <input type="number" id="minPriceFilter" min="0">
+                </div>
+                <div id="products"></div>
+            </main>
+        </section>
+    </div>
+
+    <div id="basket"></div>
+
+    <script src="https://kit.fontawesome.com/360e177b71.js" crossorigin="anonymous"></script>
+    <script src="scripts/script.js" type="module"></script>
 </body>
 
 </html>
