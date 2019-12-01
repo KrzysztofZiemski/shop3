@@ -17,7 +17,7 @@ class App {
         })
 
         this.httpApp.use('/server', new AppRouters().router)
-        // this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
+        this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
 
 
     }

@@ -21,7 +21,7 @@ class Product {
     addProduct(data) {
         return this._validate(data)
             .then(response => this.db.post(
-                { ...data }
+                { ...response }
             ))
     }
     changeProduct(id, data) {
@@ -29,6 +29,8 @@ class Product {
             .then(product => this._updateProduct(product, data))
     }
     _updateProduct(product, data) {
+        console.log(product)
+        console.log(data)
         return this.db.put({ ...product, ...data })
     }
     deleteProduct(id) {
