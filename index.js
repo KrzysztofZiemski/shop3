@@ -1,6 +1,7 @@
 const express = require('express');
 const Config = require('./config.js');
 const path = require('path');
+const cors = require('cors');
 
 const AppRouters = require('./routers');
 
@@ -10,6 +11,7 @@ const jsonParser = bodyParser.json();
 class App {
     constructor() {
         this.httpApp = express();
+        this.httpApp.use(cors())
         this.config = new Config();
 
         this.stratServer(this.config.port).then(() => {
@@ -17,7 +19,7 @@ class App {
         })
 
         this.httpApp.use('/server', new AppRouters().router)
-        this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
+        // this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
 
 
     }

@@ -11,6 +11,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "object-hash": "^2.0.1",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "schema": "^0.2.1"

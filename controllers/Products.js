@@ -19,7 +19,9 @@ class Product {
 
     //warunki zapytania
     addProduct(data) {
+
         return this._validate(data)
+            .then(response => this._isExist(data.name))
             .then(response => this.db.post(
                 { ...response }
             ))
@@ -29,8 +31,6 @@ class Product {
             .then(product => this._updateProduct(product, data))
     }
     _updateProduct(product, data) {
-        console.log(product)
-        console.log(data)
         return this.db.put({ ...product, ...data })
     }
     deleteProduct(id) {
@@ -39,7 +39,14 @@ class Product {
     _validate(data) {
         return this.validate.validateProduct(data)
     }
-
+    _isExist(name) {
+        return this.db.find({ selector: { name } })
+            .then(response => {
+                console.log(response.docs.length)
+                if (response.docs.length !== 0) throw Error('produkt już istnieje')
+                return response;
+            })
+    }
 }
 
 module.exports = Product;

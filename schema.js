@@ -17,10 +17,12 @@ class Validate {
             activeBasket: "",
             dateLastLogin: new Date(),
             countIncorrectLogin: 0,
+            permission: "user"
         }
     }
 
     validateProduct(product) {
+
         return new Promise((resolve, reject) => {
             const validateItem = { ...this.schemaProduct, ...product };
             let isCorrect = true;
