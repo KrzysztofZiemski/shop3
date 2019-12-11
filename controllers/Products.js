@@ -21,10 +21,12 @@ class Product {
     addProduct(data) {
 
         return this._validate(data)
-            .then(response => this._isExist(data.name))
-            .then(response => this.db.post(
-                { ...response }
-            ))
+            .then(response => {
+                console.log(response)
+                this.db.post(
+                    { ...response }
+                )
+            })
     }
     changeProduct(id, data) {
         return this.getProduct(id)
@@ -39,14 +41,14 @@ class Product {
     _validate(data) {
         return this.validate.validateProduct(data)
     }
-    _isExist(name) {
-        return this.db.find({ selector: { name } })
-            .then(response => {
-                console.log(response.docs.length)
-                if (response.docs.length !== 0) throw Error('produkt już istnieje')
-                return response;
-            })
-    }
+    // _isExist(name) {
+    //     return this.db.find({ selector: { name } })
+    //         .then(response => {
+    //             console.log(response.docs.length)
+    //             if (response.docs.length !== 0) throw Error('produkt już istnieje')
+    //             return response;
+    //         })
+    // }
 }
 
 module.exports = Product;

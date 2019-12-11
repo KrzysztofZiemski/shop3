@@ -13,7 +13,7 @@ class App {
         this.httpApp = express();
         this.httpApp.use(cors())
         this.config = new Config();
-
+        this.httpApp.use(express.static('public'));
         this.stratServer(this.config.port).then(() => {
             console.log(`server runned on port ${this.config.port}`)
         })

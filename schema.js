@@ -7,12 +7,13 @@ class Validate {
             tags: [],
             price: undefined,
             count: undefined,
-            img: undefined,
+            image: undefined,
         }
         this.schemaUser = {
             login: undefined,
             password: undefined,
             mail: undefined,
+            category: undefined,
             historyTransactions: [],
             activeBasket: "",
             dateLastLogin: new Date(),

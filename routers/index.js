@@ -1,4 +1,3 @@
-const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -18,10 +17,12 @@ class AppRouter {
 
 
     routes() {
+
         this.router.use('/api', jsonParser, new ApiRouter().router);
         // this.router.use('/admin', new AdminRouter().router);
         // this.router.use('/login', new LoginRouter().router);
         this.router.use('/users', jsonParser, new UsersRouter().router);
+
     }
 }
 
