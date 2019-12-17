@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const Config = require('../config.js');
 const ApiRouter = require('./api');
 const AdminRouter = require('./admin.js');
 const UsersRouter = require('./users.js');

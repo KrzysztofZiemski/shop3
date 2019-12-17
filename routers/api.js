@@ -7,19 +7,12 @@ const fs = require('fs');
 //i must move this to class, nie działa filtr rodzaju/////////////////////////////////////////
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/img/');
+        cb(null, './public/img/products');
     },
     filename: function (req, file, cb) {
         cb(null, `${req.body.name}.png`);
     }
 })
-// const fileFilter = (req, file, cb) => {
-//     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-//         cb(null, true);
-//     } else {
-//         cb(null, false);
-//     }
-// }
 
 const upload = multer({
     storage: storage,
@@ -29,21 +22,18 @@ const upload = multer({
     // fileFilter: filefilter
 });
 
-const Config = require('../config.js')
-
 class ApiRouter {
     constructor() {
         this.router = express.Router();
         this.routes();
         this.products = new Product();
-        this.config = new Config();
     }
     // /server/api
     routes() {
         this.router.get('/', this._getAllProducts.bind(this));
         this.router.get('/:id', this._getProduct.bind(this));
         this.router.post('/', upload.single('image'), this._addProduct.bind(this));
-        this.router.put('/:id', this._changeProduct.bind(this));
+        this.router.put('/:id', upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this._deleteProduct.bind(this));
     }
 
@@ -52,7 +42,10 @@ class ApiRouter {
             .then(response => {
                 res.status(200).send(response);
             })
-            .catch(err => new Errors(err, res))
+            .catch(err => {
+                new Errors(err, res)
+                res.send(err)
+            })
     }
 
     _getProduct(req, res) {
@@ -61,32 +54,53 @@ class ApiRouter {
             .then(response => {
                 res.status(200).send(response)
             })
-            .catch(err => new Errors(err, res))
+            .catch(err => {
+                new Errors(err, res)
+                res.send(err)
+            })
     }
     //waruki dotyczące zmiennych przekazanych - może poprzez plik config?
-    _addProduct(req, res, next) {
+    async _addProduct(req, res, next) {
         const data = req.body;
-        data['image'] = `http://localhost:3000/img/${req.body.name}.png`;
-        console.log(data)
+        data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
+        data['tags'] = data['tags'].split(',')
+        data.count = Number(data.count);
+        data.price = Number(data.price);
+
+        const isOk = this._checkDataComplete(data, req.file);
+        if (!isOk) res.status(400).send('brak wszystkich wymaganych informacji');
+        const isExist = await this.products.searchProduct(data.name);
+        if (isExist) res.status(400).send('produkt już istnieje');
         this.products.addProduct(data)
             .then(response => {
                 res.status(200).send(response)
             })
             .catch(err => {
-                console.log('błąd dodawania???'); new Errors(err, res)
+                new Errors(err, res)
+                res.send(err)
             })
     }
-
-
-    _changeProduct(req, res) {
+    _checkDataComplete(data, file) {
+        const { name, description, category, count, price, image, tags } = data
+        if (!file || !name || !description || !category || count === NaN || price === NaN || typeof tags !== 'object') {
+            return false
+        }
+        return true
+    }
+    ///////błąd podczas zmiany - do dopracowania!!!!!!!!!
+    _changeProduct(req, res, next) {
         const data = req.body;
+        console.log(data.tags)
+        data['tags'] = data['tags'].split(',')
         const id = req.params.id;
-        console.log(req.body)
         this.products.changeProduct(id, data)
             .then(response => {
                 res.status(200).send(response);
             })
-            .catch(err => new Errors(err, res))
+            .catch(err => {
+                new Errors(err, res)
+                res.status(500).send('err')
+            })
     }
 
     _deleteProduct(req, res) {
@@ -95,7 +109,10 @@ class ApiRouter {
             .then(response => {
                 res.status(200).send(response);
             })
-            .catch(err => new Errors(err, res))
+            .catch(err => {
+                new Errors(err, res)
+                res.send(err)
+            })
     }
 
 }
