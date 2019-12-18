@@ -1,6 +1,6 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-const hash = require('object-hash');
+const bcrypt = require('bcryptjs');
 
 const Validate = require('../schema.js')
 
@@ -8,6 +8,7 @@ class Users {
     constructor() {
         this.db = new PouchDB('./db/users');
         this.validate = new Validate();
+        this.hashRound = 13;
     }
 
     getAllUser() {
@@ -18,19 +19,29 @@ class Users {
             .then(response => {
                 if (response.docs.length !== 1) throw Error()
                 return response;
-            })
+            }).catch(err => console.log(err))
     }
 
-    addUser(user) {
-        const { login } = user;
-        return this._isExist(login)
-            .then(response => this.validate.validateUser(user))
-            .then(userValidated => {
-                user.password = hash(user.password)
-                this.db.post({ ...user })
-            })
-    }
+    async addUser(user) {
+        try {
+            const { login, password, mail } = user;
+            const dataUser = { login, password, mail }
+            const isExist = await this._isExist(login)
+            const hash = await bcrypt.hashSync(password, this.hashRound);
+            const userValidated = await this.validate.validateUser(user);
+            return this.db.post({ ...userValidated })
+        } catch (error) {
+            throw new Error(error);
+        }
 
+
+    }
+    async addPermission(login, permission) {
+        const responseUser = await this.getUser(login);
+        const user = responseUser.docs[0]
+        return this.db.put({ ...user, permission })
+
+    }
     changePassword(login, password) {
         return this.db.find({ selector: { login } })
             .then(userFinded => {
@@ -47,9 +58,8 @@ class Users {
 
     _isExist(login) {
         return this.db.find({ selector: { login }, fields: ['_id'], })
-            .then(response => {
-                if (response.docs.length !== 0) throw Error('użytkownik już istnieje -b')
-            })
+            .then(response => { if (response.docs.length !== 0) new Error('użytkownik już istnieje'); })
+            .catch(err => new Error(err))
     }
 }
 

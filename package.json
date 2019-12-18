@@ -9,12 +9,14 @@
   "author": "Krzysztof Ziemski <k.b.ziemski@gmail.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
-    "object-hash": "^2.0.1",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "schema": "^0.2.1"

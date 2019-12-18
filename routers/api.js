@@ -69,8 +69,8 @@ class ApiRouter {
 
         const isOk = this._checkDataComplete(data, req.file);
         if (!isOk) res.status(400).send('brak wszystkich wymaganych informacji');
-        const isExist = await this.products.searchProduct(data.name);
-        if (isExist) res.status(400).send('produkt już istnieje');
+        // const isExist = await this.products.searchProduct(data.name);
+        // if (isExist) res.status(400).send('produkt już istnieje');
         this.products.addProduct(data)
             .then(response => {
                 res.status(200).send(response)
