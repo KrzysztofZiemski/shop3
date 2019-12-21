@@ -51,8 +51,8 @@ class UsersRouter {
         res.status(500).send('error during add user')
     }
     _changePassword(req, res) {
-        const { login, newPassword } = req.body
-        this.users.changePassword(login, newPassword)
+        const { login, password } = req.body
+        this.users.changePassword(login, password)
             .then(response => res.status(200).send('hasło zmienione'))
             .catch(err => res.status(err.status).send('hasło nie zostało zmienione'))
     }

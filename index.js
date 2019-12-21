@@ -1,16 +1,19 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-
 const AppRouters = require('./routers');
-
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+
+
+const corsOptions = {
+    origin: 'http://localhost:3000.com'
+}
 
 class App {
     constructor() {
         this.httpApp = express();
-        this.httpApp.use(cors())
+        this.httpApp.use(cors(corsOptions))
         this.httpApp.use(express.static('public'));
         this.stratServer(3000).then(() => {
             console.log(`server runned on port 3000`)

@@ -24,10 +24,8 @@ class Users {
 
     async addUser(user) {
         try {
-            const { login, password, mail } = user;
-            const dataUser = { login, password, mail }
-            const isExist = await this._isExist(login)
-            const hash = await bcrypt.hashSync(password, this.hashRound);
+            const isExist = await this._isExist(user.login)
+            user.password = await bcrypt.hashSync(user.password, this.hashRound);
             const userValidated = await this.validate.validateUser(user);
             return this.db.post({ ...userValidated })
         } catch (error) {
@@ -43,10 +41,14 @@ class Users {
 
     }
     changePassword(login, password) {
+
         return this.db.find({ selector: { login } })
             .then(userFinded => {
                 if (userFinded.docs.length !== 1) throw Error('znaleziono więcej niż jednego użytkownika o podanych kryteriach');
                 const user = userFinded.docs[0];
+                console.log(user)
+                console.log({ ...user, password })
+
                 this.db.put({ ...user, password })
             })
     }
