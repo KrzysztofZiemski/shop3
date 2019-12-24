@@ -37,24 +37,30 @@ class UsersRouter {
             console.log('błąd pobrania użytkowników')
         })
     }
-    async _addUser(req, res) {
+    _addUser(req, res) {
+
         const user = req.body;
-        if (user.login === undefined || user.password === undefined || user.mail === undefined) {
-            res.status(400).send('put required data');
-            return;
-        }
-        const isOk = await this.users.addUser(user);
-        if (isOk.ok) {
-            res.status(200).send('succesed add users');
-            return
-        };
-        res.status(500).send('error during add user')
+        if (user.login === undefined || user.password === undefined || user.mail === undefined) return res.status(400).send('put required data');
+
+        this.users.addUser(user)
+            .then(result => {
+                if (result === "exist") {
+                    return res.status(400).json('Podany login już istnieje');
+                }
+                res.status(200).send('succesed add users')
+            })
+            .catch(err => res.status(500).send(err));
     }
     _changePassword(req, res) {
         const { login, password } = req.body
-        this.users.changePassword(login, password)
-            .then(response => res.status(200).send('hasło zmienione'))
-            .catch(err => res.status(err.status).send('hasło nie zostało zmienione'))
+        if (login === undefined || password === undefined) res.status(400).send('hasło nie zostało zmienione')
+        try {
+            this.users.changePassword(login, password)
+                .then(response => res.status(200).send('hasło zmienione'))
+                .catch(err => res.status(err.status).send('hasło nie zostało zmienione'))
+        } catch (e) {
+            res.status(e).send('hasło nie zostało zmienione')
+        }
     }
 
     _deleteUser(req, res) {

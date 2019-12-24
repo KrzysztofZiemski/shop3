@@ -19,6 +19,8 @@ class Validate {
             countIncorrectLogin: 0,
             permission: "user"
         }
+        this.hashRound = 13;
+        this.TOKEN_SECRET_JWT = "bardzo tajne hasło";
     }
 
     validateProduct(product) {

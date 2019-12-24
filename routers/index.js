@@ -6,6 +6,7 @@ const ApiRouter = require('./api');
 const AdminRouter = require('./admin.js');
 const UsersRouter = require('./users.js');
 const LoginRouter = require('./login.js');
+const AuthRouter = require('./authentication.js');
 
 class AppRouter {
     constructor() {
@@ -21,7 +22,7 @@ class AppRouter {
         // this.router.use('/admin', new AdminRouter().router);
         this.router.use('/login', jsonParser, new LoginRouter().router);
         this.router.use('/users', jsonParser, new UsersRouter().router);
-
+        this.router.use('/auth', jsonParser, new AuthRouter().router);
     }
 }
 

@@ -4,7 +4,8 @@ const Errors = require('../controllers/errors.js');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-//i must move this to class, nie działa filtr rodzaju/////////////////////////////////////////
+const checkToken = require('../controllers/checkToken.js');
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/img/products');
@@ -35,6 +36,7 @@ class ApiRouter {
         this.router.post('/', upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this._deleteProduct.bind(this));
+        //this.router.delete('/:id', checkToken, this._deleteProduct.bind(this));
     }
 
     _getAllProducts(req, res) {
@@ -59,8 +61,8 @@ class ApiRouter {
                 res.send(err)
             })
     }
-    //waruki dotyczące zmiennych przekazanych - może poprzez plik config?
     async _addProduct(req, res, next) {
+        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
         data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
         data['tags'] = data['tags'].split(',')
@@ -89,8 +91,8 @@ class ApiRouter {
     }
     ///////błąd podczas zmiany - do dopracowania!!!!!!!!!
     _changeProduct(req, res, next) {
+        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
-        console.log(data.tags)
         data['tags'] = data['tags'].split(',')
         const id = req.params.id;
         this.products.changeProduct(id, data)
@@ -104,6 +106,7 @@ class ApiRouter {
     }
 
     _deleteProduct(req, res) {
+        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const id = req.params.id;
         this.products.deleteProduct(id)
             .then(response => {

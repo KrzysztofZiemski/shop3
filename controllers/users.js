@@ -2,13 +2,13 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const bcrypt = require('bcryptjs');
 
-const Validate = require('../schema.js')
+const Validate = require('../schema.js');
 
 class Users {
     constructor() {
         this.db = new PouchDB('./db/users');
         this.validate = new Validate();
-        this.hashRound = 13;
+
     }
 
     getAllUser() {
@@ -17,40 +17,36 @@ class Users {
     getUser(login) {
         return this.db.find({ selector: { login } })
             .then(response => {
-                if (response.docs.length !== 1) throw Error()
-                return response;
+                if (response.docs.length !== 1) throw new Error();
+                return
             }).catch(err => console.log(err))
     }
 
     async addUser(user) {
-        try {
-            const isExist = await this._isExist(user.login)
-            user.password = await bcrypt.hashSync(user.password, this.hashRound);
-            const userValidated = await this.validate.validateUser(user);
-            return this.db.post({ ...userValidated })
-        } catch (error) {
-            throw new Error(error);
+        const isExist = await this._isExist(user.login)
+        if (isExist) {
+            return 'exist'
         }
-
-
+        user.password = await bcrypt.hashSync(user.password, this.validate.hashRound);
+        const userValidated = await this.validate.validateUser(user);
+        return this.db.post({ ...userValidated })
     }
+
+
     async addPermission(login, permission) {
         const responseUser = await this.getUser(login);
         const user = responseUser.docs[0]
         return this.db.put({ ...user, permission })
 
     }
-    changePassword(login, password) {
-
-        return this.db.find({ selector: { login } })
-            .then(userFinded => {
-                if (userFinded.docs.length !== 1) throw Error('znaleziono więcej niż jednego użytkownika o podanych kryteriach');
-                const user = userFinded.docs[0];
-                console.log(user)
-                console.log({ ...user, password })
-
-                this.db.put({ ...user, password })
-            })
+    async changePassword(login, newPassword) {
+        const response = await this.db.find({ selector: { login } });
+        if (response.docs.length !== 1) {
+            throw Error('znaleziono więcej niż jednego użytkownika o podanych kryteriach');
+        }
+        const user = response.docs[0];
+        const password = await bcrypt.hashSync(newPassword, this.hashRound);
+        return this.db.put({ ...user, password });
     }
     deleteUser(id) {
         return this.db.get(id)
@@ -59,8 +55,12 @@ class Users {
 
 
     _isExist(login) {
+
         return this.db.find({ selector: { login }, fields: ['_id'], })
-            .then(response => { if (response.docs.length !== 0) new Error('użytkownik już istnieje'); })
+            .then(response => {
+                if (response.docs.length !== 0) return true;
+                return false;
+            })
             .catch(err => new Error(err))
     }
 }

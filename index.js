@@ -9,12 +9,24 @@ const jsonParser = bodyParser.json();
 const corsOptions = {
     origin: 'http://localhost:3000.com'
 }
+/** ustawienie headerow pod CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+    );
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  });
+*/
 
 class App {
     constructor() {
         this.httpApp = express();
         this.httpApp.use(cors(corsOptions))
         this.httpApp.use(express.static('public'));
+
         this.stratServer(3000).then(() => {
             console.log(`server runned on port 3000`)
         })
