@@ -17,8 +17,8 @@ class Users {
     getUser(login) {
         return this.db.find({ selector: { login } })
             .then(response => {
-                if (response.docs.length !== 1) throw new Error();
-                return
+                if (response.docs.length !== 1) return null;
+                return response
             }).catch(err => console.log(err))
     }
 

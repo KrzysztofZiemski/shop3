@@ -31,7 +31,7 @@ class AuthenticationRouter {
 
     async authorization(user, confirmPassword) {
         const isCorrect = await this.checkPassword(user.password, confirmPassword);
-        if (!isCorrect) throw new Error;
+        if (!isCorrect) return null;
         return this.generateTokens(user)
     }
 

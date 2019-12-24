@@ -47,19 +47,19 @@ class UsersRouter {
                 if (result === "exist") {
                     return res.status(400).json('Podany login już istnieje');
                 }
-                res.status(200).send('succesed add users')
+                res.status(200).json('Dokonano rejestracji, zapraszamy do zalogowania')
             })
-            .catch(err => res.status(500).send(err));
+            .catch(err => res.status(500).json(err));
     }
     _changePassword(req, res) {
         const { login, password } = req.body
-        if (login === undefined || password === undefined) res.status(400).send('hasło nie zostało zmienione')
+        if (login === undefined || password === undefined) res.status(400).json('hasło nie zostało zmienione')
         try {
             this.users.changePassword(login, password)
-                .then(response => res.status(200).send('hasło zmienione'))
-                .catch(err => res.status(err.status).send('hasło nie zostało zmienione'))
+                .then(response => res.status(200).json('hasło zmienione'))
+                .catch(err => res.status(err.status).json('hasło nie zostało zmienione'))
         } catch (e) {
-            res.status(e).send('hasło nie zostało zmienione')
+            res.status(e).json('hasło nie zostało zmienione')
         }
     }
 

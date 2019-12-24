@@ -60,7 +60,7 @@ class Product {
             selector: { name },
             fields: ['name']
         })
-            .then(response => { console.log(response); response.docs.length === 0 ? false : true });
+            .then(response => { response.docs.length === 0 ? false : true });
     }
     _validate(data) {
         return this.validate.validateProduct(data)

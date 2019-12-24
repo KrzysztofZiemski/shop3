@@ -22,14 +22,14 @@ class AuthRouter {
     }
     async _authentication(req, res, next) {
         const response = await this.users.getUser(req.body.login);
-        if (response.docs.length !== 1) res.status(400).send('błędne zapytanie do servera')
-        if (req.body.password === undefined) res.status(400).send('błędne zapytanie do servera')
+        if (response === null) return res.status(400).json('błędny login lub hasło');
+        if (response.docs.length !== 1 || req.body.password === undefined) res.json(400).send('błędne zapytanie do servera');
+
         const user = response.docs[0];
         const token = await this.auth.authorization(user, req.body.password);
-
         // res.json(token);
         res.cookie('token', token, { maxAge: 1000 * 60 * 60, httpOnly: true });
-        res.status(200).send('ok')
+        res.status(200).json('ok')
     }
 }
 module.exports = AuthRouter;
