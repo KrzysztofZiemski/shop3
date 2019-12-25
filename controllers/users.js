@@ -14,6 +14,9 @@ class Users {
     getAllUser() {
         return this.db.allDocs({ include_docs: true })
     }
+    getUserById(id) {
+        return this.db.get(id)
+    }
     getUser(login) {
         return this.db.find({ selector: { login } })
             .then(response => {
@@ -27,26 +30,32 @@ class Users {
         if (isExist) {
             return 'exist'
         }
-        user.password = await bcrypt.hashSync(user.password, this.validate.hashRound);
+        user.password = await bcrypt.hashSync(user.password, process.env.HASH_ROUND);
         const userValidated = await this.validate.validateUser(user);
         return this.db.post({ ...userValidated })
     }
 
-
+    //do usunięcia?
     async addPermission(login, permission) {
         const responseUser = await this.getUser(login);
         const user = responseUser.docs[0]
         return this.db.put({ ...user, permission })
 
     }
+    //do wykasowania? może zastąpić updateUser
     async changePassword(login, newPassword) {
         const response = await this.db.find({ selector: { login } });
         if (response.docs.length !== 1) {
             throw Error('znaleziono więcej niż jednego użytkownika o podanych kryteriach');
         }
         const user = response.docs[0];
-        const password = await bcrypt.hashSync(newPassword, this.hashRound);
+        const password = await bcrypt.hashSync(newPassword, process.env.HASH_ROUND);
         return this.db.put({ ...user, password });
+    }
+
+    async updateUser(user, property) {
+        return this.db.put({ ...user, ...property })
+
     }
     deleteUser(id) {
         return this.db.get(id)

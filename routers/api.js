@@ -4,7 +4,6 @@ const Errors = require('../controllers/errors.js');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const checkToken = require('../controllers/checkToken.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -36,7 +35,6 @@ class ApiRouter {
         this.router.post('/', upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this._deleteProduct.bind(this));
-        //this.router.delete('/:id', checkToken, this._deleteProduct.bind(this));
     }
 
     _getAllProducts(req, res) {

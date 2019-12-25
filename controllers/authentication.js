@@ -2,40 +2,68 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const PouchDB = require('pouchdb');
 const jwt = require('jsonwebtoken');
+const Users = require('./users.js');
 
-const Validate = require('../schema.js');
-
-class AuthenticationRouter {
+class Authentication {
     constructor() {
         this.db = new PouchDB('./db/users');
-        this.validate = new Validate();
+        this.users = new Users();
     }
 
-    checkPassword(password, confirmPassword) {
+    _checkPassword(password, confirmPassword) {
         return bcrypt.compare(confirmPassword, password);
     }
     generateTokens(user) {
         const ACCESS_TOKEN = jwt.sign({
+            login: user.login,
             sub: user._id,
             rol: user.permission,
             type: 'ACCESS_TOKEN'
         },
-            this.validate.TOKEN_SECRET_JWT, {
+            process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: 1800
         });
-
+        const REFRESH_TOKEN = jwt.sign({
+            login: user.login,
+            sub: user._id,
+            rol: user.permission,
+            type: 'REFRESH_TOKEN'
+        },
+            process.env.REFRESH_TOKEN_SECRET, {
+            expiresIn: 1800
+        });
+        this.users.updateUser(user, { refreshToken: REFRESH_TOKEN })
         return {
-            accessToken: ACCESS_TOKEN
+            accessToken: ACCESS_TOKEN,
+            refreshToken: REFRESH_TOKEN
         }
     }
 
-    async authorization(user, confirmPassword) {
-        const isCorrect = await this.checkPassword(user.password, confirmPassword);
+    async login(user, confirmPassword) {
+        const isCorrect = await this._checkPassword(user.password, confirmPassword);
         if (!isCorrect) return null;
         return this.generateTokens(user)
     }
 
+    checkToken = (req, res, next) => {
+        const AUTHORIZATION_TOKEN = req.headers.authorization && req.headers.authorization.split(' ');
+        if (!AUTHORIZATION_TOKEN === null) return res.status(401).json('not authorized');
+        if (AUTHORIZATION_TOKEN[0] !== 'Bearer') return res.status(401).json('invalid token')
+
+
+        jwt.verify(AUTHORIZATION_TOKEN[1], process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+            if (err) return res.status(403).json('not access');
+            req.token = decoded;
+            next()
+        })
+    }
+
+    refreshToken(token) {
+        const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+            console.log(decoded)
+        })
+    }
 
 }
-////////////nie dziala porownanie, czy dziala zmiana?
-module.exports = AuthenticationRouter;
+
+module.exports = Authentication;

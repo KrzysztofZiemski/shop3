@@ -4,7 +4,7 @@ const cors = require('cors');
 const AppRouters = require('./routers');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-
+require('dotenv').config()
 
 const corsOptions = {
     origin: 'http://localhost:3000.com'
@@ -27,8 +27,8 @@ class App {
         this.httpApp.use(cors(corsOptions))
         this.httpApp.use(express.static('public'));
 
-        this.stratServer(3000).then(() => {
-            console.log(`server runned on port 3000`)
+        this.stratServer(process.env.PORT).then(() => {
+            console.log(`server runned on port ${process.env.PORT}`)
         })
 
         this.httpApp.use('/server', new AppRouters().router)
