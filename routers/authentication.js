@@ -2,9 +2,6 @@ const express = require('express');
 const Users = require('../controllers/users.js');
 const AuthController = require('../controllers/authentication.js');
 
-
-
-/////////////////////////
 const jwt = require('jsonwebtoken');
 
 
@@ -18,13 +15,13 @@ class AuthRouter {
     // /server/auth
     routes() {
         this.router.post('/login', this.login.bind(this))
-        this.router.post('/', this.auth.checkToken.bind(this), this.checkPermission.bind(this))
         this.router.put('/token', this.refreshToken.bind(this))
     }
 
 
     checkPermission(req, res) {
     }
+
     async refreshToken(req, res) {
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) return res.status(401)

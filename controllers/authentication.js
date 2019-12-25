@@ -21,16 +21,14 @@ class Authentication {
             type: 'ACCESS_TOKEN'
         },
             process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: 1800
+            expiresIn: 1000 * 60 * 15
         });
         const REFRESH_TOKEN = jwt.sign({
-            login: user.login,
             sub: user._id,
-            rol: user.permission,
             type: 'REFRESH_TOKEN'
         },
             process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: 1800
+            expiresIn: 1000 * 60 * 60
         });
         this.users.updateUser(user, { refreshToken: REFRESH_TOKEN })
         return {
@@ -45,7 +43,19 @@ class Authentication {
         return this.generateTokens(user)
     }
 
-    checkToken = (req, res, next) => {
+    checkAdminToken = (req, res, next) => {
+        const AUTHORIZATION_TOKEN = req.headers.authorization && req.headers.authorization.split(' ');
+        if (!AUTHORIZATION_TOKEN === null) return res.status(401).json('not authorized');
+        if (AUTHORIZATION_TOKEN[0] !== 'Bearer') return res.status(401).json('invalid token')
+
+
+        jwt.verify(AUTHORIZATION_TOKEN[1], process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+            if (err || decoded.permission !== 'admin') return res.status(401).json('not access');
+            req.token = decoded;
+            next()
+        })
+    }
+    checkUserToken = (req, res, next) => {
         const AUTHORIZATION_TOKEN = req.headers.authorization && req.headers.authorization.split(' ');
         if (!AUTHORIZATION_TOKEN === null) return res.status(401).json('not authorized');
         if (AUTHORIZATION_TOKEN[0] !== 'Bearer') return res.status(401).json('invalid token')
