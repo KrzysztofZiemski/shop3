@@ -19,6 +19,11 @@ class Product {
         return this.db.get(id)
     }
 
+    filterProperty(propertyObject) {
+        return this.db.find({
+            selector: propertyObject
+        })
+    }
     //warunki zapytania
     addProduct(data) {
         return this._validate(data)

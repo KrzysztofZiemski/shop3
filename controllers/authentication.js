@@ -42,8 +42,9 @@ class Authentication {
         if (!isCorrect) return null;
         return this.generateTokens(user)
     }
-
+    //sprawdzamy uprawnienia, mamy odmowe
     checkAdminToken = (req, res, next) => {
+        console.log(req.headers.authorization)
         const AUTHORIZATION_TOKEN = req.headers.authorization && req.headers.authorization.split(' ');
         if (!AUTHORIZATION_TOKEN === null) return res.status(401).json('not authorized');
         if (AUTHORIZATION_TOKEN[0] !== 'Bearer') return res.status(401).json('invalid token')

@@ -4,6 +4,7 @@ const Errors = require('../controllers/errors.js');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const AuthController = require('../controllers/authentication.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -25,18 +26,26 @@ const upload = multer({
 class ApiRouter {
     constructor() {
         this.router = express.Router();
-        this.routes();
         this.products = new Product();
+        this.auth = new AuthController();
+        this.routes();
     }
     // /server/api
     routes() {
+        //this.router.get('/', this.auth.checkAdminToken, this._getAllProducts.bind(this));
         this.router.get('/', this._getAllProducts.bind(this));
+        this.router.get('/filter', this._getCategory.bind(this));
         this.router.get('/:id', this._getProduct.bind(this));
         this.router.post('/', upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this._deleteProduct.bind(this));
-    }
 
+    }
+    _getCategory(req, res) {
+        const category = req.query;
+        this.products.filterProperty(category)
+            .then(response => res.json(response))
+    }
     _getAllProducts(req, res) {
         this.products.getAll()
             .then(response => {
