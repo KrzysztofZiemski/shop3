@@ -16,10 +16,12 @@ class AuthRouter {
     routes() {
         this.router.post('/login', this.login.bind(this))
         this.router.put('/token', this.refreshToken.bind(this))
+        this.router.post('/check', this.auth.checkAdminToken, this.checkPermission.bind(this))
     }
 
 
     checkPermission(req, res) {
+        res.status(200)
     }
 
     async refreshToken(req, res) {
@@ -50,8 +52,6 @@ class AuthRouter {
         const user = response.docs[0];
         const token = await this.auth.login(user, req.body.password);
         res.json(token);
-        // res.cookie('token', token, { maxAge: 1000 * 60 * 60, httpOnly: true });
-        //res.status(200).json('ok')
     }
 
 }

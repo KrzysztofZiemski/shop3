@@ -12,10 +12,10 @@ class UsersRouter {
 
     // /server/users
     routes() {
-        this.router.get('/:id', this._getUser.bind(this));
-        this.router.get('/', this._getAllUser.bind(this));
+        this.router.get('/:id', this.auth.checkAdminToken, this._getUser.bind(this));
+        this.router.get('/', this.auth.checkAdminToken, this._getAllUser.bind(this));
         this.router.post('/', this._addUser.bind(this));
-        //this.router.put('/password', this._changePassword.bind(this));
+        this.router.put('/password', this.auth.checkAdminToken, this._changePassword.bind(this));
         this.router.put('/permission', this.auth.checkAdminToken, this._addPermission.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteUser.bind(this));
     }
