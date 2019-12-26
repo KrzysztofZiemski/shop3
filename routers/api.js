@@ -32,13 +32,12 @@ class ApiRouter {
     }
     // /server/api
     routes() {
-        //this.router.get('/', this.auth.checkAdminToken, this._getAllProducts.bind(this));
         this.router.get('/', this._getAllProducts.bind(this));
         this.router.get('/filter', this._getCategory.bind(this));
         this.router.get('/:id', this._getProduct.bind(this));
-        this.router.post('/', upload.single('image'), this._addProduct.bind(this));
-        this.router.put('/:id', upload.single('image'), this._changeProduct.bind(this));
-        this.router.delete('/:id', this._deleteProduct.bind(this));
+        this.router.post('/', this.auth.checkAdminToken, upload.single('image'), this._addProduct.bind(this));
+        this.router.put('/:id', this.auth.checkAdminToken, upload.single('image'), this._changeProduct.bind(this));
+        this.router.delete('/:id', this.auth.checkAdminToken, this._deleteProduct.bind(this));
 
     }
     _getCategory(req, res) {
@@ -72,10 +71,9 @@ class ApiRouter {
         // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
         data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
-        data['tags'] = data['tags'].split(',')
+        data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
         data.count = Number(data.count);
         data.price = Number(data.price);
-
         const isOk = this._checkDataComplete(data, req.file);
         if (!isOk) res.status(400).send('brak wszystkich wymaganych informacji');
         // const isExist = await this.products.searchProduct(data.name);
@@ -98,17 +96,16 @@ class ApiRouter {
     }
     ///////błąd podczas zmiany - do dopracowania!!!!!!!!!
     _changeProduct(req, res, next) {
-        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
-        data['tags'] = data['tags'].split(',')
+        if (data['tags']) data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
+
         const id = req.params.id;
         this.products.changeProduct(id, data)
             .then(response => {
                 res.status(200).send(response);
             })
             .catch(err => {
-                new Errors(err, res)
-                res.status(500).send('err')
+                res.status(500)
             })
     }
 

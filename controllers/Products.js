@@ -35,8 +35,8 @@ class Product {
     }
     async changeProduct(id, data) {
         const product = await this.getProduct(id);
-        data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
         if (data.name !== product.name) {
+            data['image'] = `http://localhost:3000/img/products/${data.name}.png`;
             const pathImg = path.join(__dirname, `../public/img/products/${product.name}.png`);
             try {
                 fs.unlinkSync(pathImg, (err) => console.log("błąd podczas usuwania pliku"))

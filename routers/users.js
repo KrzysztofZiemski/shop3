@@ -1,8 +1,10 @@
 const express = require('express');
 const Users = require('../controllers/users.js');
+const AuthController = require('../controllers/authentication.js');
 
 class UsersRouter {
     constructor() {
+        this.auth = new AuthController();
         this.router = express.Router();
         this.routes();
         this.users = new Users();
@@ -13,9 +15,9 @@ class UsersRouter {
         this.router.get('/:id', this._getUser.bind(this));
         this.router.get('/', this._getAllUser.bind(this));
         this.router.post('/', this._addUser.bind(this));
-        this.router.put('/password', this._changePassword.bind(this));
-        this.router.put('/permission', this._addPermission.bind(this));
-        this.router.delete('/:id', this._deleteUser.bind(this));
+        //this.router.put('/password', this._changePassword.bind(this));
+        this.router.put('/permission', this.auth.checkAdminToken, this._addPermission.bind(this));
+        this.router.delete('/:id', this.auth.checkAdminToken, this._deleteUser.bind(this));
     }
     _addPermission(req, res) {
         //tutaj weryfikację i login
