@@ -2,12 +2,13 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const AppRouters = require('./routers');
+const Admin = require('./routers/admin.js');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 require('dotenv').config()
 
 const corsOptions = {
-    origin: 'http://localhost:3000.com'
+    origin: 'http://localhost:3000'
 }
 /** ustawienie headerow pod CORS
 app.use((req, res, next) => {
@@ -24,25 +25,23 @@ app.use((req, res, next) => {
 class App {
     constructor() {
         this.httpApp = express();
-        this.httpApp.use(cors(corsOptions))
+        this.httpApp.use(cors(corsOptions));
         this.httpApp.use(express.static('public'));
 
         this.stratServer(process.env.PORT).then(() => {
-            console.log(`server runned on port ${process.env.PORT}`)
+            console.log(`server runned on port ${process.env.PORT}`);
         })
 
-        this.httpApp.use('/server', new AppRouters().router)
-        // this.httpApp.use('/', express.static(path.join(__dirname, 'public')))
-
-
+        this.httpApp.use('/server', new AppRouters().router);
+        this.httpApp.use('/admin', new Admin().router);
     }
 
     stratServer(port) {
         return new Promise((resolve) => {
             this.httpApp.listen(3000, () => {
-                resolve()
+                resolve();
             })
-        })
+        });
     }
 }
 

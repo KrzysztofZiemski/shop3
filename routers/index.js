@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const ApiRouter = require('./api');
-const AdminRouter = require('./admin.js');
 const UsersRouter = require('./users.js');
 const AuthRouter = require('./authentication.js');
 
@@ -17,7 +16,6 @@ class AppRouter {
     routes() {
 
         this.router.use('/api', jsonParser, new ApiRouter().router);
-        // this.router.use('/admin', new AdminRouter().router);
         this.router.use('/users', jsonParser, new UsersRouter().router);
         this.router.use('/auth', jsonParser, new AuthRouter().router);
     }

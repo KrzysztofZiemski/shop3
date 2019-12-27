@@ -20,6 +20,7 @@ class Validate {
             permission: "user",
             refreshToken: ""
         }
+        this.tags = ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwony', 'czerwnoy'];
     }
 
     validateProduct(product) {

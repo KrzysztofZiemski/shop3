@@ -21,14 +21,14 @@ class Authentication {
             type: 'ACCESS_TOKEN'
         },
             process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: 1000 * 60 * 15
+            expiresIn: 60 * 15
         });
         const REFRESH_TOKEN = jwt.sign({
             sub: user._id,
             type: 'REFRESH_TOKEN'
         },
             process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: 1000 * 60 * 60
+            expiresIn: 60 * 220
         });
         this.users.updateUser(user, { refreshToken: REFRESH_TOKEN })
         return {
@@ -44,15 +44,17 @@ class Authentication {
     }
     //sprawdzamy uprawnienia, mamy odmowe
     checkAdminToken = (req, res, next) => {
-
-        const AUTHORIZATION_TOKEN = req.headers.authorization && req.headers.authorization.split(' ');
-        if (!AUTHORIZATION_TOKEN === null) return res.status(401).json('not authorized');
+        const AUTHORIZATION_TOKEN = req.headers.authentication && req.headers.authentication.split(' ');
+        if (AUTHORIZATION_TOKEN === null || AUTHORIZATION_TOKEN === undefined) return res.status(401).json('not authorized');
         if (AUTHORIZATION_TOKEN[0] !== 'Bearer') return res.status(401).json('invalid token')
 
         jwt.verify(AUTHORIZATION_TOKEN[1], process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-            if (err || decoded.rol !== 'admin') return res.status(401).json('not access');
-            req.token = decoded;
-            next()
+            if (decoded && decoded.rol === 'admin') {
+                req.token = decoded;
+                next()
+            } else {
+                return res.status(401).json('not access');
+            }
         })
     }
     checkUserToken = (req, res, next) => {

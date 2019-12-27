@@ -25,6 +25,7 @@ class AuthRouter {
     }
 
     async refreshToken(req, res) {
+
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) return res.status(401)
         const decoded = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
