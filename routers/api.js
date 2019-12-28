@@ -5,6 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const AuthController = require('../controllers/authentication.js');
+const Buy = require('../modules/transactions.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -29,6 +30,7 @@ class ApiRouter {
         this.products = new Product();
         this.auth = new AuthController();
         this.routes();
+
     }
     // /server/api
     routes() {
@@ -38,7 +40,12 @@ class ApiRouter {
         this.router.post('/', this.auth.checkAdminToken, upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', this.auth.checkAdminToken, upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteProduct.bind(this));
+        this.router.post('/buy', this._buy.bind(this));
+    }
+    _buy(req, res) {
+        const data = req.body;
 
+        const result = new Buy(data)
     }
     _getCategory(req, res) {
         const category = req.query;

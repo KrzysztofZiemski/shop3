@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const AppRouters = require('./routers');
-const Admin = require('./routers/admin.js');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 require('dotenv').config()
@@ -33,7 +32,6 @@ class App {
         })
 
         this.httpApp.use('/server', new AppRouters().router);
-        this.httpApp.use('/admin', new Admin().router);
     }
 
     stratServer(port) {

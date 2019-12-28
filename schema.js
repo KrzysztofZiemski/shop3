@@ -1,6 +1,9 @@
 
 class Validate {
     constructor() {
+        this.tags = ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwony', 'czerwnoy'];
+        this.statuses = ['accepted', 'waiting payment', 'in progress', 'sent', 'closed', 'canceled'];
+
         this.schemaProduct = {
             name: undefined,
             description: undefined,
@@ -20,11 +23,18 @@ class Validate {
             permission: "user",
             refreshToken: ""
         }
-        this.tags = ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwony', 'czerwnoy'];
+        this.schemaTransaction = {
+            products: [],
+            userId: undefined,
+            fulName: undefined,
+            adress: undefined,
+            status: this.statuses[0],
+            date: undefined,
+            sumPrice: undefined,
+        }
     }
 
     validateProduct(product) {
-
         return new Promise((resolve, reject) => {
             const validateItem = { ...this.schemaProduct, ...product };
             let isCorrect = true;
@@ -46,6 +56,22 @@ class Validate {
             if (isCorrect) resolve(validateUser)
             reject('not enough user informations')
         })
+    }
+    validateTransaction(transaction) {
+        const validateTransaction = { ...this.schemaTransaction, ...transaction };
+
+        let isCorrect = true;
+        for (let transaction in validateTransaction) {
+            if (validateTransaction[transaction] === undefined) {
+                isCorrect = false;
+                break;
+            } else if (Array.isArray(validateTransaction[transaction]) && validateTransaction[transaction].length === 0) {
+                isCorrect = false;
+                break;
+            }
+        }
+        if (isCorrect) return validateTransaction;
+        return false;
     }
 }
 
