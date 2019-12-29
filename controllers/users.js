@@ -57,6 +57,10 @@ class Users {
         return this.db.put({ ...user, ...property })
 
     }
+    async addUserTransaction(newUser) {
+        return this.db.put(newUser)
+
+    }
     deleteUser(id) {
         return this.db.get(id)
             .then(user => this.db.remove(user))

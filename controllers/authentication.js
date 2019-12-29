@@ -72,7 +72,6 @@ class Authentication {
 
     refreshToken(token) {
         const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-            console.log(decoded)
         })
     }
 

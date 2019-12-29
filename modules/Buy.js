@@ -27,6 +27,7 @@ class Buy {
         const validateTransaction = await this.validate.validateTransaction(data);
 
         if (!validateTransaction) return false
+
         return this.transactions.add(validateTransaction)
             .then(response => {
                 return { response, products }

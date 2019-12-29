@@ -17,6 +17,7 @@
     "gulp-sass": "^4.0.2",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
+    "nodemailer": "^6.4.2",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "schema": "^0.2.1"

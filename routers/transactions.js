@@ -5,15 +5,17 @@ class Transactions {
     constructor() {
         this.router = express.Router();
         this.transacions = new TransacionController();
-        console.log()
         this.routes();
     }
+    // /transactions
     routes() {
         this.router.get('/', this._getAll.bind(this))
     }
     _getAll(req, res) {
         this.transacions.getAll()
-            .then(response => res.json(response))
+            .then(response => {
+                res.json(response)
+            })
     }
 }
 
