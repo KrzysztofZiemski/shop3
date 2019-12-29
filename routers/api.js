@@ -7,6 +7,7 @@ const fs = require('fs');
 const AuthController = require('../controllers/authentication.js');
 const Buy = require('../modules/Buy.js');
 const Users = require('../controllers/users.js');
+const mailer = require('../modules/mailer.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -47,13 +48,14 @@ class ApiRouter {
         try {
             const data = req.body;
             const buy = new Buy(data);
-
             const responseTransaction = await buy.start();
             if (!responseTransaction.response.ok) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
             const user = await this.user.getUserById(data.userId);
             user.historyTransactions.push({ id: responseTransaction.response.id, products: data.products })
-            this.user.addUserTransaction(user);
+            if (data.userId !== 'not registered') this.user.addUserTransaction(user);
             const responseProduct = this.products.buy(responseTransaction.products);
+            // sumPrice, idTransaction 
+            if (data.mail) mailer({ fullName: data.fullName, mail: data.mail, idTransaction: responseTransaction.response.id })
             res.status(200).json('successed transaction')
         } catch (err) {
             console.log(err)
