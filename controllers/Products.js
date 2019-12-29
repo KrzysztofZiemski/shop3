@@ -61,6 +61,17 @@ class Product {
         }
         return this.db.remove(product)
     }
+    async buy(productList) {
+        let cc = 0;
+
+        const response = await Promise.all(productList.map(element => {
+
+            element.product.count -= element.count;
+            const product = element.product;
+            return this.db.put({ ...product })
+        }))
+        return response
+    }
     searchProduct(name) {
         return this.db.find({
             selector: { name },

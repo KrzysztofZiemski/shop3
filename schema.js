@@ -25,7 +25,7 @@ class Validate {
         }
         this.schemaTransaction = {
             products: [],
-            userId: undefined,
+            userId: 'not registered',
             fulName: undefined,
             adress: undefined,
             status: this.statuses[0],

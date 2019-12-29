@@ -5,7 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const AuthController = require('../controllers/authentication.js');
-const Buy = require('../modules/transactions.js');
+const Buy = require('../modules/Buy.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -42,11 +42,21 @@ class ApiRouter {
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteProduct.bind(this));
         this.router.post('/buy', this._buy.bind(this));
     }
-    _buy(req, res) {
-        const data = req.body;
+    async _buy(req, res) {
+        try {
+            const data = req.body;
+            const buy = new Buy(data);
+            const responseTransaction = await buy.start();
+            if (!responseTransaction.response.ok) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
 
-        const result = new Buy(data)
+            const responseProduct = this.products.buy(response.products);
+            //wysłanie maila
+            res.status(200).json('successed transaction')
+        } catch (err) {
+            console.log(err)
+        }
     }
+
     _getCategory(req, res) {
         const category = req.query;
         this.products.filterProperty(category)

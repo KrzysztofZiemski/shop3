@@ -2,7 +2,7 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 
 
-class Transaction {
+class TransacionController {
     constructor() {
         this.db = new PouchDB('./db/transactions');
         this.statuses = ['awaiting for payment', 'payed', 'in progress', 'sent', 'closed', 'canseled']
@@ -32,4 +32,4 @@ class Transaction {
 
 
 
-module.exports = Transaction;
+module.exports = TransacionController;

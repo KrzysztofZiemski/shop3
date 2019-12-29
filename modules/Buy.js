@@ -9,35 +9,47 @@ class Buy {
         this.validate = new Validate();
         this.api = new Product()
         this.userId = data.userId;
-        this.productsId = data.products;
+        this.products = data.products;
         this.fulName = data.fulName;
         this.adress = data.adress;
         this.date = new Date();
-        this.start()
     }
     async start() {
-        const { productsId, fulName, adress, userId } = this
-        const products = await this.getProductsById(productsId);
+        let { products, fulName, adress, userId } = this;
 
-        const sumPrice = this.sumPrice(products)
+        products = await this.getProductsById(products);
+        const sumPrice = this.sumPrice(products);
         const date = new Date().toISOString().slice(0, 10);
         const data = {
             products, userId, fulName, adress, sumPrice, date
         }
-        const validateTransaction = await this.validate.validateTransaction(data)
+
+        const validateTransaction = await this.validate.validateTransaction(data);
+
         if (!validateTransaction) return false
-        this.transactions.add(validateTransaction).then(response => console.log(response)).catch(err => console.log(err))
+        return this.transactions.add(validateTransaction)
+            .then(response => {
+                return { response, products }
+            })
+            .catch(err => console.log(err))
     }
 
-    async getProductsById(productsId) {
-        return Promise.all(productsId.map(id => this.api.getProduct(id)));
+    async getProductsById(products) {
+        return Promise.all(products.map(async product => {
+            const response = await this.api.getProduct(product.id);
+            return {
+                count: product.count,
+                product: response
+            }
+        }))
     }
 
     sumPrice(arrProducts) {
         let sum = 0;
         arrProducts.forEach(product => {
-            sum += Number(product.price);
+            sum += Number(product.product.price) * Number(product.count);
         });
+
         return sum
     }
 
