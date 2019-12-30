@@ -12,12 +12,13 @@ class UsersRouter {
 
     // /server/users
     routes() {
-        this.router.get('/:id', this.auth.checkAdminToken, this._getUser.bind(this));
         this.router.get('/', this.auth.checkAdminToken, this._getAllUser.bind(this));
+        this.router.get('/user', this.auth.checkUserToken, this._getUserByToken.bind(this));
         this.router.post('/', this._addUser.bind(this));
         this.router.put('/password', this.auth.checkAdminToken, this._changePassword.bind(this));
         this.router.put('/permission', this.auth.checkAdminToken, this._addPermission.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteUser.bind(this));
+        this.router.get('/:id', this.auth.checkAdminToken, this._getUser.bind(this));
     }
     _addPermission(req, res) {
         //tutaj weryfikację i login
@@ -32,6 +33,25 @@ class UsersRouter {
             .then(response => res.status(200).send(response))
             .catch(err => res.status(400).send('znaleziono więcej niż jednego użytkownika pasującego do podanych kryteriów'))
     }
+    async _getUserByToken(req, res) {
+        try {
+            const token = req.token;
+            const user = await this.users.getUserById(token.sub)
+            const { login, mail, historyTransactions, activeBasket, _id, } = user;
+            const responseData = {
+                login,
+                mail,
+                activeBasket,
+                _id,
+                historyTransactions,
+            }
+            res.json(responseData);
+        } catch (err) {
+            console.log(err)
+            res.status(500).json(err)
+        }
+    }
+
     _getAllUser(req, res) {
         this.users.getAllUser().then(response => {
             res.status(200).send(response)
