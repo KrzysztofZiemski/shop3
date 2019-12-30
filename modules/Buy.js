@@ -13,6 +13,7 @@ class Buy {
         this.fulName = data.fulName;
         this.adress = data.adress;
         this.date = new Date();
+
     }
     async start() {
         let { products, fulName, adress, userId } = this;
@@ -28,11 +29,16 @@ class Buy {
 
         if (!validateTransaction) return false
 
-        return this.transactions.add(validateTransaction)
-            .then(response => {
-                return { response, products }
-            })
+        const resultAddTransaciot = await this.transactions.add(validateTransaction)
             .catch(err => console.log(err))
+
+        const summaryResponse = {
+            idTransacion: resultAddTransaciot.id,
+            buyedProducts: products,
+            sumPrice: sumPrice
+        }
+        return summaryResponse
+
     }
 
     async getProductsById(products) {

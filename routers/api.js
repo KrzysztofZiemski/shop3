@@ -5,9 +5,6 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const AuthController = require('../controllers/authentication.js');
-const Buy = require('../modules/Buy.js');
-const Users = require('../controllers/users.js');
-const mailer = require('../modules/mailer.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,7 +29,6 @@ class ApiRouter {
         this.products = new Product();
         this.auth = new AuthController();
         this.routes();
-        this.user = new Users();
     }
     // /server/api
     routes() {
@@ -42,25 +38,8 @@ class ApiRouter {
         this.router.post('/', this.auth.checkAdminToken, upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', this.auth.checkAdminToken, upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteProduct.bind(this));
-        this.router.post('/buy', this._buy.bind(this));
     }
-    async _buy(req, res) {
-        try {
-            const data = req.body;
-            const buy = new Buy(data);
-            const responseTransaction = await buy.start();
-            if (!responseTransaction.response.ok) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
-            const user = await this.user.getUserById(data.userId);
-            user.historyTransactions.push({ id: responseTransaction.response.id, products: data.products })
-            if (data.userId !== 'not registered') this.user.addUserTransaction(user);
-            const responseProduct = this.products.buy(responseTransaction.products);
-            // sumPrice, idTransaction 
-            if (data.mail) mailer({ fullName: data.fullName, mail: data.mail, idTransaction: responseTransaction.response.id })
-            res.status(200).json('successed transaction')
-        } catch (err) {
-            console.log(err)
-        }
-    }
+
 
     _getCategory(req, res) {
         const category = req.query;

@@ -16,7 +16,10 @@ function send(data) {
         to: `${mail}`,
         subject: "Potwierdzenie zakupu",
         text: "Hello world?",
-        html: `<b>Witaj${fullName}?</b><h1>Potwierdzamy przyjęcie zamówienia</h1><p>Zamówienie jest w trakcie realizacji</p><p>Możesz sprawdzić status zamówienia wchodząc na stronę${process.env.HOST}/tracking/${idTransaction}</p>`
+        html: `<h1>Potwierdzenie zamówienia nr ${idTransaction}</h1>
+        <b>Witaj${fullName}?</b>
+        <p>Zamówienie zostało zaakceptowane i jest w trakcie realizacji.</p>
+        <p>Możesz sprawdzić status zamówienia wchodząc na stronę${process.env.HOST}/tracking/${idTransaction}</p>`
     }
     return transporter.sendMail(message);
 }
