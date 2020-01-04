@@ -59,10 +59,10 @@ class Validate {
     }
     validateTransaction(transaction) {
         const validateTransaction = { ...this.schemaTransaction, ...transaction };
-
+        validateTransaction.userId = validateTransaction.userId === undefined ? 'not registered' : validateTransaction.userId;
         let isCorrect = true;
-        for (let transaction in validateTransaction) {
-            if (validateTransaction[transaction] === undefined) {
+        for (let i in validateTransaction) {
+            if (validateTransaction[i] === undefined) {
                 isCorrect = false;
                 break;
             } else if (Array.isArray(validateTransaction[transaction]) && validateTransaction[transaction].length === 0) {

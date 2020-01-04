@@ -16,36 +16,53 @@ class Buy {
 
     }
     async start() {
-        let { products, fulName, adress, userId } = this;
+        try {
 
-        products = await this.getProductsById(products);
-        const sumPrice = this.sumPrice(products);
-        const date = new Date().toISOString().slice(0, 10);
-        const data = {
-            products, userId, fulName, adress, sumPrice, date
+            let { products, fulName, adress, userId } = this;
+            products = await this.getProductsById(products);
+            const isAvaible = this.checkAvaible(products);
+            console.log(isAvaible)
+            if (!this.checkAvaible(products)) return false
+
+            const sumPrice = this.sumPrice(products);
+
+            const date = new Date().toISOString().slice(0, 10);
+            const data = {
+                products, userId, fulName, adress, sumPrice, date
+            }
+            const validateTransaction = await this.validate.validateTransaction(data);
+
+            if (!validateTransaction) return false
+
+            const resultAddTransaciot = await this.transactions.add(validateTransaction)
+                .catch(err => console.log(err))
+
+            const summaryResponse = {
+                idTransacion: resultAddTransaciot.id,
+                buyedProducts: products,
+                sumPrice: sumPrice
+            }
+
+            return summaryResponse
+        } catch (e) {
+            console.log(e)
         }
 
-        const validateTransaction = await this.validate.validateTransaction(data);
+    }
+    checkAvaible(products) {
+        let avaible = true;
+        products.forEach(item => {
+            if (item.product.count - item.countBought <= 0) avaible = false;
+        })
 
-        if (!validateTransaction) return false
-
-        const resultAddTransaciot = await this.transactions.add(validateTransaction)
-            .catch(err => console.log(err))
-
-        const summaryResponse = {
-            idTransacion: resultAddTransaciot.id,
-            buyedProducts: products,
-            sumPrice: sumPrice
-        }
-        return summaryResponse
-
+        return avaible
     }
 
     async getProductsById(products) {
         return Promise.all(products.map(async product => {
             const response = await this.api.getProduct(product.id);
             return {
-                count: product.count,
+                countBought: product.count,
                 product: response
             }
         }))
@@ -54,7 +71,7 @@ class Buy {
     sumPrice(arrProducts) {
         let sum = 0;
         arrProducts.forEach(product => {
-            sum += Number(product.product.price) * Number(product.count);
+            sum += Number(product.product.price) * Number(product.countBought);
         });
 
         return sum

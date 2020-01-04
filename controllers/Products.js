@@ -63,8 +63,7 @@ class Product {
     }
     async buy(productList) {
         const response = await Promise.all(productList.map(element => {
-
-            element.product.count -= element.count;
+            element.product.count -= element.countBought;
             const product = element.product;
             return this.db.put({ ...product })
         }))

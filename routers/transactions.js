@@ -13,7 +13,7 @@ class Transactions {
         this.user = new Users();
         this.products = new Product();
     }
-    // /transactions
+    // /server/transactions
     routes() {
         this.router.get('/', this._getAll.bind(this))
         this.router.post('/buy', this._buy.bind(this));
@@ -29,13 +29,14 @@ class Transactions {
             const data = req.body;
             const buy = new Buy(data);
             const responseTransaction = await buy.start();
-            console.log(responseTransaction)
-            if (!responseTransaction.idTransacion) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
-            const user = await this.user.getUserById(data.userId);
-            user.historyTransactions.push({ id: responseTransaction.idTransacion, products: responseTransaction.buyedProducts })
-            if (data.userId !== 'not registered') this.user.addUserTransaction(user);
+            if (!responseTransaction.idTransacion || !responseTransaction) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
+            if (data.userId !== undefined) {
+                const user = await this.user.getUserById(data.userId);
+                user.historyTransactions.push({ id: responseTransaction.idTransacion, products: responseTransaction.buyedProducts })
+                this.user.addUserTransaction(user);
+            }
             const responseProduct = this.products.buy(responseTransaction.buyedProducts);
-            console.log(responseProduct)
+
             if (data.mail) mailer({ fullName: data.fullName, mail: data.mail, idTransaction: responseTransaction.idTransacion })
             res.status(200).json('successed transaction')
         } catch (err) {
