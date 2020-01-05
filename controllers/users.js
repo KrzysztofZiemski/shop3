@@ -53,9 +53,12 @@ class Users {
         return this.db.put({ ...user, password });
     }
 
-    async updateUser(user, property) {
-        return this.db.put({ ...user, ...property })
+    // async updateUser(user, property) {
+    //     return this.db.put({ ...user, ...property })
+    // }
 
+    updateUser(newUser) {
+        return this.db.put(newUser)
     }
     async addUserTransaction(newUser) {
         return this.db.put(newUser)

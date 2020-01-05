@@ -19,9 +19,20 @@ class UsersRouter {
         this.router.put('/permission', this.auth.checkAdminToken, this._addPermission.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteUser.bind(this));
         this.router.get('/:id', this.auth.checkAdminToken, this._getUser.bind(this));
+        this.router.put('/basket', this.auth.checkUserToken, this._updateBasket.bind(this));
     }
+    async _updateBasket(req, res) {
+        const activeBasket = req.body;
+        const user = await this.users.getUserById(req.token.sub);
+        user.activeBasket = activeBasket;
+        const response = await this.users.updateUser(user)
+        const user2 = await this.users.getUserById(req.token.sub);
+        console.log(user2)
+
+    }
+
     _addPermission(req, res) {
-        //tutaj weryfikację i login
+        //tutaj weryfikację i logi
         const { login, permission } = req.body
         this.users.addPermission(login, permission)
             .then(response => res.status(200).send(`permission is changed to ${permission}`))

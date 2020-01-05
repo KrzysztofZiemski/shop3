@@ -18,7 +18,7 @@ class Validate {
             password: undefined,
             mail: undefined,
             historyTransactions: [],
-            activeBasket: "",
+            activeBasket: [],
             countIncorrectLogin: 0,
             permission: "user",
             refreshToken: ""

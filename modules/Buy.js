@@ -21,7 +21,6 @@ class Buy {
             let { products, fulName, adress, userId } = this;
             products = await this.getProductsById(products);
             const isAvaible = this.checkAvaible(products);
-            console.log(isAvaible)
             if (!this.checkAvaible(products)) return false
 
             const sumPrice = this.sumPrice(products);

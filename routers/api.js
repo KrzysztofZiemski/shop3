@@ -38,8 +38,8 @@ class ApiRouter {
         this.router.post('/', this.auth.checkAdminToken, upload.single('image'), this._addProduct.bind(this));
         this.router.put('/:id', this.auth.checkAdminToken, upload.single('image'), this._changeProduct.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteProduct.bind(this));
+        this.router.put('/', this.auth.checkAdminToken, upload.single('image'), this._changeProduct.bind(this));
     }
-
 
     _getCategory(req, res) {
         const category = req.query;
@@ -68,7 +68,7 @@ class ApiRouter {
                 res.send(err)
             })
     }
-    async _addProduct(req, res, next) {
+    async _addProduct(req, res) {
         // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
         data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
@@ -98,6 +98,7 @@ class ApiRouter {
     ///////błąd podczas zmiany - do dopracowania!!!!!!!!!
     _changeProduct(req, res, next) {
         const data = req.body;
+
         if (data['tags']) data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
 
         const id = req.params.id;

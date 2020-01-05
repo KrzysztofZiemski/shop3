@@ -26,6 +26,7 @@ class App {
         this.httpApp = express();
         this.httpApp.use(cors(corsOptions));
         this.httpApp.use(express.static('public'));
+        this.httpApp.use(jsonParser)
 
         this.stratServer(process.env.PORT).then(() => {
             console.log(`server runned on port ${process.env.PORT}`);
