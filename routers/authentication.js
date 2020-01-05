@@ -29,8 +29,6 @@ class AuthRouter {
 
         if (!refreshToken) return res.status(401);
         const decoded = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-
-            console.log(err)
             if (err) {
                 res.status(403).json('unautorized');
                 return false

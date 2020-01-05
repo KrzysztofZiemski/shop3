@@ -14,16 +14,19 @@
 
 <body>
     <div id="root">
-
-        <header>
-            <div id="welcome" class="welcome"> </div>
+        <header class="header" id="mainHeader">
+            <div class="logoContainer">
+                <div id="welcome" class="welcome"> </div>
+                <div class="logo">
+                    <a href="/"><img src="./img/icons/LOGO.png" alt="logo"></a>
+                </div>
+            </div>
             <div class="contact">
                 <span>tel: 888 - 888 - 888</span>
                 <span>krzysztofziemski@wp.pl</span>
-                <div class="logo"><a href="/"><img src="./img/icons/LOGO.png" alt="logo"></a></div>
             </div>
 
-            <div class="panelShop">
+            <div class="panelShop" id="panelShop">
                 <div><a href="/login" class="login" id="login">Zaloguj</a></div>
                 <div><a href="/registration" class="registration">Zarejestruj się</a></div>
                 <div class="basketIcon" id="basketIcon">
@@ -63,15 +66,15 @@
             </main>
         </section>
     </div>
-
-    <aside id="basket" class="basket hide">
-        <h1>Koszyk</h1>
-        <div id="basketProductsContainer"></div>
-        <p id="sumPrice"></p>
-        <button id="buyBtn">Kup</button>
-        <button id="closeBasketBtn">&times</button>
+    <aside id="handleBuyContainer" class="handleBuyContainer hide">
+        <div id="basket" class="basket">
+            <h1>Koszyk</h1>
+            <div id="basketProductsContainer"></div>
+            <p id="sumPrice"></p>
+            <button id="buyBtn">Kup</button>
+            <button id="closeBasketBtn">&times</button>
+        </div>
     </aside>
-
     <script src="https://kit.fontawesome.com/360e177b71.js" crossorigin="anonymous"></script>
     <script src="scripts/script.js" type="module"></script>
 </body>

@@ -22,13 +22,15 @@ class UsersRouter {
         this.router.put('/basket', this.auth.checkUserToken, this._updateBasket.bind(this));
     }
     async _updateBasket(req, res) {
-        const activeBasket = req.body;
-        const user = await this.users.getUserById(req.token.sub);
-        user.activeBasket = activeBasket;
-        const response = await this.users.updateUser(user)
-        const user2 = await this.users.getUserById(req.token.sub);
-        console.log(user2)
-
+        try {
+            const activeBasket = req.body;
+            const user = await this.users.getUserById(req.token.sub);
+            user.activeBasket = activeBasket;
+            const response = await this.users.updateUser(user);
+        } catch (e) {
+            res.status(500);
+        }
+        res.status(200).send();
     }
 
     _addPermission(req, res) {
