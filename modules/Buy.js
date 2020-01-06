@@ -19,6 +19,7 @@ class Buy {
         try {
 
             let { products, fulName, adress, userId } = this;
+
             products = await this.getProductsById(products);
             const isAvaible = this.checkAvaible(products);
             if (!this.checkAvaible(products)) return false

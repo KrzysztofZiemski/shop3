@@ -25,8 +25,10 @@ class Transactions {
             }).catch(err => res.status(500).json(res))
     }
     async _buy(req, res) {
+
         try {
             const data = req.body;
+            console.log(data)
             const buy = new Buy(data);
             const responseTransaction = await buy.start();
             if (!responseTransaction.idTransacion || !responseTransaction) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');

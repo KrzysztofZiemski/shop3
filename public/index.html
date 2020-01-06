@@ -65,16 +65,41 @@
                 <div id="products"></div>
             </main>
         </section>
-    </div>
-    <aside id="handleBuyContainer" class="handleBuyContainer hide">
-        <div id="basket" class="basket">
-            <h1>Koszyk</h1>
-            <div id="basketProductsContainer"></div>
-            <p id="sumPrice"></p>
-            <button id="buyBtn">Kup</button>
+
+        <aside id="handleBuyContainer" class="handleBuyContainer hide">
+            <div id="basket" class="basket">
+                <h1>Koszyk</h1>
+                <div id="basketProductsContainer"></div>
+                <p id="sumPrice"></p>
+                <button id="buyBtn">Kup</button>
+            </div>
+            <form id="orderForm" class="orderForm hide">
+                <label for="orderFirstName">Imiona</label><input type="text" id="orderFirstName">
+                <label for="orderLastName">Nazwisko</label><input type="text" id="orderLastName">
+                <label for="orderZIPcode">kod pocztowy</label><input type="text" id="orderZIPcode">
+                <label for="orderCity">Miejscowość</label><input type="text" id="orderCity">
+                <label for="orderStreet">Ulica</label><input type="text" id="orderStreet">
+                <label for="orderStreetNumber">Numer domu/mieszkania</label><input type="text" id="orderStreetNumber">
+                <label for="orderMail">e-mail</label><input type="text" id="orderMail">
+                <input type="checkbox" id="orderSave"> <label for="orderSave">Zapisz dane</label>
+                <button id="orderFormBack">Wstecz</button>
+                <button type=submit>Dalej</button type=submit>
+            </form>
+            <div id="confirmOrder" class="confirmOrder hide">
+                <h2>Potwierdzenie zamówienia</h2>
+                <div id="productsOrder"></div>
+                <div id="totalPriceOrder"></div>
+                <div id="personConfirm">
+                    <span id="userConfirm"></span>
+                    <span id="adressConfirm"></span>
+                    <span id="mailConfirm"></span>
+                </div>
+                <button id="confirmOrderBtn">Potwierdź zamówienie</button>
+            </div>
             <button id="closeBasketBtn">&times</button>
-        </div>
-    </aside>
+        </aside>
+    </div>
+
     <script src="https://kit.fontawesome.com/360e177b71.js" crossorigin="anonymous"></script>
     <script src="scripts/script.js" type="module"></script>
 </body>
