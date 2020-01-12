@@ -15,27 +15,24 @@ class Buy {
         this.date = new Date();
 
     }
-    async start() {
+    async start(res) {
         try {
-
             let { products, fulName, adress, userId } = this;
 
             products = await this.getProductsById(products);
             const isAvaible = this.checkAvaible(products);
-            if (!this.checkAvaible(products)) return false
 
+            if (!this.checkAvaible(products)) return res.status(404).json('not enought')
             const sumPrice = this.sumPrice(products);
 
             const date = new Date().toISOString().slice(0, 10);
             const data = {
                 products, userId, fulName, adress, sumPrice, date
             }
+
             const validateTransaction = await this.validate.validateTransaction(data);
-
             if (!validateTransaction) return false
-
             const resultAddTransaciot = await this.transactions.add(validateTransaction)
-                .catch(err => console.log(err))
 
             const summaryResponse = {
                 idTransacion: resultAddTransaciot.id,
@@ -52,7 +49,7 @@ class Buy {
     checkAvaible(products) {
         let avaible = true;
         products.forEach(item => {
-            if (item.product.count - item.countBought <= 0) avaible = false;
+            if (item.product.count - item.countBought < 0) avaible = false;
         })
 
         return avaible

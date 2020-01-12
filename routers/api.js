@@ -69,7 +69,6 @@ class ApiRouter {
             })
     }
     async _addProduct(req, res) {
-        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const data = req.body;
         data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
         data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')

@@ -28,18 +28,18 @@ class Transactions {
 
         try {
             const data = req.body;
-            console.log(data)
             const buy = new Buy(data);
-            const responseTransaction = await buy.start();
+            const responseTransaction = await buy.start(res);
             if (!responseTransaction.idTransacion || !responseTransaction) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
-            if (data.userId !== undefined) {
+            if (data.userId !== "") {
                 const user = await this.user.getUserById(data.userId);
                 user.historyTransactions.push({ id: responseTransaction.idTransacion, products: responseTransaction.buyedProducts })
                 this.user.addUserTransaction(user);
             }
-            const responseProduct = this.products.buy(responseTransaction.buyedProducts);
 
-            if (data.mail) mailer({ fullName: data.fullName, mail: data.mail, idTransaction: responseTransaction.idTransacion })
+            const responseProduct = this.products.buy(responseTransaction.buyedProducts);
+            if (data.mail) mailer({ fullName: data.fulName, mail: data.mail, idTransaction: responseTransaction.idTransacion })
+
             res.status(200).json('successed transaction')
         } catch (err) {
             console.log(err)

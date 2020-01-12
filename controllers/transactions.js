@@ -23,6 +23,7 @@ class TransacionController {
             }).catch(err => console.log(err))
     }
     add(data) {
+        console.log(data)
         return this.db.post({ ...data })
     }
     update(transaction, change) {

@@ -21,7 +21,8 @@ class AuthRouter {
 
 
     checkPermission(req, res) {
-        res.status(200)
+
+        res.status(200).send('ok')
     }
 
     async refreshToken(req, res) {

@@ -1,7 +1,6 @@
 
 class Validate {
     constructor() {
-        this.tags = ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwony', 'czerwnoy'];
         this.statuses = ['accepted', 'waiting payment', 'in progress', 'sent', 'closed', 'canceled'];
 
         this.schemaProduct = {
