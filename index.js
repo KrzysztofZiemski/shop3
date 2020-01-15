@@ -7,7 +7,7 @@ const jsonParser = bodyParser.json();
 require('dotenv').config()
 
 const corsOptions = {
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:5500'
 }
 /** ustawienie headerow pod CORS
 app.use((req, res, next) => {
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 class App {
     constructor() {
         this.httpApp = express();
-        this.httpApp.use(cors(corsOptions));
+        this.httpApp.use(cors());
         this.httpApp.use(express.static('public'));
         this.httpApp.use(jsonParser)
 
