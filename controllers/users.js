@@ -30,7 +30,7 @@ class Users {
         if (isExist) {
             return 'exist'
         }
-        user.password = await bcrypt.hashSync(user.password, process.env.HASH_ROUND);
+        user.password = await bcrypt.hashSync(user.password, Number(process.env.HASH_ROUND));
         const userValidated = await this.validate.validateUser(user);
         return this.db.post({ ...userValidated })
     }
@@ -49,7 +49,7 @@ class Users {
             throw Error('znaleziono więcej niż jednego użytkownika o podanych kryteriach');
         }
         const user = response.docs[0];
-        const password = await bcrypt.hashSync(newPassword, process.env.HASH_ROUND);
+        const password = await bcrypt.hashSync(newPassword, Number(process.env.HASH_ROUND));
         return this.db.put({ ...user, password });
     }
 
