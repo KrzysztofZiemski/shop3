@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const Validate = require('../schema.js');
 
+
 class Users {
     constructor() {
         this.db = new PouchDB('./db/users');

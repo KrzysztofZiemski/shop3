@@ -1,6 +1,5 @@
 node_modules/
-public/img/products/
-request.rest
-db/products/
-db/transactions/
-db/users/
+backend/img
+backend/db/products/
+backend/db/transactions/
+backend/db/users/

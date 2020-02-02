@@ -142,6 +142,7 @@ class Basket {
     }
     updateBasketByCookies() {
         const cookies = this.api.getCookies();
+        if (!cookies) return
         activeProducts = cookies.hasOwnProperty("basket") ? JSON.parse(cookies.basket) : [];
         this.refreshIconBasket();
         this.refreshBasket(activeProducts);

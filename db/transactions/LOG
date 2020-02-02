@@ -1,5 +1,5 @@
-2020/02/02-19:58:45.045 31ec Recovering log #5742
-2020/02/02-19:58:45.045 31ec Level-0 table #5744: started
-2020/02/02-19:58:45.078 31ec Level-0 table #5744: 237 bytes OK
-2020/02/02-19:58:45.120 31ec Delete type=0 #5742
-2020/02/02-19:58:45.120 31ec Delete type=3 #5740
+2020/02/02-21:25:59.539 1e54 Recovering log #89
+2020/02/02-21:25:59.539 1e54 Level-0 table #91: started
+2020/02/02-21:25:59.552 1e54 Level-0 table #91: 237 bytes OK
+2020/02/02-21:25:59.580 1e54 Delete type=0 #89
+2020/02/02-21:25:59.580 1e54 Delete type=3 #87

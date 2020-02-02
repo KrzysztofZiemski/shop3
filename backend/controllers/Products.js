@@ -35,9 +35,9 @@ class Product {
     }
     async changeProduct(id, data) {
         const product = await this.getProduct(id);
-        data['image'] = `http://localhost:3000/img/products/${data.name}.png`
+        data['image'] = `http://localhost:3000/${data.name}.png`
         if (data.name !== product.name) {
-            const pathImg = path.join(__dirname, `../public/img/products/${product.name}.png`);
+            const pathImg = path.join(__dirname, `../static/${product.name}.png`);
             try {
                 fs.unlinkSync(pathImg, (err) => console.log("błąd podczas usuwania pliku"))
             } catch{
@@ -53,7 +53,7 @@ class Product {
     async deleteProduct(id) {
         const product = await this.getProduct(id)
 
-        const pathImg = path.join(__dirname, `../public/img/products/${product.name}.png`);
+        const pathImg = path.join(__dirname, `../static/${product.name}.png`);
         try {
             fs.unlinkSync(pathImg, (err) => console.log("błąd podczas usuwania pliku"))
         } catch{

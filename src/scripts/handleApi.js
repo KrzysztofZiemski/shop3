@@ -81,7 +81,6 @@ class Api {
     }
 
     async change(id, data) {
-        console.log(data)
         const cookies = this.getCookies();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
@@ -120,8 +119,13 @@ class Api {
             if (!successRefresh) return;
             cookie = this.api.getCookies();
         }
-        const user = await cookie.hasOwnProperty('accessToken') ? await this.getUserByToken() : null;
-        return user;
+        try {
+            const user = await cookie.hasOwnProperty('accessToken') ? await this.getUserByToken() : null;
+            return user;
+        } catch (e) {
+            return null
+        }
+
     }
 
     async remove(id) {

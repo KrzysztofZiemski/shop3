@@ -8,7 +8,7 @@ const AuthController = require('../controllers/authentication.js');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/img/products');
+        cb(null, path.join(__dirname, '../static'));
     },
     filename: function (req, file, cb) {
         cb(null, `${req.body.name}.png`);
@@ -70,7 +70,8 @@ class ApiRouter {
     }
     async _addProduct(req, res) {
         const data = req.body;
-        data['image'] = `http://localhost:3000/img/products/${req.body.name}.png`;
+        console.log('router', data)
+        data['image'] = `http://localhost:3000/${req.body.name}.png`;
         data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
         data.count = Number(data.count);
         data.price = Number(data.price);
