@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../css/styleRegistration.css">
+</head>
+
+<body>
+    <div id="root">
+        <header>
+            <a href="/"><img class="logo" src="../img/icons/LOGO.png" alt="logo" /></a>
+        </header>
+        <div class='registrationContainer'>
+            <h1>Rejestracja</h1>
+
+            <form method="POST" id="registration">
+                <div> <label for="login">Login: </label><input name="login" id="login" type="text" minlength=5
+                        required /></div>
+                <div> <label for="password">Hasło: </label><input name="password" id="password" type="password"
+                        minlength=7 required /></div>
+                <div> <label for="passwordConfirm">Potwierdź hasło: </label><input name="passwordConfirm"
+                        id="passwordConfirm" type="password" required /></div>
+
+                <div><label for="mail">Adres e-mail: </label><input name="mail" id="mail" type="email" required />
+                </div>
+                <div class="btnSubmit"><button type="submit">Zarejestruj</button></divclass="btnSubmit">
+                </div>
+            </form>
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+    <script src="../scripts/handleRegistration.js" type="module"></script>
+</body>
+
+</html>

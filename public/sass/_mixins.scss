@@ -1,0 +1,20 @@
+@mixin buttonPattern($padding:5px, $width:100px, $bgcColor:$secondaryColor, $color:$textOnSecondaryColor, $borderColor:$primaryColor, ) {
+    width: $width;
+    background-color: $bgcColor;
+    color: $color;
+    padding: $padding;
+    border-radius: 15px;
+    border: 2px solid $borderColor;
+    text-transform: uppercase;
+    transition: .2s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $primaryColor;
+        color: $textOnPrimaryColor;
+    }
+
+    &:disabled {
+        background-color: grey;
+    }
+}
