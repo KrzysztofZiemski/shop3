@@ -7,12 +7,7 @@ const Validate = require('../schema.js');
 
 class Users {
     constructor() {
-<<<<<<< HEAD
         this.db = new PouchDB('./db/users');
-=======
-
-        this.db = new PouchDB(path.join(__dirname, '../db/users'));
->>>>>>> 3b963c4c5e441f5d2df4a82de6d90bd31f9c8112
         this.validate = new Validate();
 
     }
