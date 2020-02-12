@@ -1,6 +1,6 @@
 const express = require('express');
 const TransacionController = require('../controllers/transactions.js');
-const mailer = require('../modules/mailer.js');
+const mailer = require('../modules/mailer');
 const Buy = require('../modules/Buy.js');
 const Users = require('../controllers/users.js');
 const Product = require('../controllers/products.js');
@@ -29,6 +29,7 @@ class Transactions {
         try {
             const data = req.body;
             const buy = new Buy(data);
+
             const responseTransaction = await buy.start(res);
             if (!responseTransaction.idTransacion || !responseTransaction) return res.status(500).json('nie udało się dokonać zakupu - spróbuj później');
             if (data.userId !== "") {
@@ -37,8 +38,9 @@ class Transactions {
                 this.user.addUserTransaction(user);
             }
 
-            const responseProduct = this.products.buy(responseTransaction.buyedProducts);
-            if (data.mail) mailer({ fullName: data.fulName, mail: data.mail, idTransaction: responseTransaction.idTransacion })
+            const responseProduct = await this.products.buy(responseTransaction.buyedProducts);
+            //błąd mailera - zapewne przez g maila - zamienić na inną technologię
+            // if (data.mail) mailer({ fullName: data.fulName, mail: data.mail, idTransaction: responseTransaction.idTransacion })
 
             res.status(200).json('successed transaction')
         } catch (err) {

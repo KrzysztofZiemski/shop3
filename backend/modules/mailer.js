@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const mailerConfig = require("./../config/mailer.js");
+const mailerConfig = require("./../config/mailer");
 
 const transporter = nodemailer.createTransport({
     host: mailerConfig.host,
@@ -10,6 +10,9 @@ const transporter = nodemailer.createTransport({
     }
 });
 function send(data) {
+    console.log('data', data)
+    console.log('transporter', transporter)
+    console.log('mailerConfig', mailerConfig)
     const { mail, fullName, idTransaction } = data;
     let message = {
         from: 'Paula Handmade',

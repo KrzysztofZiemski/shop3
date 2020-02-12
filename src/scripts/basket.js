@@ -115,6 +115,13 @@ class Basket {
                     div.innerText = 'Zamówienie zostało przyjęte do realizacji. Na podany adres mailowy otrzymasz potwierdzenie zakupu';
                     document.querySelector('#confirmOrder').appendChild(div);
                     e.target.setAttribute('disabled', true);
+                    activeProducts = [];
+                    this.refreshIconBasket();
+                    this.updateBasketCookies();
+                    this.uploadBasket();
+                    this.refreshTotalPrice();
+                    //docelowo przekierowanie
+
                 } else if (response.status === 404) {
                     const div = document.createElement('div');
                     div.innerText = 'Niewystarczająca ilość jednego z produktów';
@@ -164,8 +171,7 @@ class Basket {
     getBasket() {
         return activeProducts;
     }
-    setBasket(value) {
-        activeProducts = value;
+    setBasket(activeProducts) {
         this.refreshIconBasket();
         this.refreshBasket(activeProducts);
     }
@@ -308,8 +314,6 @@ class Basket {
         this.sumPrice.appendChild(spanSum);
     }
 }
-document.addEventListener('scroll', () => {
 
-})
 const basket = new Basket();
 export { basket };
