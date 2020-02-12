@@ -7,7 +7,7 @@ const Validate = require('../schema.js');
 
 class Users {
     constructor() {
-        this.db = new PouchDB('../db/users');
+        this.db = new PouchDB('../../db/users');
         this.validate = new Validate();
 
     }
