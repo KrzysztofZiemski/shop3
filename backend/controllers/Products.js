@@ -7,7 +7,7 @@ const Validate = require('../schema');
 
 class Product {
     constructor() {
-        this.db = new PouchDB('./db/products');
+        this.db = new PouchDB('../db/products');
         this.validate = new Validate();
     }
 

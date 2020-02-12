@@ -73,10 +73,8 @@ class UsersRouter {
         })
     }
     _addUser(req, res) {
-
         const user = req.body;
         if (user.login === undefined || user.password === undefined || user.mail === undefined) return res.status(400).send('put required data');
-
         this.users.addUser(user)
             .then(result => {
                 if (result === "exist") {

@@ -16,9 +16,10 @@ class Registration {
     validate(login, password, passwordConfirm, mail) {
         const regExp = /\S+@\S+\.\S+/;
         let isOk = true;
+        //warunek pasword wykasowałem
         const correct = {
             login: login.length >= 5 ? true : false,
-            password: password.length >= 7 ? true : false,
+            password: password.length >= 1 ? true : false,
             passwordConfirm: password === passwordConfirm ? true : false,
             mail: mail.match(regExp) ? true : false
         }

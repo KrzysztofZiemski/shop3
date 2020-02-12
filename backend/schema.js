@@ -34,12 +34,14 @@ class Validate {
     }
 
     validateProduct(product) {
+
         return new Promise((resolve, reject) => {
             const validateItem = { ...this.schemaProduct, ...product };
             let isCorrect = true;
             for (let item in validateItem) {
                 if (validateItem[item] === undefined) isCorrect = false;
             }
+
             if (isCorrect) resolve(validateItem)
             reject('not enough properties')
         })

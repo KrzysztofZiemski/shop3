@@ -7,7 +7,7 @@ const Validate = require('../schema.js');
 
 class Users {
     constructor() {
-        this.db = new PouchDB('./db/users');
+        this.db = new PouchDB('../db/users');
         this.validate = new Validate();
 
     }
@@ -27,10 +27,13 @@ class Users {
     }
 
     async addUser(user) {
+
         const isExist = await this._isExist(user.login)
+
         if (isExist) {
-            return 'exist'
+            return new Promise('exist')
         }
+
         user.password = await bcrypt.hashSync(user.password, Number(process.env.HASH_ROUND));
         const userValidated = await this.validate.validateUser(user);
         return this.db.post({ ...userValidated })
