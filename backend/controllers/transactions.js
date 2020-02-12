@@ -1,10 +1,10 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
-
+const path = require('path');
 
 class TransacionController {
     constructor() {
-        this.db = new PouchDB('../../db/transactions');
+        this.db = new PouchDB(path.join(__dirname, '../db/transactions'));
         this.statuses = ['awaiting for payment', 'payed', 'in progress', 'sent', 'closed', 'canseled']
     }
 

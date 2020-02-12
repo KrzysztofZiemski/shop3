@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 const PouchDB = require('pouchdb');
 const jwt = require('jsonwebtoken');
@@ -6,7 +7,7 @@ const Users = require('./users.js');
 
 class Authentication {
     constructor() {
-        this.db = new PouchDB('../../db/transactions');
+        this.db = new PouchDB(path.join(__dirname, '../db/products'));
         this.users = new Users();
     }
 

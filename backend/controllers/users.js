@@ -1,13 +1,14 @@
 const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
+const path = require('path');
 const bcrypt = require('bcryptjs');
-
 const Validate = require('../schema.js');
 
 
 class Users {
     constructor() {
-        this.db = new PouchDB('../../db/users');
+
+        this.db = new PouchDB(path.join(__dirname, '../db/users'));
         this.validate = new Validate();
 
     }
