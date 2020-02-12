@@ -16,7 +16,7 @@ class UsersRouter {
         this.router.get('/user', this.auth.checkUserToken, this._getUserByToken.bind(this));
         this.router.post('/', this._addUser.bind(this));
         this.router.put('/password', this.auth.checkAdminToken, this._changePassword.bind(this));
-        this.router.put('/permission', this.auth.checkAdminToken, this._addPermission.bind(this));
+        this.router.put('/permission', this._addPermission.bind(this));
         this.router.delete('/:id', this.auth.checkAdminToken, this._deleteUser.bind(this));
         this.router.get('/:id', this.auth.checkAdminToken, this._getUser.bind(this));
         this.router.put('/basket', this.auth.checkUserToken, this._updateBasket.bind(this));

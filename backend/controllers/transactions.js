@@ -4,7 +4,7 @@ PouchDB.plugin(require('pouchdb-find'));
 
 class TransacionController {
     constructor() {
-        this.db = new PouchDB('../db/transactions');
+        this.db = new PouchDB('./db/transactions');
         this.statuses = ['awaiting for payment', 'payed', 'in progress', 'sent', 'closed', 'canseled']
     }
 

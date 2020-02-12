@@ -1,5 +1,1 @@
-node_modules/
-backend/img
-backend/db/products/
-backend/db/transactions/
-backend/db/users/
+node_modules
