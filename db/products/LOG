@@ -1,5 +1,5 @@
-2020/02/12-19:28:12.207 2ae0 Recovering log #9
-2020/02/12-19:28:12.207 2ae0 Level-0 table #11: started
-2020/02/12-19:28:12.233 2ae0 Level-0 table #11: 2653 bytes OK
-2020/02/12-19:28:12.255 2ae0 Delete type=0 #9
-2020/02/12-19:28:12.256 2ae0 Delete type=3 #7
+2020/02/13-10:29:53.602 d78 Recovering log #15
+2020/02/13-10:29:53.602 d78 Level-0 table #18: started
+2020/02/13-10:29:53.611 d78 Level-0 table #18: 247 bytes OK
+2020/02/13-10:29:53.633 d78 Delete type=0 #15
+2020/02/13-10:29:53.633 d78 Delete type=3 #13

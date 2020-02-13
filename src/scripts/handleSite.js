@@ -2,6 +2,7 @@ import { basket } from './basket.js';
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
+import '../sass/all.scss';
 
 class HandleSite {
     constructor() {
@@ -166,5 +167,4 @@ class HandleSite {
     // }
 
 }
-
-export { HandleSite };
+const handleSite = new HandleSite();
