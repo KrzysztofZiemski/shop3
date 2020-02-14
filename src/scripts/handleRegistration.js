@@ -1,5 +1,5 @@
 import { Config } from './config.js';
-
+import '../sass/all.scss';
 
 class Registration {
     constructor() {

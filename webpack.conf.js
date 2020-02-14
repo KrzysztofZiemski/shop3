@@ -21,22 +21,26 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'shop',
             template: './src/shop/index.html',
-            filename: 'index.html'
+            filename: 'index.html',
+            chunks: ['app'],
         }),
         new HtmlWebpackPlugin({
             title: 'registration-shop',
             template: './src/registration/index.html',
-            filename: 'registration/index.html'
+            filename: 'registration/index.html',
+            chunks: ['registration'],
         }),
         new HtmlWebpackPlugin({
             title: 'login-shop',
             template: './src/login/index.html',
-            filename: 'login/index.html'
+            filename: 'login/index.html',
+            chunks: ['login'],
         }),
         new HtmlWebpackPlugin({
             title: 'admin',
             template: './src/admin/index.html',
-            filename: 'admin/index.html'
+            filename: 'admin/index.html',
+            chunks: ['admin'],
         }),
         new MiniCssExtractPlugin({
             filename: 'styles.css',
