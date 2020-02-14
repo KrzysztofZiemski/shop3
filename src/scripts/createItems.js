@@ -213,6 +213,7 @@ class CreateItems {
         imgTd.appendChild(imgInput);
 
         const tags = document.createElement('td');
+        tags.className = "adminTagsProduct"
         const tagElementsHTMLar = this.adminTags(product);
         tagElementsHTMLar.forEach(tag => tags.appendChild(tag));
 

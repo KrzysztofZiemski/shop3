@@ -17,6 +17,7 @@
 <body>
     <div id="root">
         <header class="header" id="mainHeader">
+            <button id="showNavBtn" class="showNavBtn"><i class="fas fa-bars"></i></button>
             <div class="logoContainer">
                 <div class="logo">
                     <a href="/"><img src="./img/icons/LOGO.png" alt="logo"></a>
@@ -43,6 +44,14 @@
             <img src="../img/icons/banner.png" alt="banner">
         </div>
         <nav id="categoryNav" class="categoryNav">
+            <div class="navPanelShop" id="panelShop">
+                <div id="welcome" class="welcome"> </div>
+                <div class="panelLogin">
+                    <a href="/login" class="login" id="login">Zaloguj</a>
+                    <a href="/registration" class="registration">Zarejestruj się</a>
+                </div>
+
+            </div>
             <ul>
                 <li><a href="/?category=brooches">Broszki</a></li>
                 <li><a href="/?category=bracelets">Bransoletki</a></li>
@@ -52,6 +61,7 @@
                 <li><a href="/?category=tedy">Maskotki</a></li>
                 <li><a href="/?category=shawl">Chusty</a></li>
             </ul>
+            <button id="closeNavBtn" class="closeNavBtn"><i class="fas fa-times"></i></button>
         </nav>
 
         <section class="main">
@@ -116,7 +126,6 @@
             </div>
             <button id="closeBasketBtn"><i class="fas fa-times"></i></button>
         </aside>
-        <button id="showNavBtn" class="showNavBtn"><i class="fas fa-bars"></i></button>
     </div>
 
     <script src="https://kit.fontawesome.com/360e177b71.js" crossorigin="anonymous"></script>

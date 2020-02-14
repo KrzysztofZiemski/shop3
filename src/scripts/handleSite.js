@@ -1,4 +1,3 @@
-import { basket } from './basket.js';
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
@@ -23,6 +22,12 @@ class HandleSite {
 
         this.StartSite()
         this.putColorsListToFilterOption();
+
+        this.closeNavBtn = document.querySelector('#closeNavBtn');
+        this.closeNavBtn.addEventListener('click', this.toggleNav);
+
+        this.showNavBtn = document.querySelector('#showNavBtn');
+        this.showNavBtn.addEventListener('click', this.toggleNav);
 
         this.colorFilter = document.getElementById('colorFilter');
         this.colorFilter.addEventListener('change', this.runFilter.bind(this));
@@ -63,7 +68,14 @@ class HandleSite {
         loginLink.innerText = this.user ? 'Wyloguj' : 'Zaloguj';
         loginLink.href = this.user ? '/logout' : '/login';
     }
-    //////////////////////////////////
+    toggleNav() {
+        document.querySelector('#categoryNav').classList.toggle('show');
+        document.querySelector('#showNavBtn').classList.toggle('hide');
+        // this.showNavBtn.classList.toggle('hide');
+    }
+    closeNav() {
+
+    }
     runFilter() {
         const max = this.maxPriceFilter.value;
         this.filters.price.max = max;

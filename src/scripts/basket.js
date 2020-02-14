@@ -202,7 +202,7 @@ class Basket {
         this.refreshTotalPrice();
     }
     refreshIconBasket() {
-        this.basketIconCount.innerHTML = `(${activeProducts.length})`;
+        if (this.basketIconCount) this.basketIconCount.innerHTML = `(${activeProducts.length})`;
     }
     changeBasketCount(e) {
         const index = activeProducts.findIndex(item => item._id == id);
@@ -242,7 +242,7 @@ class Basket {
     }
 
     refreshBasket(products) {
-        this.basketProductsContainer.innerText = "";
+        if (this.basketProductsContainer) this.basketProductsContainer.innerText = "";
         products.forEach(item => {
             const product = document.createElement('div');
             product.className = 'basketElementMark';
@@ -300,7 +300,7 @@ class Basket {
             spanRemove.appendChild(btnRemove);
             product.appendChild(spanRemove);
             product.appendChild(spanPrice);
-            this.basketProductsContainer.appendChild(product);
+            if (this.basketProductsContainer) this.basketProductsContainer.appendChild(product);
             this.refreshTotalPrice();
             this.refreshIconBasket();
         })
@@ -314,8 +314,8 @@ class Basket {
         });
         const spanSum = document.createElement('span');
         spanSum.innerText = `${total} PLN`;
-        this.sumPrice.innerText = 'Do zapłaty ';
-        this.sumPrice.appendChild(spanSum);
+        if (this.sumPrice) this.sumPrice.innerText = 'Do zapłaty ';
+        if (this.sumPrice) this.sumPrice.appendChild(spanSum);
     }
 }
 

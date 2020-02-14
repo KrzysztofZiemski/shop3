@@ -134,11 +134,15 @@
     #root .showNavBtn {
       display: none; }
     #root .message {
-      background-color: rgba(142, 36, 170, 0.5);
+      background-color: #c691d4;
       text-align: end;
       padding: 1%;
       padding-right: 5%;
       text-transform: uppercase; }
+    #root .categoryNav .closeNavBtn {
+      display: none; }
+    #root .categoryNav .navPanelShop {
+      display: none; }
     #root .categoryNav ul {
       display: flex;
       list-style-type: none;
@@ -186,7 +190,7 @@
       font-size: 14px;
       font-weight: 600;
       overflow: hidden;
-      background-color: rgba(142, 36, 170, 0.5); }
+      background-color: #c691d4; }
       #root .header * {
         color: black; }
       #root .header .panelShop {
@@ -210,14 +214,14 @@
             color: #111010;
             padding: 5px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             text-align: center;
             margin: 0; }
             #root .header .panelShop .panelLogin .login:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root .header .panelShop .panelLogin .login:disabled {
               background-color: grey; }
@@ -316,14 +320,14 @@
             color: #111010;
             padding: 5px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             position: relative;
             top: 0px; }
             #root #products .product div button:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root #products .product div button:disabled {
               background-color: grey; }
@@ -365,12 +369,12 @@
         color: #111010;
         padding: 5px;
         border-radius: 15px;
-        border: 1px solid #8e24aa;
+        border: 1px solid #c691d4;
         text-transform: uppercase;
         transition: .2s; }
         .handleBuyContainer .orderForm span button:hover {
           cursor: pointer;
-          background-color: #8e24aa;
+          background-color: #c691d4;
           color: #f5f5f5; }
         .handleBuyContainer .orderForm span button:disabled {
           background-color: grey; }
@@ -425,13 +429,13 @@
         color: #111010;
         padding: 5px;
         border-radius: 15px;
-        border: 1px solid #8e24aa;
+        border: 1px solid #c691d4;
         text-transform: uppercase;
         transition: .2s;
         align-self: flex-end; }
         .handleBuyContainer .basket .buyBtn:hover {
           cursor: pointer;
-          background-color: #8e24aa;
+          background-color: #c691d4;
           color: #f5f5f5; }
         .handleBuyContainer .basket .buyBtn:disabled {
           background-color: grey; }
@@ -480,13 +484,13 @@
       color: #111010;
       padding: 10px;
       border-radius: 15px;
-      border: 1px solid #8e24aa;
+      border: 1px solid #c691d4;
       text-transform: uppercase;
       transition: .2s;
       align-self: center; }
       .handleBuyContainer #confirmOrderBtn:hover {
         cursor: pointer;
-        background-color: #8e24aa;
+        background-color: #c691d4;
         color: #f5f5f5; }
       .handleBuyContainer #confirmOrderBtn:disabled {
         background-color: grey; }
@@ -656,11 +660,15 @@
     #root .showNavBtn {
       display: none; }
     #root .message {
-      background-color: rgba(142, 36, 170, 0.5);
+      background-color: #c691d4;
       text-align: end;
       padding: 1%;
       padding-right: 5%;
       text-transform: uppercase; }
+    #root .categoryNav .closeNavBtn {
+      display: none; }
+    #root .categoryNav .navPanelShop {
+      display: none; }
     #root .categoryNav ul {
       display: flex;
       list-style-type: none;
@@ -707,7 +715,7 @@
       font-size: 14px;
       font-weight: 600;
       overflow: hidden;
-      background-color: rgba(142, 36, 170, 0.5); }
+      background-color: #c691d4; }
       #root .header * {
         color: black; }
       #root .header .panelShop {
@@ -731,14 +739,14 @@
             color: #111010;
             padding: 5px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             text-align: center;
             margin: 0; }
             #root .header .panelShop .panelLogin .login:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root .header .panelShop .panelLogin .login:disabled {
               background-color: grey; }
@@ -834,14 +842,14 @@
             color: #111010;
             padding: 5px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             position: relative;
             top: 0px; }
             #root #products .product div button:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root #products .product div button:disabled {
               background-color: grey; }
@@ -900,12 +908,12 @@
         color: #111010;
         padding: 5px;
         border-radius: 15px;
-        border: 1px solid #8e24aa;
+        border: 1px solid #c691d4;
         text-transform: uppercase;
         transition: .2s; }
         .handleBuyContainer .orderForm span button:hover {
           cursor: pointer;
-          background-color: #8e24aa;
+          background-color: #c691d4;
           color: #f5f5f5; }
         .handleBuyContainer .orderForm span button:disabled {
           background-color: grey; }
@@ -977,13 +985,13 @@
         color: #111010;
         padding: 5px;
         border-radius: 15px;
-        border: 1px solid #8e24aa;
+        border: 1px solid #c691d4;
         text-transform: uppercase;
         transition: .2s;
         align-self: flex-end; }
         .handleBuyContainer .basket .buyBtn:hover {
           cursor: pointer;
-          background-color: #8e24aa;
+          background-color: #c691d4;
           color: #f5f5f5; }
         .handleBuyContainer .basket .buyBtn:disabled {
           background-color: grey; }
@@ -1032,13 +1040,13 @@
       color: #111010;
       padding: 10px;
       border-radius: 15px;
-      border: 1px solid #8e24aa;
+      border: 1px solid #c691d4;
       text-transform: uppercase;
       transition: .2s;
       align-self: center; }
       .handleBuyContainer #confirmOrderBtn:hover {
         cursor: pointer;
-        background-color: #8e24aa;
+        background-color: #c691d4;
         color: #f5f5f5; }
       .handleBuyContainer #confirmOrderBtn:disabled {
         background-color: grey; }
@@ -1192,19 +1200,8 @@
     min-height: 100vh;
     width: 100%;
     position: relative; }
-    #root .showNavBtn {
-      position: fixed;
-      top: 50px;
-      left: 20px;
-      display: none;
-      background-color: inherit;
-      border: none; }
-      #root .showNavBtn.show {
-        display: block; }
-      #root .showNavBtn i {
-        font-size: 30px; }
     #root .message {
-      background-color: rgba(142, 36, 170, 0.5);
+      background-color: #c691d4;
       text-align: end;
       font-size: 12px;
       padding: 1%;
@@ -1217,7 +1214,54 @@
       left: -200px;
       width: 200px;
       height: 100vh;
-      background-color: rgba(142, 36, 170, 0.5); }
+      background-color: #c691d4;
+      transition: .3s;
+      padding: 5px;
+      border-right: 2px solid #111010; }
+      #root .categoryNav.show {
+        left: 0px; }
+      #root .categoryNav .panelLogin {
+        margin-top: 50px;
+        margin-bottom: 15px;
+        display: flex;
+        font-size: 9px; }
+        #root .categoryNav .panelLogin .login {
+          width: 100px;
+          background-color: #7cd46a;
+          color: #111010;
+          padding: 6px;
+          border-radius: 15px;
+          border: 1px solid #c691d4;
+          text-transform: uppercase;
+          transition: .2s; }
+          #root .categoryNav .panelLogin .login:hover {
+            cursor: pointer;
+            background-color: #c691d4;
+            color: #f5f5f5; }
+          #root .categoryNav .panelLogin .login:disabled {
+            background-color: grey; }
+        #root .categoryNav .panelLogin .registration {
+          width: 100px;
+          background-color: #7cd46a;
+          color: #111010;
+          padding: 6px;
+          border-radius: 15px;
+          border: 1px solid #c691d4;
+          text-transform: uppercase;
+          transition: .2s; }
+          #root .categoryNav .panelLogin .registration:hover {
+            cursor: pointer;
+            background-color: #c691d4;
+            color: #f5f5f5; }
+          #root .categoryNav .panelLogin .registration:disabled {
+            background-color: grey; }
+      #root .categoryNav .closeNavBtn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        border: none;
+        background-color: transparent;
+        font-size: 30px; }
       #root .categoryNav ul {
         display: flex;
         flex-direction: column;
@@ -1278,11 +1322,20 @@
       font-size: 14px;
       font-weight: 600;
       overflow: hidden;
-      background-color: rgba(142, 36, 170, 0.5); }
+      background-color: #c691d4; }
+      #root .header .showNavBtn {
+        background-color: transparent;
+        border: none; }
+        #root .header .showNavBtn.hide {
+          visibility: hidden; }
+        #root .header .showNavBtn i {
+          font-size: 25px; }
       #root .header * {
         color: black; }
       #root .header .panelShop {
-        display: flex; }
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end; }
         #root .header .panelShop .welcome {
           display: flex;
           flex-direction: column;
@@ -1297,7 +1350,7 @@
         #root .header .panelShop a {
           text-decoration: none; }
         #root .header .panelShop .panelLogin {
-          display: flex;
+          display: none;
           flex-direction: column; }
           #root .header .panelShop .panelLogin .login {
             width: 100px;
@@ -1305,7 +1358,7 @@
             color: #111010;
             padding: 2px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             text-align: center;
@@ -1313,7 +1366,7 @@
             margin: 0; }
             #root .header .panelShop .panelLogin .login:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root .header .panelShop .panelLogin .login:disabled {
               background-color: grey; }
@@ -1338,7 +1391,7 @@
             margin: 0; }
           #root .header .panelShop .basketIcon .countBasket {
             font-size: 20px;
-            margin: 0; }
+            margin-left: 5px; }
       #root .header .logoContainer {
         margin-left: 1%; }
         #root .header .logoContainer .logo {
@@ -1430,14 +1483,14 @@
             color: #111010;
             padding: 5px;
             border-radius: 15px;
-            border: 1px solid #8e24aa;
+            border: 1px solid #c691d4;
             text-transform: uppercase;
             transition: .2s;
             position: relative;
             top: 0px; }
             #root #products .product div button:hover {
               cursor: pointer;
-              background-color: #8e24aa;
+              background-color: #c691d4;
               color: #f5f5f5; }
             #root #products .product div button:disabled {
               background-color: grey; }
@@ -1490,12 +1543,12 @@
       color: #111010;
       padding: 5px;
       border-radius: 15px;
-      border: 1px solid #8e24aa;
+      border: 1px solid #c691d4;
       text-transform: uppercase;
       transition: .2s; }
       .orderForm span button:hover {
         cursor: pointer;
-        background-color: #8e24aa;
+        background-color: #c691d4;
         color: #f5f5f5; }
       .orderForm span button:disabled {
         background-color: grey; }
@@ -1573,13 +1626,13 @@
       color: #111010;
       padding: 5px;
       border-radius: 15px;
-      border: 1px solid #8e24aa;
+      border: 1px solid #c691d4;
       text-transform: uppercase;
       transition: .2s;
       align-self: flex-end; }
       .basket .buyBtn:hover {
         cursor: pointer;
-        background-color: #8e24aa;
+        background-color: #c691d4;
         color: #f5f5f5; }
       .basket .buyBtn:disabled {
         background-color: grey; }
@@ -1632,13 +1685,13 @@
     color: #111010;
     padding: 10px;
     border-radius: 15px;
-    border: 1px solid #8e24aa;
+    border: 1px solid #c691d4;
     text-transform: uppercase;
     transition: .2s;
     align-self: center; }
     #confirmOrderBtn:hover {
       cursor: pointer;
-      background-color: #8e24aa;
+      background-color: #c691d4;
       color: #f5f5f5; }
     #confirmOrderBtn:disabled {
       background-color: grey; }

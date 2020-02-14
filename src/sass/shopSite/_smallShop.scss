@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-//dla desctopów
+//dla mobilek
 
 #root {
     font-family: "Roboto", sans-serif;
@@ -19,24 +19,8 @@
     width: 100%;
     position: relative;
 
-    .showNavBtn {
-        position: fixed;
-        top: 50px;
-        left: 20px;
-
-        background-color: inherit;
-        border: none;
-
-        //////////////////////////////////
-        &.show {}
-
-        i {
-            font-size: 30px;
-        }
-    }
-
     .message {
-        background-color: $primaryColorOpacity;
+        background-color: $primaryColor;
         text-align: end;
         font-size: 12px;
         padding: 1%;
@@ -51,7 +35,41 @@
         left: -200px;
         width: 200px;
         height: 100vh;
-        background-color: $primaryColorOpacity;
+        background-color: $primaryColor;
+        transition: .3s;
+        padding: 5px;
+
+        border-right: 2px solid $textOnSecondaryColor;
+
+        &.show {
+            left: 0px;
+        }
+
+        .panelLogin {
+            margin-top: 50px;
+            margin-bottom: 15px;
+            display: flex;
+            font-size: 9px;
+
+            .login {
+                @include buttonPattern(6px);
+            }
+
+            .registration {
+                @include buttonPattern(6px);
+            }
+
+
+        }
+
+        .closeNavBtn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            border: none;
+            background-color: transparent;
+            font-size: 30px;
+        }
 
         ul {
             display: flex;
@@ -113,7 +131,9 @@
                     padding: 15px;
                 }
             }
+
         }
+
     }
 
     .banner {
@@ -132,7 +152,22 @@
         font-size: 14px;
         font-weight: 600;
         overflow: hidden;
-        background-color: $primaryColorOpacity;
+        background-color: $primaryColor;
+
+        .showNavBtn {
+
+            background-color: transparent;
+            border: none;
+
+            //////////////////////////////////
+            &.hide {
+                visibility: hidden;
+            }
+
+            i {
+                font-size: 25px;
+            }
+        }
 
         & * {
             color: black;
@@ -140,6 +175,8 @@
 
         .panelShop {
             display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
 
             .welcome {
                 display: flex;
@@ -161,7 +198,7 @@
             }
 
             .panelLogin {
-                display: flex;
+                display: none;
                 flex-direction: column;
 
                 .login {
@@ -201,13 +238,14 @@
 
                 .countBasket {
                     font-size: 20px;
-                    margin: 0;
+                    margin-left: 5px;
                 }
             }
         }
 
         .logoContainer {
             margin-left: 1%;
+
 
             .logo {
                 height: 50px;
