@@ -1,9 +1,11 @@
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
+import { basket } from './basket.js';
 
 class HandleSite {
     constructor() {
+        this.basket = basket;;
         this.user = null;
         this.createItems = new CreateItems();
         this.api = new Api();

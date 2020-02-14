@@ -48,6 +48,7 @@ class AuthRouter {
     }
 
     async login(req, res) {
+        console.log(req.body)
         const response = await this.users.getUser(req.body.login);
         if (response === null) return res.status(400).json('błędny login lub hasło');
         if (response.docs.length !== 1 || req.body.password === undefined) res.json(400).send('błędne zapytanie do servera');
