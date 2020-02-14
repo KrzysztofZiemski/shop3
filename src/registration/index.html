@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
-    <link rel="stylesheet" href="../css/styleRegistration.css">
+    <link rel="stylesheet" href="../css/registration.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
         <div class='registrationContainer'>
             <h1>Rejestracja</h1>
 
-            <form method="POST" id="registration">
+            <form method="POST" id="registration" class="registration">
                 <div> <label for="login">Login: </label><input name="login" id="login" type="text" minlength=5
                         required /></div>
                 <div> <label for="password">Hasło: </label><input name="password" id="password" type="password"
@@ -33,6 +33,7 @@
             <div class="message" id="message"></div>
         </div>
     </div>
+    <script src="../scripts/handleRegistration.js" type="module"></script>
 </body>
 
 </html>

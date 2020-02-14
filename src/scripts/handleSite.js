@@ -1,11 +1,11 @@
-import { basket } from './basket.js';
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
-import '../sass/all.scss';
+import { basket } from './basket.js';
 
 class HandleSite {
     constructor() {
+        this.basket = basket;;
         this.user = null;
         this.createItems = new CreateItems();
         this.api = new Api();
@@ -24,6 +24,12 @@ class HandleSite {
 
         this.StartSite()
         this.putColorsListToFilterOption();
+
+        this.closeNavBtn = document.querySelector('#closeNavBtn');
+        this.closeNavBtn.addEventListener('click', this.toggleNav);
+
+        this.showNavBtn = document.querySelector('#showNavBtn');
+        this.showNavBtn.addEventListener('click', this.toggleNav);
 
         this.colorFilter = document.getElementById('colorFilter');
         this.colorFilter.addEventListener('change', this.runFilter.bind(this));
@@ -50,17 +56,28 @@ class HandleSite {
         }
         if (this.user) {
             const helloBanner = document.querySelector('#welcome');
-            helloBanner.innerHTML = this.user ? 'Witaj ' : null;
-            const spanBanner = document.createElement('span');
-            spanBanner.innerText = this.user.login;
-            helloBanner.appendChild(spanBanner);
+
+            const spanBannerText = document.createElement('span');
+            spanBannerText.innerText = 'Witaj';
+            helloBanner.appendChild(spanBannerText);
+
+            const spanBannerUser = document.createElement('span');
+            spanBannerUser.innerText = this.user.login;
+            helloBanner.appendChild(spanBannerUser);
         }
 
         const loginLink = document.querySelector('#login');
         loginLink.innerText = this.user ? 'Wyloguj' : 'Zaloguj';
         loginLink.href = this.user ? '/logout' : '/login';
     }
-    //////////////////////////////////
+    toggleNav() {
+        document.querySelector('#categoryNav').classList.toggle('show');
+        document.querySelector('#showNavBtn').classList.toggle('hide');
+        // this.showNavBtn.classList.toggle('hide');
+    }
+    closeNav() {
+
+    }
     runFilter() {
         const max = this.maxPriceFilter.value;
         this.filters.price.max = max;
@@ -167,4 +184,5 @@ class HandleSite {
     // }
 
 }
-const handleSite = new HandleSite();
+
+export { HandleSite };

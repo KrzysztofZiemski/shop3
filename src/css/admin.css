@@ -1,0 +1,295 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+* {
+  box-sizing: border-box; }
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol,
+ul {
+  list-style: none; }
+
+blockquote,
+q {
+  quotes: none; }
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  font-family: 'roboto'; }
+
+header {
+  background-color: #c691d4;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center; }
+  header * {
+    margin: 0 30px; }
+  header a {
+    color: #f5f5f5;
+    position: relative; }
+    header a img {
+      height: 50px;
+      padding: 0; }
+  header h1 {
+    color: #f5f5f5; }
+
+main .addItemContainer {
+  padding: 10px;
+  display: none; }
+  main .addItemContainer.show {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(200, 200, 200, 0.8); }
+
+main .formAddItem {
+  display: flex;
+  flex-direction: column;
+  background-color: #F5FFFA;
+  position: fixed;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 4px 4px 4px #c691d4;
+  border-radius: 25px; }
+  main .formAddItem #addItemTags {
+    border-bottom: 1px solid black; }
+  main .formAddItem * {
+    margin: 5px; }
+  main .formAddItem h2 {
+    margin: 5%;
+    font-size: 20px; }
+  main .formAddItem button {
+    width: 100px;
+    background-color: #7cd46a;
+    color: #111010;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #c691d4;
+    text-transform: uppercase;
+    transition: .2s;
+    align-self: flex-end; }
+    main .formAddItem button:hover {
+      cursor: pointer;
+      background-color: #c691d4;
+      color: #f5f5f5; }
+    main .formAddItem button:disabled {
+      background-color: grey; }
+  main .formAddItem .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 0;
+    margin: 0;
+    width: 30px;
+    font-size: 30px;
+    border: none; }
+
+main .handleProducts {
+  display: flex;
+  margin: 20px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 100px; }
+  main .handleProducts #formGetItem {
+    margin: 20px;
+    display: flex; }
+    main .handleProducts #formGetItem button {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+      background-color: #c691d4;
+      padding: 10px; }
+      main .handleProducts #formGetItem button i {
+        color: #7cd46a;
+        font-size: 20px; }
+    main .handleProducts #formGetItem input[type=number] {
+      width: 220px; }
+    main .handleProducts #formGetItem input[type=number]::-webkit-inner-spin-button,
+    main .handleProducts #formGetItem input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0; }
+  main .handleProducts #showPanelNewItem {
+    margin: 20px;
+    width: 100px;
+    background-color: #7cd46a;
+    color: #111010;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #c691d4;
+    text-transform: uppercase;
+    transition: .2s; }
+    main .handleProducts #showPanelNewItem:hover {
+      cursor: pointer;
+      background-color: #c691d4;
+      color: #f5f5f5; }
+    main .handleProducts #showPanelNewItem:disabled {
+      background-color: grey; }
+
+main h2 {
+  text-align: center;
+  margin: 20px; }
+
+main section {
+  margin: 10px 20px; }
+  main section h2 {
+    text-transform: uppercase;
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: 2px solid #c691d4; }
+  main section #productsContainer table {
+    margin: 5px auto; }
+    main section #productsContainer table * {
+      margin: 5px;
+      padding: 5px; }
+    main section #productsContainer table td {
+      width: 10%; }
+    main section #productsContainer table .adminTagsProduct {
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      width: 100%; }
+      main section #productsContainer table .adminTagsProduct span {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin: 0;
+        padding: 0; }
+        main section #productsContainer table .adminTagsProduct span * {
+          margin: 0;
+          padding: 0; }
+    main section #productsContainer table .imageCell img {
+      height: 50px; }
+    main section #productsContainer table input {
+      font-size: 14px; }
+    main section #productsContainer table button {
+      width: 100px;
+      background-color: #7cd46a;
+      color: #111010;
+      padding: 5px;
+      border-radius: 15px;
+      border: 1px solid #c691d4;
+      text-transform: uppercase;
+      transition: .2s; }
+      main section #productsContainer table button:hover {
+        cursor: pointer;
+        background-color: #c691d4;
+        color: #f5f5f5; }
+      main section #productsContainer table button:disabled {
+        background-color: grey; }
