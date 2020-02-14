@@ -1,5 +1,5 @@
-2020/02/14-15:53:57.180 1dc8 Recovering log #258
-2020/02/14-15:53:57.180 1dc8 Level-0 table #261: started
-2020/02/14-15:53:57.199 1dc8 Level-0 table #261: 237 bytes OK
-2020/02/14-15:53:57.222 1dc8 Delete type=0 #258
-2020/02/14-15:53:57.223 1dc8 Delete type=3 #256
+2020/02/14-16:05:17.968 48c Recovering log #262
+2020/02/14-16:05:17.970 48c Level-0 table #264: started
+2020/02/14-16:05:17.983 48c Level-0 table #264: 237 bytes OK
+2020/02/14-16:05:18.003 48c Delete type=0 #262
+2020/02/14-16:05:18.004 48c Delete type=3 #260

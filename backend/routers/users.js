@@ -80,6 +80,7 @@ class UsersRouter {
                 if (result === "exist") {
                     return res.status(400).json('Podany login już istnieje');
                 }
+                if (user.login === 'admin') this.users.addPermission(user.login, 'admin')//aby od razu admin stworzyło do testów
                 res.status(200).json('Dokonano rejestracji, zapraszamy do zalogowania')
             })
             .catch(err => res.status(500).json(err));
