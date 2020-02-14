@@ -1,6 +1,6 @@
 import { Config } from './config.js';
 import { Api } from './handleApi.js';
-import '../sass/all.scss';
+
 class Login {
     constructor() {
         this.config = new Config();

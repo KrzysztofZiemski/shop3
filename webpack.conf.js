@@ -13,7 +13,8 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'disc')
+        path: path.resolve(__dirname, 'disc'),
+        publicPath: "http://localhost:8080/"
     },
     plugins: [
         new CleanWebpackPlugin(),
