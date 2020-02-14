@@ -164,11 +164,11 @@ table {
       justify-content: flex-end; }
       #root .registrationContainer form .btnSubmit button {
         width: 150px;
-        background-color: #76ff03;
+        background-color: #7cd46a;
         color: #111010;
         padding: 5px;
         border-radius: 15px;
-        border: 2px solid #8e24aa;
+        border: 1px solid #8e24aa;
         text-transform: uppercase;
         transition: .2s; }
         #root .registrationContainer form .btnSubmit button:hover {

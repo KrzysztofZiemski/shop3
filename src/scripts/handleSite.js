@@ -49,10 +49,14 @@ class HandleSite {
         }
         if (this.user) {
             const helloBanner = document.querySelector('#welcome');
-            helloBanner.innerHTML = this.user ? 'Witaj ' : null;
-            const spanBanner = document.createElement('span');
-            spanBanner.innerText = this.user.login;
-            helloBanner.appendChild(spanBanner);
+
+            const spanBannerText = document.createElement('span');
+            spanBannerText.innerText = 'Witaj';
+            helloBanner.appendChild(spanBannerText);
+
+            const spanBannerUser = document.createElement('span');
+            spanBannerUser.innerText = this.user.login;
+            helloBanner.appendChild(spanBannerUser);
         }
 
         const loginLink = document.querySelector('#login');

@@ -1,6 +1,19 @@
-2020/02/13-17:42:44.113 2658 Recovering log #36
-2020/02/13-17:42:44.113 2658 Level-0 table #39: started
-2020/02/13-17:42:44.127 2658 Level-0 table #39: 237 bytes OK
-2020/02/13-17:42:44.147 2658 Delete type=0 #36
-2020/02/13-17:42:44.147 2658 Delete type=3 #13
-2020/02/13-17:42:44.148 2658 Delete type=3 #33
+2020/02/13-17:56:29.465 1a3c Recovering log #43
+2020/02/13-17:56:29.465 1a3c Level-0 table #45: started
+2020/02/13-17:56:29.483 1a3c Level-0 table #45: 237 bytes OK
+2020/02/13-17:56:29.483 1a3c Recovering log #49
+2020/02/13-17:56:29.484 1a3c Level-0 table #46: started
+2020/02/13-17:56:29.512 1a3c Level-0 table #46: 237 bytes OK
+2020/02/13-17:56:29.543 1a3c Delete type=0 #43
+2020/02/13-17:56:29.543 1a3c Delete type=0 #49
+2020/02/13-17:56:29.544 1a3c Delete type=2 #50
+2020/02/13-17:56:29.544 1a3c Delete type=3 #41
+2020/02/13-17:56:29.557 adc Compacting 4@0 + 1@1 files
+2020/02/13-17:56:29.562 adc Generated table #51@0: 9 keys, 1517 bytes
+2020/02/13-17:56:29.562 adc Compacted 4@0 + 1@1 files => 1517 bytes
+2020/02/13-17:56:29.566 adc compacted to: files[ 0 1 0 0 0 0 0 ]
+2020/02/13-17:56:29.567 adc Delete type=2 #37
+2020/02/13-17:56:29.567 adc Delete type=2 #39
+2020/02/13-17:56:29.567 adc Delete type=2 #42
+2020/02/13-17:56:29.567 adc Delete type=2 #45
+2020/02/13-17:56:29.568 adc Delete type=2 #46

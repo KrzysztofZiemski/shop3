@@ -177,11 +177,11 @@ main .formAddItem {
     font-size: 20px; }
   main .formAddItem button {
     width: 100px;
-    background-color: #76ff03;
+    background-color: #7cd46a;
     color: #111010;
     padding: 5px;
     border-radius: 15px;
-    border: 2px solid #8e24aa;
+    border: 1px solid #8e24aa;
     text-transform: uppercase;
     transition: .2s;
     align-self: flex-end; }
@@ -217,7 +217,7 @@ main .handleProducts {
       background-color: #8e24aa;
       padding: 10px; }
       main .handleProducts #formGetItem button i {
-        color: #76ff03;
+        color: #7cd46a;
         font-size: 20px; }
     main .handleProducts #formGetItem input[type=number] {
       width: 220px; }
@@ -228,11 +228,11 @@ main .handleProducts {
   main .handleProducts #showPanelNewItem {
     margin: 20px;
     width: 100px;
-    background-color: #76ff03;
+    background-color: #7cd46a;
     color: #111010;
     padding: 5px;
     border-radius: 15px;
-    border: 2px solid #8e24aa;
+    border: 1px solid #8e24aa;
     text-transform: uppercase;
     transition: .2s; }
     main .handleProducts #showPanelNewItem:hover {
@@ -264,11 +264,11 @@ main section {
       font-size: 14px; }
     main section #productsContainer table button {
       width: 100px;
-      background-color: #76ff03;
+      background-color: #7cd46a;
       color: #111010;
       padding: 5px;
       border-radius: 15px;
-      border: 2px solid #8e24aa;
+      border: 1px solid #8e24aa;
       text-transform: uppercase;
       transition: .2s; }
       main section #productsContainer table button:hover {

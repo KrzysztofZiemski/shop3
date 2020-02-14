@@ -10,7 +10,7 @@ class Basket {
         this.orderForm = document.querySelector('#orderForm');
         //this.orderForm.addEventListener("submit",)
         this.addListeners();
-
+        this.updateBasketByCookies()
     }
     async buyBtn(e) {
         document.querySelector('#basket').classList.add('hide');
@@ -37,8 +37,7 @@ class Basket {
         const orderStreetNumber = document.querySelector('#orderStreetNumber');
         const orderMail = document.querySelector('#orderMail');
         const orderSave = document.querySelector('#orderSave');
-        const parameterArr = [orderFirstName, orderLastName, orderZIPcode, orderCity, orderStreet, orderStreetNumber, orderMail, orderSave];
-
+        const parameterArr = [orderFirstName, orderLastName, orderZIPcode, orderCity, orderStreet, orderStreetNumber, orderMail];
         let isOk = true;
         parameterArr.forEach(item => {
             if (!item.value) {
@@ -112,6 +111,7 @@ class Basket {
             .then(response => {
                 if (response.status === 200) {
                     const div = document.createElement('div');
+                    div.className = "confirmOrderMessage";
                     div.innerText = 'Zamówienie zostało przyjęte do realizacji. Na podany adres mailowy otrzymasz potwierdzenie zakupu';
                     document.querySelector('#confirmOrder').appendChild(div);
                     e.target.setAttribute('disabled', true);
@@ -120,8 +120,9 @@ class Basket {
                     this.updateBasketCookies();
                     this.uploadBasket();
                     this.refreshTotalPrice();
-                    //docelowo przekierowanie
 
+                    //docelowo przekierowanie
+                    setTimeout(function () { window.location.replace("/"); }, 5000);
                 } else if (response.status === 404) {
                     const div = document.createElement('div');
                     div.innerText = 'Niewystarczająca ilość jednego z produktów';
@@ -255,21 +256,23 @@ class Basket {
             spanCheckbox.appendChild(checkbox);
             product.appendChild(spanCheckbox);
 
-            const spanName = document.createElement('span');
-            spanName.className = "nameArticleBasket"
-            spanName.innerText = item.name;
-            product.appendChild(spanName);
-
             const spanImage = document.createElement('span');
-            const image = document.createElement('image');
-            image.src = item.image;
+            spanImage.className = "basketElementImage"
+            const image = document.createElement('img');
+            image.setAttribute('src', item.image);
             spanImage.appendChild(image);
             product.appendChild(spanImage);
 
+            const spanName = document.createElement('span');
+            spanName.className = "basketElementName";
+            spanName.innerText = item.name;
+            product.appendChild(spanName);
+
             const spanPrice = document.createElement('span');
             spanPrice.innerText = item.price * item.count + " PLN";
-
+            spanPrice.className = "basketElementPrice";
             const spanCount = document.createElement('span');
+            spanCount.className = "basketElementCount"
             const inputCount = document.createElement('input');
             inputCount.setAttribute('type', "number");
             inputCount.setAttribute('min', 1);
@@ -287,6 +290,7 @@ class Basket {
             product.appendChild(spanCount);
 
             const spanRemove = document.createElement('span');
+            spanRemove.className = "basketElementSpanRemove";
             const btnRemove = document.createElement('button');
             btnRemove.innerHTML = '<i class="fas fa-trash-alt"></i>';
             btnRemove.addEventListener('click', () => {
