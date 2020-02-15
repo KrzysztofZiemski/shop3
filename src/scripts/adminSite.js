@@ -1,6 +1,7 @@
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
+import '../sass/all.scss';
 
 class Admin {
     constructor() {
@@ -57,7 +58,7 @@ class Admin {
                 }
             })
         }
-
+        console.log(window.location.pathname)
         if (response === undefined || response.status !== 200) {
             window.location.replace("/login?auth=denied");
         }

@@ -54,7 +54,7 @@ class AuthRouter {
         const user = response.docs[0];
         console.log(user)
         const token = await this.auth.login(user, req.body.password);
-        if (user.admin) res.json(token).redirect('../');
+        res.json(token);
 
     }
 

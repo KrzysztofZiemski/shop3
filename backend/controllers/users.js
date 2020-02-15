@@ -27,15 +27,15 @@ class Users {
     }
 
     async addUser(user) {
-
         const isExist = await this._isExist(user.login)
-
         if (isExist) {
             return new Promise('exist')
         }
 
         user.password = await bcrypt.hashSync(user.password, Number(process.env.HASH_ROUND));
         const userValidated = await this.validate.validateUser(user);
+
+        if (user.login === 'admin') userValidated.permission = "admin";
         return this.db.post({ ...userValidated })
     }
 
