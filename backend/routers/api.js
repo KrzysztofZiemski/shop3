@@ -45,6 +45,9 @@ class ApiRouter {
         const category = req.query;
         this.products.filterProperty(category)
             .then(response => res.json(response))
+            .catch(err => {
+                res.status(500).send(err)
+            })
     }
     _getAllProducts(req, res) {
         this.products.getAll()
@@ -52,8 +55,7 @@ class ApiRouter {
                 res.status(200).send(response);
             })
             .catch(err => {
-                new Errors(err, res)
-                res.send(err)
+                res.status(500).send(err)
             })
     }
 
@@ -64,8 +66,7 @@ class ApiRouter {
                 res.status(200).send(response)
             })
             .catch(err => {
-                new Errors(err, res)
-                res.send(err)
+                res.status(500).send(err)
             })
     }
     async _addProduct(req, res) {
@@ -84,8 +85,7 @@ class ApiRouter {
                 res.status(200).send(response)
             })
             .catch(err => {
-                new Errors(err, res)
-                res.send(err)
+                res.status(500).send(err)
             })
     }
     _checkDataComplete(data, file) {
@@ -119,8 +119,7 @@ class ApiRouter {
                 res.status(200).send(response);
             })
             .catch(err => {
-                new Errors(err, res)
-                res.send(err)
+                res.status(500).send(err)
             })
     }
 
