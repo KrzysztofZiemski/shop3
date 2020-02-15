@@ -184,5 +184,5 @@ class HandleSite {
     // }
 
 }
-
+const site = new HandleSite()
 export { HandleSite };
