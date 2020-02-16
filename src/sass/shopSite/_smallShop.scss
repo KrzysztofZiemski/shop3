@@ -81,47 +81,23 @@
 
             li {
                 border-bottom: 1px solid black;
-                position: relative;
                 flex-grow: 1;
                 text-align: center;
 
-                &:after {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    display: block;
-                    content: "";
-                    height: 6px;
-                    width: 0;
-                    transition: 0.2s;
-                    background: linear-gradient(to right, $secondaryColor, white);
-                    z-index: -1;
-                    transition: .4s;
-                }
+                &.navLogoContainer {
+                    a {
+                        display: flex;
+                        justify-content: center;
+                        padding: 0;
 
-                &:before {
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    display: block;
-                    content: "";
-                    height: 6px;
-                    width: 0;
-                    transition: 0.2s;
-                    background: linear-gradient(to left, $secondaryColor, white);
-                    z-index: -1;
-                    transition: .4s;
-                }
-
-                &:hover:before {
-                    width: 100%;
-                }
-
-                &:hover:after {
-                    width: 100%;
+                        img {
+                            height: 40px;
+                        }
+                    }
                 }
 
                 a {
+                    position: relative;
                     display: block;
                     text-decoration: none;
                     color: #000000;
@@ -130,7 +106,10 @@
                     height: 100%;
                     width: 100%;
                     padding: 15px;
+
                 }
+
+
             }
 
         }

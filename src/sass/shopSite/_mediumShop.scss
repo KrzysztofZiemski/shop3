@@ -56,25 +56,6 @@
                 flex-grow: 1;
                 text-align: center;
 
-                &:after {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    display: block;
-                    content: "";
-                    height: 0px;
-                    width: 100%;
-                    transition: 0.2s;
-                    background: linear-gradient(to right, $secondaryColor, white);
-                    z-index: -1;
-                    transition: .3s;
-                }
-
-
-                &:hover:after {
-                    height: 10%;
-                }
-
                 a {
                     display: block;
                     text-decoration: none;

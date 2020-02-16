@@ -85,14 +85,12 @@ class HandleSite {
         this.filters.price.min = min;
         this.filters.color = this.colorFilter.value;
         let filterList = [...this.products];
-        console.log(filterList)
         filterList = this.getFilterColor(filterList);
         filterList = this.getFilterPrice(filterList);
         this._refreshSite(filterList);
     }
     getFilterColor(filterList) {
         if (this.filters.color === "") return filterList
-
         return filterList.filter(product => {
             let isOk = false;
             if (product.tags !== "") {
@@ -116,8 +114,29 @@ class HandleSite {
             }
         })
     }
+    getParamsPath(arrayPath) {
 
+        const categories = {};
+        for (let i = 0; i < arrayPath.length; i = i + 2) {
+            categories[arrayPath[i]] = arrayPath[i + 1];
+        }
+        return categories
+    }
 
+    //zmmiana do przemyslenia
+    // getParams() {
+    //     const path = window.location.href.split('?');
+    //     const arrayPath = path.length === 1 ? [] : path[1].split('=');
+    //     if (path.length === 1) return [];
+
+    //     const StringsParamsArr = path[1].split('&');
+    //     const params = {}
+    //     StringsParamsArr.forEach(data => {
+    //         const singleCategoryArr = data.split('=');
+    //         params[singleCategoryArr[0]] = singleCategoryArr[1];
+    //     })
+    //     return params
+    // }
 
     ////////////////////////////////////
     async showAll() {
@@ -186,4 +205,3 @@ class HandleSite {
 
 }
 const site = new HandleSite()
-export { HandleSite };

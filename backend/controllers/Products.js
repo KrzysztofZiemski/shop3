@@ -20,6 +20,7 @@ class Product {
     }
 
     filterProperty(propertyObject) {
+        console.log(propertyObject)
         return this.db.find({
             selector: propertyObject
         })

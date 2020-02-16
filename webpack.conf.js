@@ -10,6 +10,7 @@ module.exports = {
         registration: './src/scripts/handleRegistration.js',
         login: './src/scripts/handleLogin.js',
         admin: './src/scripts/adminSite.js',
+        logout: './src/scripts/handleLogout.js',
     },
     output: {
         filename: '[name].js',
@@ -46,7 +47,13 @@ module.exports = {
             filename: 'styles.css',
             chunkFilename: path.resolve(__dirname, 'disc'),
             ignoreOrder: false,
-        })
+        }),
+        new HtmlWebpackPlugin({
+            title: 'logout',
+            template: './src/logout/index.html',
+            filename: 'logout/index.html',
+            chunks: ['logout'],
+        }),
     ],
     module: {
         rules: [

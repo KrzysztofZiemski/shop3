@@ -36,6 +36,7 @@
   .categoryNav {
     background-color: rgb(127, 127, 127);
 
+
     .closeNavBtn {
       display: none;
     }
@@ -56,25 +57,6 @@
         flex-grow: 1;
         text-align: center;
 
-        &:after {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          display: block;
-          content: "";
-          height: 0px;
-          width: 100%;
-          transition: 0.2s;
-          background: linear-gradient(to right, $secondaryColor, white);
-          z-index: -1;
-          transition: .3s;
-        }
-
-
-        &:hover:after {
-          height: 10%;
-        }
-
         a {
           display: block;
           text-decoration: none;
@@ -82,8 +64,46 @@
           padding: 5px;
           transition: 0.2s;
           height: 100%;
-          width: 100%;
           padding: 15px;
+
+          &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 0;
+            width: 100%;
+            background-color: $primaryColor;
+            transition: .3s;
+          }
+
+          &:hover:before {
+            height: 5px;
+          }
+
+          &.pickedNav:after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background-color: $primaryColor;
+            transition: .3s;
+          }
+
+        }
+
+        &.navLogoContainer {
+          a {
+            padding: 0;
+
+            img {
+              height: 50px;
+            }
+          }
         }
       }
     }
