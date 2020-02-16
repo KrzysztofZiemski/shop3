@@ -21,7 +21,6 @@ class CreateItems {
 
     productsShop(arrayProducts) {
         return arrayProducts.map(product => {
-
             const articleContainer = document.createElement('article');
             articleContainer.dataset.id = product._id;
             articleContainer.className = 'product';
