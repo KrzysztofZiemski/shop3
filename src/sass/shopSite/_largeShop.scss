@@ -34,6 +34,8 @@
   }
 
   .categoryNav {
+    background-color: rgb(127, 127, 127);
+
     .closeNavBtn {
       display: none;
     }
@@ -391,8 +393,6 @@
           button {
             padding: 2%;
             background-color: transparent;
-            background-color: Transparent;
-            background-repeat: no-repeat;
             border: none;
             cursor: pointer;
             overflow: hidden;
@@ -521,8 +521,6 @@
     right: 7%;
     padding: 2%;
     background-color: transparent;
-    background-color: Transparent;
-    background-repeat: no-repeat;
     border: none;
     cursor: pointer;
     overflow: hidden;
