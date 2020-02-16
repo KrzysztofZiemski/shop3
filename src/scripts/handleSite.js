@@ -118,6 +118,7 @@ class HandleSite {
     }
 
 
+
     ////////////////////////////////////
     async showAll() {
         const path = window.location.href.split('?');
@@ -142,7 +143,7 @@ class HandleSite {
         }
         else {
             try {
-                await this.api.getAll().then(products => products.rows.forEach(product => this.products.push(product.doc)))
+                await this.api.getAll().then(products => products.rows.forEach(product => this.products.push(product.doc))).then()
             } catch {
                 console.log('błąd przy próbie pobrania produktów do sklepu')
             }
