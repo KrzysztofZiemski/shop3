@@ -1,5 +1,7 @@
 node_modules/
 disc/
-.vscode
+.vscode/
 backend/static
+backend/public
 db/
+public/
