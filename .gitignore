@@ -4,4 +4,6 @@ disc/
 backend/static
 backend/public
 db/
-public/
+.vscode/
+backend/static
+db/
