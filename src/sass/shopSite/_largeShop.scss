@@ -1,6 +1,5 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_normalize.scss";
 @import "../_variable.scss";
 
 * {
@@ -51,11 +50,23 @@
       width: 30%;
       width: 100%;
 
+
+
       li {
         border-bottom: 1px solid black;
         position: relative;
         flex-grow: 1;
         text-align: center;
+
+        &.navLogoContainer {
+          a {
+            padding: 0;
+
+            img {
+              height: 50px;
+            }
+          }
+        }
 
         a {
           display: block;
@@ -95,25 +106,17 @@
           }
 
         }
-
-        &.navLogoContainer {
-          a {
-            padding: 0;
-
-            img {
-              height: 50px;
-            }
-          }
-        }
       }
     }
   }
 
   .banner {
-    max-height: 300px;
+    display: flex;
+    justify-content: center;
+
 
     img {
-      width: 100%;
+      width: 100%
     }
   }
 
@@ -231,18 +234,20 @@
       padding: 20px;
 
       div {
-        margin-left: 40px;
+
+        input,
+        select {
+          padding: 5px 4px;
+          margin: 8px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        margin-left: 20px;
       }
 
       input[type="number"] {
         width: 60px;
-        outline: none;
-      }
-
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
       }
     }
   }

@@ -1,6 +1,5 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_normalize.scss";
 @import "../_variable.scss";
 
 #root {
@@ -12,7 +11,7 @@
     width: 100%;
     max-width: 1600px;
 
-    header {
+    .banner {
         display: flex;
         justify-content: left;
         align-items: center;
@@ -37,16 +36,16 @@
 
         }
 
-        form {
-            &>* {
-                margin: 5px;
-            }
+        .registration {
+            margin: 2%;
 
             div {
                 label {
-                    display: inline-block;
-                    width: 200px;
+                    width: 100%;
+                    margin: 7px;
                 }
+
+                @include inputs();
             }
 
             .btnSubmit {

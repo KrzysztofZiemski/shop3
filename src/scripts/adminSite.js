@@ -1,7 +1,7 @@
 import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
-import '../sass/all.scss';
+import '../sass/admin.scss';
 
 class Admin {
     constructor() {

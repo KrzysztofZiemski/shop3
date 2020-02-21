@@ -1,6 +1,5 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_normalize.scss";
 @import "../_variable.scss";
 
 * {
@@ -47,7 +46,6 @@
         ul {
             display: flex;
             list-style-type: none;
-            width: 30%;
             width: 100%;
 
             li {
@@ -55,28 +53,26 @@
                 position: relative;
                 flex-grow: 1;
                 text-align: center;
+                display: flex;
+                align-items: center;
+
+                &.navLogoContainer {
+                    a {
+                        img {
+                            height: 40px;
+                        }
+                    }
+                }
 
                 a {
-                    display: block;
                     text-decoration: none;
                     color: #000000;
-                    padding: 5px;
                     transition: 0.2s;
-                    height: 100%;
-                    width: 100%;
-                    padding: 15px;
                 }
             }
         }
     }
 
-    .banner {
-        max-height: 300px;
-
-        img {
-            width: 100%;
-        }
-    }
 
     .header {
         padding-top: 20px;
@@ -171,7 +167,13 @@
         }
     }
 
+    .banner {
+        display: flex;
 
+        img {
+            width: 100%;
+        }
+    }
 
     .main {
 
@@ -183,23 +185,25 @@
             display: flex;
             flex-direction: row;
             padding: 10px;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-items: center;
             padding: 20px;
 
             div {
-                margin-left: 40px;
-            }
 
-            input[type="number"] {
-                width: 100%;
-                outline: none;
-            }
+                input,
+                select {
+                    padding: 5px 4px;
+                    margin: 8px 0;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
 
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
+                margin-left: 20px;
+
+                input[type="number"] {
+                    width: 60px;
+                }
             }
         }
     }

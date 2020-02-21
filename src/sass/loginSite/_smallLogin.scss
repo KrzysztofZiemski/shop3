@@ -1,6 +1,5 @@
 @import "../_mixins.scss";
-@import "..//colors.scss";
-@import "../_normalize.scss";
+@import "../colors.scss";
 @import "../_variable.scss";
 
 * {
@@ -18,7 +17,7 @@
     width: 100%;
     max-width: 1600px;
 
-    header {
+    .banner {
         display: flex;
         justify-content: left;
         align-items: center;
@@ -44,17 +43,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            @include inputs;
 
             button {
                 @include buttonPattern;
             }
-
-
-            * {
-                margin-bottom: 15px;
-            }
-
-
         }
 
         .registration {

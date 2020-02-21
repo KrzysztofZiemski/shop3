@@ -2,7 +2,7 @@ import { Api } from './handleApi.js';
 import { CreateItems } from './createItems.js';
 import { Config } from './config.js';
 import { basket } from './basket.js';
-import '../sass/all.scss';
+import '../sass/shop.scss';
 class HandleSite {
     constructor() {
         this.basket = basket;;
