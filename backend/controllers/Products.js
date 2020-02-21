@@ -2,45 +2,32 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const path = require('path');
 const fs = require('fs');
-
-const Validate = require('../schema');
+const config = require('./../config.json')
+const Validate = require('./modelsDB');
 
 class Product {
     constructor() {
-        this.db = new PouchDB('./db/products');
+        this.db = new PouchDB(path.resolve(__dirname, './../db/products'));
         this.validate = new Validate();
     }
 
-    getAll() {
-        return this.db.allDocs({ include_docs: true });
-    }
+    getAll = () => this.db.allDocs({ include_docs: true });
 
-    getProduct(id) {
-        return this.db.get(id)
-    }
+    getProduct = (id) => this.db.get(id)
 
-    filterProperty(propertyObject) {
-        console.log(propertyObject)
-        return this.db.find({
-            selector: propertyObject
-        })
-    }
-    //warunki zapytania
-    addProduct(data) {
-        return this._validate(data)
-            .then(response => {
-                this.db.post(
-                    { ...response }
-                )
-            })
-    }
+    filterProperty = (propertyObject) => this.db.find({ selector: propertyObject })
+
+    addProduct = (data) => this._validate(data).then(response => this.db.post({ ...response }))
+
     async changeProduct(id, data) {
         const product = await this.getProduct(id);
-        data['image'] = `http://localhost:3000/${data.name}.png`
+
         if (data.name !== product.name) {
-            const pathImg = path.join(__dirname, `../static/${product.name}.png`);
+            data['image'] = `${config.SERVER}/${data.name}.png`;
+            const pathImg = path.resolve(__dirname, `../static/${product.name}.png`);
+            const newPath = path.resolve(__dirname, `../static/${data.name}.png`);
             try {
-                fs.unlinkSync(pathImg, (err) => console.log("błąd podczas usuwania pliku"))
+                fs.rename(pathImg, newPath, (err) => { if (err) console.log("błąd podczas usuwania pliku") })
             } catch{
                 console.log('błąd podczas usuwania pliku')
             }
@@ -48,9 +35,8 @@ class Product {
         return this._updateProduct(product, data);
     }
 
-    _updateProduct(product, data) {
-        return this.db.put({ ...product, ...data })
-    }
+    _updateProduct = (product, data) => this.db.put({ ...product, ...data })
+
     async deleteProduct(id) {
         const product = await this.getProduct(id)
 
@@ -62,6 +48,7 @@ class Product {
         }
         return this.db.remove(product)
     }
+
     async buy(productList) {
         const response = await Promise.all(productList.map(element => {
             element.product.count -= element.countBought;
@@ -70,16 +57,10 @@ class Product {
         }))
         return response
     }
-    searchProduct(name) {
-        return this.db.find({
-            selector: { name },
-            fields: ['name']
-        })
-            .then(response => { response.docs.length === 0 ? false : true });
-    }
-    _validate(data) {
-        return this.validate.validateProduct(data)
-    }
+    searchProduct = (name) => this.db.find({ selector: { name }, fields: ['name'] }).then(response => response.docs);
+
+    _validate = (data) => this.validate.validateProduct(data)
+
 }
 
 module.exports = Product;

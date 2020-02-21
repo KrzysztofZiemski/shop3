@@ -7,7 +7,7 @@ const Users = require('./users.js');
 
 class Authentication {
     constructor() {
-        this.db = new PouchDB('./db/users');
+        this.db = new PouchDB(path.resolve(__dirname, '../db/users'));
         this.users = new Users();
     }
 

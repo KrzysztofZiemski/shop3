@@ -1,58 +1,58 @@
 const express = require('express');
-const Validate = require('../schema');
+const Validate = require('../controllers/modelsDB');
 const Product = require('../controllers/products.js');
 const Transactions = require('../controllers/transactions.js');
 
 class Buy {
     constructor(data) {
-        this.transactions = new Transactions();
-        this.validate = new Validate();
-        this.api = new Product()
         this.userId = data.userId;
         this.products = data.products;
         this.fulName = data.fulName;
         this.adress = data.adress;
+        this.mail = data.mail;
         this.date = new Date();
+        this.transactions = new Transactions();
+        this.validate = new Validate();
+        this.api = new Product();
 
     }
-    async start(res) {
+    async start() {
         try {
             let { products, fulName, adress, userId } = this;
+            const productsDB = await this.getProductsById(products).then(products => this.checkAvaible(products)).catch(e => new Error('Product not enought'));
+            if (!productsDB) return
 
-            products = await this.getProductsById(products);
-            const isAvaible = this.checkAvaible(products);
-
-            if (!this.checkAvaible(products)) return res.status(404).json('not enought')
-            const sumPrice = this.sumPrice(products);
+            const sumPrice = this.sumPrice(productsDB);
 
             const date = new Date().toISOString().slice(0, 10);
+
             const data = {
                 products, userId, fulName, adress, sumPrice, date
             }
 
-            const validateTransaction = await this.validate.validateTransaction(data);
-            if (!validateTransaction) return false
-            const resultAddTransaciot = await this.transactions.add(validateTransaction)
+            const isOkTransaction = await this.validate.validateTransaction(data);
 
-            const summaryResponse = {
-                idTransacion: resultAddTransaciot.id,
-                buyedProducts: products,
+            if (!isOkTransaction) return false;
+
+            const resultAddTransacion = await this.transactions.add(isOkTransaction.products);
+            if (!resultAddTransacion.id) return false;
+            return {
+                idTransacion: resultAddTransacion.id,
+                buyedProducts: productsDB,
                 sumPrice: sumPrice
             }
 
-            return summaryResponse
         } catch (e) {
-            console.log(e)
+            new Error('error server')
         }
 
     }
     checkAvaible(products) {
-        let avaible = true;
-        products.forEach(item => {
-            if (item.product.count - item.countBought < 0) avaible = false;
-        })
-
-        return avaible
+        return new Promise((resolve, reject) => {
+            products.forEach(item => {
+                parseInt(item.product.count) - parseInt(item.countBought) < 0 ? reject() : resolve(products);
+            })
+        });
     }
 
     async getProductsById(products) {
@@ -68,9 +68,8 @@ class Buy {
     sumPrice(arrProducts) {
         let sum = 0;
         arrProducts.forEach(product => {
-            sum += Number(product.product.price) * Number(product.countBought);
+            sum += parseInt(product.product.price) * parseInt(product.countBought);
         });
-
         return sum
     }
 

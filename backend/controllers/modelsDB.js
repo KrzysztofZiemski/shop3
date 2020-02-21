@@ -53,26 +53,26 @@ class Validate {
             let isCorrect = true;
             for (let user in validateUser) {
                 if (validateUser[user] === undefined) isCorrect = false;
+                break;
             }
             if (isCorrect) resolve(validateUser)
             reject('not enough user informations')
         })
     }
     validateTransaction(transaction) {
-        const validateTransaction = { ...this.schemaTransaction, ...transaction };
-        validateTransaction.userId = validateTransaction.userId === undefined ? 'not registered' : validateTransaction.userId;
-        let isCorrect = true;
-        for (let i in validateTransaction) {
-            if (validateTransaction[i] === undefined) {
-                isCorrect = false;
-                break;
-            } else if (Array.isArray(validateTransaction[transaction]) && validateTransaction[transaction].length === 0) {
-                isCorrect = false;
-                break;
+        return new Promise((resolve, reject) => {
+            const validateTransaction = { ...this.schemaTransaction, ...transaction };
+            let isCorrect = true;
+            for (let i in validateTransaction) {
+                if (validateTransaction[i] === undefined) {
+                    isCorrect = false;
+                    break;
+                }
             }
-        }
-        if (isCorrect) return validateTransaction;
-        return false;
+            if (isCorrect) resolve(validateTransaction);
+            reject('not enough transaction informations')
+        })
+
     }
 }
 

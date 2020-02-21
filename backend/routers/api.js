@@ -5,7 +5,7 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const AuthController = require('../controllers/authentication.js');
-
+const config = require('./../config.json');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../static'));
@@ -46,16 +46,16 @@ class ApiRouter {
         this.products.filterProperty(category)
             .then(response => res.json(response))
             .catch(err => {
-                res.status(500).send(err)
+                res.status(500).json(err)
             })
     }
     _getAllProducts(req, res) {
         this.products.getAll()
             .then(response => {
-                res.status(200).send(response);
+                res.status(200).json(response);
             })
             .catch(err => {
-                res.status(500).send(err)
+                res.status(500).json(err)
             })
     }
 
@@ -63,29 +63,28 @@ class ApiRouter {
         const id = req.params.id;
         this.products.getProduct(id)
             .then(response => {
-                res.status(200).send(response)
+                res.status(200).json(response)
             })
             .catch(err => {
-                res.status(500).send(err)
+                res.status(500).json(err)
             })
     }
     async _addProduct(req, res) {
         const data = req.body;
-        console.log('router', data)
-        data['image'] = `http://localhost:3000/${req.body.name}.png`;
+        data['image'] = `${config.SERVER}/${req.body.name}.png`;
         data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
         data.count = Number(data.count);
         data.price = Number(data.price);
+
         const isOk = this._checkDataComplete(data, req.file);
-        if (!isOk) res.status(400).send('brak wszystkich wymaganych informacji');
-        // const isExist = await this.products.searchProduct(data.name);
-        // if (isExist) res.status(400).send('produkt już istnieje');
-        this.products.addProduct(data)
-            .then(response => {
-                res.status(200).send(response)
-            })
+        if (!isOk) res.status(400).json('brak wszystkich wymaganych informacji');
+
+        const isExisteSameNameProduct = await this.products.searchProduct(data.name);
+        if (isExisteSameNameProduct.length !== 0) res.status(400).json('produkt już istnieje');
+
+        this.products.addProduct(data).then(response => res.status(200).json(response))
             .catch(err => {
-                res.status(500).send(err)
+                res.status(500).json(err)
             })
     }
     _checkDataComplete(data, file) {
@@ -104,7 +103,7 @@ class ApiRouter {
         const id = req.params.id;
         this.products.changeProduct(id, data)
             .then(response => {
-                res.status(200).send(response);
+                res.status(200).json(response);
             })
             .catch(err => {
                 res.status(500)
@@ -116,10 +115,10 @@ class ApiRouter {
         const id = req.params.id;
         this.products.deleteProduct(id)
             .then(response => {
-                res.status(200).send(response);
+                res.status(200).json(response);
             })
             .catch(err => {
-                res.status(500).send(err)
+                res.status(500).json(err)
             })
     }
 
