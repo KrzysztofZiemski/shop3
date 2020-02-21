@@ -1,8 +1,10 @@
 import { Config } from './config.js';
 import '../sass/registration.scss';
+import { CreateItems } from './createItems.js';
 
 class Registration {
     constructor() {
+        this.createItems = new CreateItems();
         this.form = document.querySelector('#registration');
         this.login = document.querySelector('#login');
         this.password = document.querySelector('#password');
@@ -50,6 +52,9 @@ class Registration {
         if (password !== passwordConfirm) return this.message.innerText = "hasła nie są takie same";
         if (!login, !password, !mail) return this.message.innerText = "nie wypełniono wszystkich potrzebnych pól";
         const data = { login, password, mail }
+        const loader = this.createItems.createLoader();
+        this.message.appendChild(loader);
+
         fetch(this.urlusers, {
             method: 'POST',
             body: JSON.stringify(data),
@@ -61,7 +66,7 @@ class Registration {
             return response.json()
         })
             .then(response => {
-                this.message.innerText = response;
+                this.message.innerHTML = 'Dziękujemy za rejestrację. Zapraszamy do <a href="/">zalogowania</a> się';
             })
             .catch(err => {
                 this.message.innerText = "Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie.";

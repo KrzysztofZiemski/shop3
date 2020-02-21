@@ -9,7 +9,11 @@ class CreateItems {
         this.admin = new Api();
         this.basket = basket;
     }
-
+    createLoader() {
+        const loader = document.createElement('div');
+        loader.classList.add('loader');
+        return loader
+    }
     createMessageElement(message) {
         const aside = document.createElement('aside');
         aside.className = "message";
@@ -31,48 +35,6 @@ class CreateItems {
         })
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////pojedyńczy element - jeszcze nie wdrożyłem///////////////////////////
-    // singleProductShop(product) {
-    //     const articleContainer = document.createElement('article');
-    //     articleContainer.className = 'productPresentation';
-    //     this._createSingleProductShop(product, articleContainer);
-    //     return articleContainer;
-    // } 
-
-    // _createSingleProductShop(product, articleContainer) {
-    //     const { name, description, img, price, count, category } = product;
-    //     const nameElement = document.createElement('h1');
-    //     nameElement.innerText = name;
-
-    //     const priceElement = document.createElement('p');
-    //     priceElement.innerText = `Cena: ${price}`;
-
-    //     const descriptionElement = document.createElement('p');
-    //     descriptionElement.innerText = description;
-
-    //     const countElement = document.createElement('p');
-    //     countElement.innerText = `Dostępnych: ${count}`;
-
-    //     const buttonContainer = document.createElement('div');
-    //     const closeBtn = document.createElement('button');
-    //     closeBtn.innerText = 'Zamknij';
-
-    //     closeBtn.addEventListener('click', () => articleContainer.remove())
-    //     buttonContainer.appendChild(closeBtn);
-
-    //     articleContainer.append(nameElement);
-    //     articleContainer.append(priceElement);
-    //     articleContainer.append(descriptionElement);
-    //     articleContainer.append(countElement);
-    //     articleContainer.append(buttonContainer);
-    //     return articleContainer;
-    // }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     _createProductShop(product, articleContainer) {
         const { name, description, price, count, image, category } = product;
         const imageHTML = document.createElement('img');

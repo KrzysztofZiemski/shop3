@@ -39,7 +39,6 @@ class HandleSite {
         this.minPriceFilter.addEventListener('change', this.runFilter.bind(this));
     }
     async StartSite() {
-
         let cookie = this.api.getCookies();
         if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
             const successRefresh = await this.api.refreshToken(cookie.refreshToken);
@@ -73,7 +72,6 @@ class HandleSite {
     toggleNav() {
         document.querySelector('#categoryNav').classList.toggle('show');
         document.querySelector('#showNavBtn').classList.toggle('hide');
-        // this.showNavBtn.classList.toggle('hide');
     }
     closeNav() {
 
@@ -123,22 +121,6 @@ class HandleSite {
         return categories
     }
 
-    //zmmiana do przemyslenia
-    // getParams() {
-    //     const path = window.location.href.split('?');
-    //     const arrayPath = path.length === 1 ? [] : path[1].split('=');
-    //     if (path.length === 1) return [];
-
-    //     const StringsParamsArr = path[1].split('&');
-    //     const params = {}
-    //     StringsParamsArr.forEach(data => {
-    //         const singleCategoryArr = data.split('=');
-    //         params[singleCategoryArr[0]] = singleCategoryArr[1];
-    //     })
-    //     return params
-    // }
-
-    ////////////////////////////////////
     async showAll() {
         const path = window.location.href.split('?');
         const checkQueriesName = path.length === 1 ? [] : path[1].split('=');

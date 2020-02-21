@@ -1,6 +1,5 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_variable.scss";
 
 #root {
     font-family: "Roboto", sans-serif;
@@ -9,21 +8,19 @@
     min-height: 100vh;
     margin: 0px auto;
     width: 100%;
-    max-width: 1600px;
 
     .banner {
-        display: flex;
-        justify-content: left;
-        align-items: center;
+        width: 100%;
 
-        .logo {
-            height: 100px;
-            margin-left: 20px;
+        img {
+            display: block;
+            width: 100%;
         }
+
     }
 
     .registrationContainer {
-        width: 50%;
+        width: 75%;
         margin: 40px auto;
         padding: 15px;
         border: 3px solid $primaryColor;

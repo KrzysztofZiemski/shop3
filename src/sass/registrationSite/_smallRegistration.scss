@@ -1,6 +1,6 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_variable.scss";
+
 
 #root {
     font-family: "Roboto", sans-serif;
@@ -9,22 +9,19 @@
     min-height: 100vh;
     margin: 0px auto;
     width: 100%;
-    max-width: 1600px;
 
     .banner {
-        display: flex;
-        justify-content: left;
-        align-items: center;
+        width: 100%;
 
-        .logo {
-            height: 100px;
-            margin-left: 20px;
+        img {
+            width: 100%;
         }
+
     }
 
     .registrationContainer {
+        box-sizing: border-box;
         width: 100%;
-        margin: 5px auto;
         padding: 15px;
         border: 3px solid $primaryColor;
 
@@ -47,6 +44,7 @@
 
                 @include inputs()
             }
+
 
             .btnSubmit {
                 display: flex;

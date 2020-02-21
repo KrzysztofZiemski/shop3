@@ -1,6 +1,5 @@
 @import "../_colors.scss";
 @import "../_mixins.scss";
-@import "../_variable.scss";
 
 * {
     margin: 0;
@@ -213,14 +212,12 @@
         margin: 1%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-evenly;
 
         .product {
-            width: 30%;
             padding: 2%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             margin-bottom: 20px;
             overflow: hidden;
             margin-bottom: 30px;
@@ -228,11 +225,17 @@
             margin-left: 8px;
             background-color: $productColor;
 
+            &:last-child {
+                &:nth-child(odd) {
+                    width: 60%;
+                }
+            }
+
             .ImgContainer {
                 text-align: center;
 
                 img {
-                    height: 150px;
+                    height: 180px;
                     padding-bottom: 5px;
                     margin-bottom: 10px;
                 }

@@ -1,3 +1,5 @@
+@import './animations';
+
 @mixin buttonPattern($padding:5px, $width:100px, $bgcColor:$secondaryColor, $color:$textOnSecondaryColor, $borderColor:$primaryColor, ) {
     width: $width;
     background-color: $bgcColor;
@@ -31,4 +33,14 @@
         border-radius: 4px;
         box-sizing: border-box;
     }
+}
+
+@mixin loader($size:120px, $thickness:18px) {
+    transform: translate(-50%, -50%);
+    border: $thickness solid #f3f3f3;
+    border-top: $thickness solid #3498db;
+    border-radius: 50%;
+    width: $size;
+    height: $size;
+    animation: spinLoader 2s linear infinite;
 }

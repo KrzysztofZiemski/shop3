@@ -1,6 +1,5 @@
 @import "../_mixins.scss";
 @import "../colors.scss";
-@import "../_variable.scss";
 
 * {
     padding: 0;
@@ -18,13 +17,9 @@
     max-width: 1600px;
 
     .banner {
-        display: flex;
-        justify-content: left;
-        align-items: center;
 
-        .logo {
-            height: 100px;
-            margin-left: 20px;
+        img {
+            width: 100%;
         }
     }
 
