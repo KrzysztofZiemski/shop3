@@ -35,7 +35,7 @@
     }
 }
 
-@mixin loader($size:120px, $thickness:18px) {
+@mixin loader($thickness:18px, $size:120px) {
     transform: translate(-50%, -50%);
     border: $thickness solid #f3f3f3;
     border-top: $thickness solid #3498db;

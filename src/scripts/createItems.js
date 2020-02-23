@@ -143,12 +143,15 @@ class CreateItems {
         const count = document.createElement('td');
         const countInput = document.createElement('input');
         countInput.setAttribute("disabled", true);
+        countInput.setAttribute("type", "number");
         countInput.value = product.count;
         count.appendChild(countInput);
 
         const price = document.createElement('td');
         const priceInput = document.createElement('input');
         priceInput.setAttribute("disabled", true);
+        priceInput.setAttribute("type", "number");
+
         priceInput.value = product.price;
         price.appendChild(priceInput);
 

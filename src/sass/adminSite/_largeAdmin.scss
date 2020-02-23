@@ -5,6 +5,12 @@ body {
     font-family: 'roboto';
 }
 
+.banner {
+    img {
+        width: 100%;
+    }
+}
+
 .adminHeader {
     background-color: $primaryColor;
     display: flex;
@@ -147,49 +153,47 @@ main {
             border-bottom: 2px solid $primaryColor;
         }
 
-        #productsContainer {
+        .productsContainer {
             table {
-                margin: 5px auto;
+                margin: 2px auto;
+                width: 100%;
 
                 * {
-                    margin: 5px;
-                    padding: 5px;
+                    margin: 2px;
+                    padding: 2px;
                 }
 
-                td {
-                    width: 10%;
-                }
-
-
-
-                .adminTagsProduct {
-                    display: flex;
-                    flex-direction: column;
-                    font-size: 12px;
-                    width: 100%;
-
-                    span {
-                        display: flex;
-                        align-items: center;
-                        width: 100%;
-                        margin: 0;
-                        padding: 0;
-
-                        * {
-                            margin: 0;
-                            padding: 0;
+                tr {
+                    td {
+                        input[type=number] {
+                            max-width: 40px;
                         }
                     }
-                }
 
-                .imageCell {
-                    img {
-                        height: 50px;
+                    .imageCell {
+                        img {
+                            height: 50px;
+                        }
                     }
-                }
 
-                input {
-                    font-size: 14px;
+
+                    .adminTagsProduct {
+                        display: flex;
+                        flex-wrap: wrap;
+                        font-size: 12px;
+                        width: 250px;
+
+                        span {
+                            width: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            display: flex;
+                            margin: 0;
+                            padding: 0;
+                            overflow: hidden;
+                        }
+                    }
                 }
 
                 button {
