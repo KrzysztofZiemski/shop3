@@ -3,8 +3,9 @@ import { Config } from './config.js';
 class Api {
     constructor() {
         this.config = new Config();
-        this.urlProducts = this.config.url + '/api/';
-        this.urlUsers = this.config.url + '/users/';
+        this.urlProducts = this.config.url + 'api/';
+        this.urlUsers = this.config.url + 'users/';
+        this.urlTransactions = this.config.url + 'transactions/';
     }
 
     getCookies() {
@@ -168,7 +169,7 @@ class Api {
     }
     //nie działa przy odpalaniu strony na pewno. wyskakuje tez czasami jakiś błąd
     async refreshToken(refreshToken) {
-        const refreshUrl = this.config.url + '/auth/token';
+        const refreshUrl = this.config.url + 'auth/token';
         const data = {
             refreshToken: refreshToken
         }
@@ -221,7 +222,7 @@ class Api {
     }
 
     buy(data) {
-        const url = 'http://localhost:3000/server/transactions/buy';
+        const url = `${this.urlTransactions}buy`;
         return fetch(url, {
             method: "post",
             body: JSON.stringify(data),

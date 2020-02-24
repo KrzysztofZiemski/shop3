@@ -9,11 +9,7 @@ class CreateItems {
         this.admin = new Api();
         this.basket = basket;
     }
-    createLoader() {
-        const loader = document.createElement('div');
-        loader.classList.add('loader');
-        return loader
-    }
+
     createMessageElement(message) {
         const aside = document.createElement('aside');
         aside.className = "message";
@@ -312,6 +308,20 @@ class CreateItems {
             return singleTag;
         })
     }
+    createMessage(text) {
+        const bgcMessage = document.createElement('div');
+        bgcMessage.classList.add('errorMessage');
+        const message = document.createElement('p');
+        message.innerText = text ? text : 'Wystąpiły problemy techniczne. Pracujemy nad ich rozwiązaniem';
+        const btnClose = document.createElement('button');
+        const x = '&#9747'
+        btnClose.innerHTML = x;
+
+        btnClose.addEventListener('click', () => document.body.removeChild(bgcMessage));
+        message.append(btnClose)
+        bgcMessage.append(message);
+        document.body.append(bgcMessage);
+    }
     addTagsToAddPanel() {
         return this.config.tags.map(tag => {
             const tagId = `addPanel${tag}`;
@@ -329,6 +339,16 @@ class CreateItems {
             singleTag.appendChild(checkbox);
             singleTag.appendChild(label);
             return singleTag;
+        })
+    }
+    createLoader() {
+        this.loader = document.createElement('div');
+        this.loader.classList.add('loader');
+        return this.loader;
+    }
+    removeLoader() {
+        document.querySelectorAll('.loader').forEach(loader => {
+            loader.parentNode.removeChild(loader);
         })
     }
 

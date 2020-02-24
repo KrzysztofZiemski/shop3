@@ -10,7 +10,6 @@ class HandleSite {
         this.createItems = new CreateItems();
         this.api = new Api();
         this.productContainer = document.getElementById('products');
-        this.showAll()
         this.products = [];
         this.config = new Config();
         this.basket = basket;
@@ -21,7 +20,7 @@ class HandleSite {
                 max: ""
             }
         }
-
+        this.root = document.querySelector("#root");
         this.StartSite()
         this.putColorsListToFilterOption();
 
@@ -45,7 +44,6 @@ class HandleSite {
             if (!successRefresh) return;
             cookie = this.api.getCookies();
         }
-
         this.user = await this.api.getUser();
         if (this.user && this.user.activeBasket.length > 0) {
             this.basket.setBasket(this.user.activeBasket);
@@ -55,7 +53,6 @@ class HandleSite {
         }
         if (this.user) {
             const helloBanner = document.querySelector('#welcome');
-
             const spanBannerText = document.createElement('span');
             spanBannerText.innerText = 'Witaj';
             helloBanner.appendChild(spanBannerText);
@@ -68,6 +65,8 @@ class HandleSite {
         const loginLink = document.querySelector('#login');
         loginLink.innerText = this.user ? 'Wyloguj' : 'Zaloguj';
         loginLink.href = this.user ? '/logout' : '/login';
+        this.root.append(this.createItems.createLoader());
+        this.showAll().then(data => this.createItems.removeLoader())
     }
     toggleNav() {
         document.querySelector('#categoryNav').classList.toggle('show');
@@ -135,7 +134,6 @@ class HandleSite {
         } else if (path.length > 1 && checkQueriesName[0] === 'message') {
             const message = decodeURIComponent(checkQueriesName[1]);
             const messageElement = this.createItems.createMessageElement(message);
-            document.querySelector("#root").prepend(messageElement);
             try {
                 await this.api.getAll().then(products => products.rows.forEach(product => this.products.push(product.doc)))
             } catch {

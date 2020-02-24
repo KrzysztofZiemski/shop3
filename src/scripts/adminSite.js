@@ -8,6 +8,7 @@ class Admin {
         this.api = new Api();
         this.config = new Config();
         this.createItems = new CreateItems();
+        this.root = document.querySelector('#root');
         this.checkToken();
         this.productsTable = this.createItems.createTableAdmin();
         document.getElementById('productsContainer').append(this.productsTable);
@@ -36,31 +37,36 @@ class Admin {
             else this.getAllProducts();
         })
 
-        this.checkToken();
     }
 
     async checkToken() {
-        let cookie = this.api.getCookies();
-        if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
-            const successRefresh = await this.api.refreshToken(cookie.refreshToken);
-            if (!successRefresh) return;
-            cookie = await this.api.getCookies();
+        try {
+
+            let cookie = this.api.getCookies();
+            if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
+                const successRefresh = await this.api.refreshToken(cookie.refreshToken);
+                if (!successRefresh) return;
+                cookie = await this.api.getCookies();
+            }
+            let response
+            const url = `${this.config.url}/auth/check`;
+            const accessToken = cookie ? cookie.accessToken : null;
+            const refreshToken = cookie ? cookie.refreshToken : null;
+            if (cookie !== null) {
+                response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                })
+            }
+
+            if (!response || response.status !== 200) {
+                window.location.replace("/login?auth=denied");
+            }
         }
-        let response
-        const url = `${this.config.url}/auth/check`;
-        const accessToken = cookie ? cookie.accessToken : null;
-        const refreshToken = cookie ? cookie.refreshToken : null;
-        if (cookie !== null) {
-            response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            })
-        }
-        console.log(window.location.pathname)
-        if (response === undefined || response.status !== 200) {
-            window.location.replace("/login?auth=denied");
+        catch{
+            // window.location.replace("/login?auth=błąd servera");
         }
     }
 
@@ -84,37 +90,74 @@ class Admin {
         const tags = Array.prototype.map.call(tagsListChecked, (tag) => tag.value);
         const data = { name: name.value, count: count.value, description: description.value, price: price.value, category: category.value, image: image.files[0], tags };
 
-        try {
-            this.api.add(data).then(response => {
-                const message = document.querySelector('#addMessage');
-                if (response.ok) {
-                    message.className = "success";
-                    message.innerText = `Dodano produkt: ${name.value}`;
+
+        this.root.append(this.createItems.createLoader());
+        this.api.add(data)
+            .then(data => {
+                console.log('data', data)
+                if (data.ok) {
+                    this.createItems.createMessage('dodano produkt')
                     name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
-                    tagsListChecked.forEach(element => element.checked = false)
+                    tagsListChecked.forEach(element => element.checked = false);
+                    this.createItems.removeLoader();
                 } else {
-                    message.className = "error";
-                    message.innerText = `Błąd podczas dodawania: ${response}`;
+                    this.createItems.createMessage('błąd podczas dodawania produktu. Sprawdź wszystkie dane');
+                    this.createItems.removeLoader();
                 }
             })
-        } catch (e) {
-            console.log('błąd przy próbie dodawania produktu')
-        }
+            .catch(err => {
+                this.createItems.removeLoader();
+                this.createItems.createMessage('Nie udało się dodać produktu - pracujemy nad rozwiązaniem problemu');
+            })
+        // .then(data => {
+
+        //     if (data === succes) {
+        //         message.className = "success";
+        //         message.innerText = `Dodano produkt: ${name.value}`;
+        //         name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
+        //         tagsListChecked.forEach(element => element.checked = false);
+        //     } else {
+        //         message.className = "error";
+        //         message.innerText = `Błąd dodawania produktu: ${name.value}`;
+        //     }
+        //     this.createItems.removeLoader();
+        // })
+        //     .catch(err => {
+        //         console.log('eee', data)
+        //         this.createItems.removeLoader();
+        //         this.createItems.createMessage();
+        //     })
+
+        //     const message = document.querySelector('#addMessage');
+        //     if (response.ok) {
+        //         message.className = "success";
+        //         message.innerText = `Dodano produkt: ${name.value}`;
+        //         name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
+        //         tagsListChecked.forEach(element => element.checked = false);
+        //     } else {
+        //         alert('sdsd')
+        //     }
+
+
     }
     //////////////////////////////////////////////
     getAllProducts() {
-        try {
-            this.api.getAll()
-                .then(products => {
-                    this.productList.innerText = "";
-                    Array.prototype.forEach.call(products.rows, function (product) {
-                        const productHTML = this.createItems.adminProduct(product.doc);
-                        this.productList.append(productHTML);
-                    }.bind(this))
-                })
-        } catch (e) {
-            console.log('błąd przy próbie pobrania poduktów')
-        }
+        this.root.appendChild(this.createItems.createLoader());
+        this.productList.innerText = "";
+        this.api.getAll()
+            .then(products => {
+                this.createItems.removeLoader()
+                this.productList.innerText = "";
+                Array.prototype.forEach.call(products.rows, function (product) {
+                    const productHTML = this.createItems.adminProduct(product.doc);
+                    this.productList.append(productHTML);
+                    this.createItems.removeLoader()
+                }.bind(this))
+            }).catch(e => {
+                this.createItems.removeLoader();
+                this.createItems.createMessage();
+            })
+
     }
     getSingleProduct(id) {
         try {

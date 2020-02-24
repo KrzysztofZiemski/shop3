@@ -79,13 +79,19 @@ class ApiRouter {
         const isOk = this._checkDataComplete(data, req.file);
         if (!isOk) res.status(400).json('brak wszystkich wymaganych informacji');
 
-        const isExisteSameNameProduct = await this.products.searchProduct(data.name);
-        if (isExisteSameNameProduct.length !== 0) res.status(400).json('produkt już istnieje');
+        const isExistSameNameProduct = await this.products.searchProduct(data.name);
 
-        this.products.addProduct(data).then(response => res.status(200).json(response))
-            .catch(err => {
-                res.status(500).json(err)
-            })
+        console.log(isExistSameNameProduct.length)
+        if (isExistSameNameProduct.length !== 0) {
+            return res.status(400).json('produkt już istnieje');
+        }
+        this.products.addProduct(data).then(response => {
+            console.log('doszloOK')
+            return res.status(200).json('dodano produkt');
+        }).catch(err => {
+            console.log('doszlo2')
+            res.status(500).json(err)
+        })
     }
     _checkDataComplete(data, file) {
         const { name, description, category, count, price, image, tags } = data
