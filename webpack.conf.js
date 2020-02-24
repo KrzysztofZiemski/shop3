@@ -6,11 +6,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        app: './src/scripts/handleSite.js',
-        registration: './src/scripts/handleRegistration.js',
-        login: './src/scripts/handleLogin.js',
-        admin: './src/scripts/adminSite.js',
-        logout: './src/scripts/handleLogout.js',
+        app: path.resolve(__dirname, './src/scripts/handleSite.js'),
+        registration: path.resolve(__dirname, './src/scripts/handleRegistration.js'),
+        login: path.resolve(__dirname, './src/scripts/handleLogin.js'),
+        admin: path.resolve(__dirname, './src/scripts/adminSite.js'),
+        logout: path.resolve(__dirname, './src/scripts/handleLogout.js'),
     },
     output: {
         filename: '[name].js',
@@ -21,38 +21,38 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'shop',
-            template: './src/shop/index.html',
+            template: path.resolve(__dirname, './src/pages/shop/index.html'),
             filename: 'index.html',
             chunks: ['app'],
         }),
         new HtmlWebpackPlugin({
             title: 'registration-shop',
-            template: './src/registration/index.html',
+            template: path.resolve(__dirname, './src/pages/registration/index.html'),
             filename: 'registration/index.html',
             chunks: ['registration'],
         }),
         new HtmlWebpackPlugin({
             title: 'login-shop',
-            template: './src/login/index.html',
+            template: path.resolve(__dirname, './src/pages/login/index.html'),
             filename: 'login/index.html',
             chunks: ['login'],
         }),
         new HtmlWebpackPlugin({
             title: 'admin',
-            template: './src/admin/index.html',
+            template: path.resolve(__dirname, './src/pages/admin/index.html'),
             filename: 'admin/index.html',
             chunks: ['admin'],
+        }),
+        new HtmlWebpackPlugin({
+            title: 'logout',
+            template: path.resolve(__dirname, './src/pages/logout/index.html'),
+            filename: 'logout/index.html',
+            chunks: ['logout'],
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: path.resolve(__dirname, 'disc'),
             ignoreOrder: false,
-        }),
-        new HtmlWebpackPlugin({
-            title: 'logout',
-            template: './src/logout/index.html',
-            filename: 'logout/index.html',
-            chunks: ['logout'],
         }),
     ],
     module: {

@@ -3,7 +3,7 @@ const path = require('path');
 const bcrypt = require('bcryptjs');
 const PouchDB = require('pouchdb');
 const jwt = require('jsonwebtoken');
-const Users = require('./users.js');
+const Users = require(path.resolve(__dirname, './users.js'));
 
 class Authentication {
     constructor() {

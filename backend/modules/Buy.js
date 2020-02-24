@@ -1,7 +1,8 @@
 const express = require('express');
-const Validate = require('../controllers/modelsDB');
-const Product = require('../controllers/products.js');
-const Transactions = require('../controllers/transactions.js');
+const path = require('path');
+const Validate = require(path.resolve(__dirname, '../controllers/modelsDB'));
+const Product = require(path.resolve(__dirname, '../controllers/products.js'));
+const Transactions = require(path.resolve(__dirname, '../controllers/transactions.js'));
 
 class Buy {
     constructor(data) {

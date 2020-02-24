@@ -1,11 +1,11 @@
 const express = require('express');
-const Product = require('../controllers/products.js');
-const Errors = require('../controllers/errors.js');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const AuthController = require('../controllers/authentication.js');
-const config = require('./../config.json');
+const Product = require(path.resolve(__dirname, '../controllers/products.js'));
+const AuthController = require(path.resolve(__dirname, '../controllers/authentication.js'));
+const config = require(path.resolve(__dirname, './../config.json'));
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, path.join(__dirname, '../static'));
@@ -117,7 +117,6 @@ class ApiRouter {
     }
 
     _deleteProduct(req, res) {
-        // if (req.body.tokenId.rol !== 'user') res.status(401).send('unauthorization')
         const id = req.params.id;
         this.products.deleteProduct(id)
             .then(response => {

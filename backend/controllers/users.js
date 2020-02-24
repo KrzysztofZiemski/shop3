@@ -2,7 +2,7 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const Validate = require('./modelsDB.js');
+const Validate = require(path.resolve(__dirname, './modelsDB.js'));
 
 
 class Users {

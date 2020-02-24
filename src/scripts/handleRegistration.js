@@ -49,8 +49,8 @@ class Registration {
         const correct = this.validate(login, password, passwordConfirm, mail);
         if (!correct) return
 
-        if (password !== passwordConfirm) return this.message.innerText = "hasła nie są takie same";
-        if (!login, !password, !mail) return this.message.innerText = "nie wypełniono wszystkich potrzebnych pól";
+        if (password !== passwordConfirm) return this.createItems.createMessage('podane hasła nie są identyczne');
+        if (!login, !password, !mail) return this.createItems.createMessage('nie wypełniono wszystkich potrzebnych pól');
         const data = { login, password, mail }
         const loader = this.createItems.createLoader();
         this.message.appendChild(loader);
@@ -66,10 +66,10 @@ class Registration {
             return response.json()
         })
             .then(response => {
-                this.message.innerHTML = 'Dziękujemy za rejestrację. Zapraszamy do <a href="/">zalogowania</a> się';
+                this.createItems.createMessage('Dziękujemy za rejestrację. Zapraszamy do zalogowania się');
             })
             .catch(err => {
-                this.message.innerText = "Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie.";
+                this.createItems.createMessage('Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie');
             })
     }
 }

@@ -7,6 +7,8 @@
     box-sizing: border-box;
 }
 
+@include errorMessage;
+
 #root {
     font-family: "Roboto", sans-serif;
     display: flex;

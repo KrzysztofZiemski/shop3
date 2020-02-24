@@ -1,6 +1,7 @@
 const express = require('express');
-const Users = require('../controllers/users.js');
-const AuthController = require('../controllers/authentication.js');
+const path = require('path');
+const Users = require(path.resolve(__dirname, '../controllers/users.js'));
+const AuthController = require(path.resolve(__dirname, '../controllers/authentication.js'));
 
 const jwt = require('jsonwebtoken');
 
@@ -49,12 +50,12 @@ class AuthRouter {
 
     async login(req, res) {
         const response = await this.users.getUser(req.body.login);
-        if (response === null) return res.status(400).json('błędny login lub hasło');
-        if (response.docs.length !== 1 || req.body.password === undefined) res.json(400).send('błędne zapytanie do servera');
+        if (response === null) return res.status(401).json('błędny login lub hasło');
+        if (response.docs.length !== 1 || req.body.password === undefined) res.json(401).send('błędne zapytanie do servera');
         const user = response.docs[0];
         const token = await this.auth.login(user, req.body.password);
-        res.json(token);
-
+        if (token === null) return res.status(401).json('błędny login lub hasło');
+        res.json({ token, permission: user.permission });
     }
 
 }

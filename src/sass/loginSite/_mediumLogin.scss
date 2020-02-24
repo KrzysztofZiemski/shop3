@@ -13,6 +13,8 @@ body {
     padding: 0;
 }
 
+@include errorMessage;
+
 #root {
     font-family: "Roboto", sans-serif;
     display: flex;

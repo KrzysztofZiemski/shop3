@@ -2,8 +2,8 @@ const PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-find'));
 const path = require('path');
 const fs = require('fs');
-const config = require('./../config.json')
-const Validate = require('./modelsDB');
+const config = require(path.resolve(__dirname, './../config.json'))
+const Validate = require(path.resolve(__dirname, './modelsDB'));
 
 class Product {
     constructor() {

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.conf.js",
     "start": "webpack-dev-server --open --config webpack.conf.js",
-    "server": "nodemon backend/index.js"
+    "server": "node backend/index.js"
   },
   "author": "Krzysztof Ziemski <k.b.ziemski@gmail.com>",
   "license": "UNLICENSED",

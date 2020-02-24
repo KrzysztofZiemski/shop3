@@ -1,6 +1,7 @@
 const express = require('express');
-const Users = require('../controllers/users.js');
-const AuthController = require('../controllers/authentication.js');
+const path = require('path');
+const Users = require(path.resolve(__dirname, '../controllers/users.js'));
+const AuthController = require(path.resolve(__dirname, '../controllers/authentication.js'));
 
 class UsersRouter {
     constructor() {

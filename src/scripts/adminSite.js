@@ -94,7 +94,6 @@ class Admin {
         this.root.append(this.createItems.createLoader());
         this.api.add(data)
             .then(data => {
-                console.log('data', data)
                 if (data.ok) {
                     this.createItems.createMessage('dodano produkt')
                     name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";

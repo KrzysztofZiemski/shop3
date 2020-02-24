@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const ApiRouter = require('./api');
-const UsersRouter = require('./users.js');
-const AuthRouter = require('./authentication.js');
-const Transactions = require('./transactions.js');
+const path = require('path');
+const ApiRouter = require(path.resolve(__dirname, './api'));
+const UsersRouter = require(path.resolve(__dirname, './users.js'));
+const AuthRouter = require(path.resolve(__dirname, './authentication.js'));
+const Transactions = require(path.resolve(__dirname, './transactions.js'));
 
 class AppRouter {
     constructor() {

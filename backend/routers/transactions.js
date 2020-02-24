@@ -1,8 +1,9 @@
 const express = require('express');
-const TransacionController = require('../controllers/transactions.js');
-const Buy = require('../modules/Buy.js');
-const Users = require('../controllers/users.js');
-const Product = require('../controllers/products.js');
+const path = require('path');
+const TransacionController = require(path.resolve(__dirname, '../controllers/transactions.js'));
+const Buy = require(path.resolve(__dirname, '../modules/Buy.js'));
+const Users = require(path.resolve(__dirname, '../controllers/users.js'));
+const Product = require(path.resolve(__dirname, '../controllers/products.js'));
 
 class Transactions {
     constructor() {

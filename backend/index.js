@@ -4,7 +4,7 @@ const cors = require('cors');
 const AppRouters = require('./routers');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-require('dotenv').config()
+require('dotenv').config();
 
 const corsOptions = {
     origin: 'http://localhost:3000'

@@ -1,5 +1,6 @@
 import { Config } from './config.js';
 import { Api } from './handleApi.js';
+import { CreateItems } from './createItems'
 import '../sass/login.scss';
 class Login {
     constructor() {
@@ -8,9 +9,9 @@ class Login {
         this.form = document.querySelector('#loginForm');
         this.login = document.querySelector('#login');
         this.password = document.querySelector('#password');
-        this.message = document.querySelector('#message');
         this.form.addEventListener('submit', this.handleLogin.bind(this))
         this.api = new Api();
+        this.createItems = new CreateItems();
     }
 
     handleLogin(e) {
@@ -26,23 +27,22 @@ class Login {
             },
         })
             .then(response => {
+                //console.log(response)
                 if (response.status === 200) return response.json();
-                if (response.status === 400) {
-                    window.location.replace("./?message=brak dostępu");
-                    this.message.innerText = "błędny login lub hasło";
-
+                if (response.status === 401) {
+                    this.createItems.createMessage('nepoprawny login lub hasło');
                 };
-                throw Error(response.status);
             })
             .then(response => {
-                const { accessToken, refreshToken } = response;
-                if (accessToken === undefined && refreshToken === undefined) return window.location.replace("./?message=brak dostępu");
+                const { accessToken, refreshToken } = response.token;
+                if (accessToken === undefined && refreshToken === undefined) return this.createItems.createMessage('nepoprawny login lub hasło');
                 this.api.setCookie("accessToken", accessToken, 600);
                 this.api.setCookie("refreshToken", refreshToken, 10800);
+                if (response.permission === 'admin') return window.location.replace("/admin");
                 window.location.replace("/?message=zalogowano");
             })
             .catch(e => {
-                this.message.innerText = `błąd serwera ${e} spróbuj ponownie`
+                this.createItems.createMessage();
             })
     }
 }
