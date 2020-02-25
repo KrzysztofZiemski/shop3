@@ -85,11 +85,12 @@ class Api {
         const cookies = this.getCookies();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
+
+
         const formData = new FormData();
         for (let prop in data) {
             formData.append(prop, data[prop])
         }
-
         let response = await fetch(`${this.urlProducts}${id}`, {
             method: "put",
             body: formData,

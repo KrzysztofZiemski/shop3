@@ -1,5 +1,5 @@
 node_modules/
-disc/
+dist/
 .vscode/
 backend/static/
 db/

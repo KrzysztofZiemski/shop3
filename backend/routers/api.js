@@ -81,15 +81,12 @@ class ApiRouter {
 
         const isExistSameNameProduct = await this.products.searchProduct(data.name);
 
-        console.log(isExistSameNameProduct.length)
         if (isExistSameNameProduct.length !== 0) {
             return res.status(400).json('produkt już istnieje');
         }
         this.products.addProduct(data).then(response => {
-            console.log('doszloOK')
             return res.status(200).json('dodano produkt');
         }).catch(err => {
-            console.log('doszlo2')
             res.status(500).json(err)
         })
     }
@@ -103,7 +100,6 @@ class ApiRouter {
     ///////błąd podczas zmiany - do dopracowania!!!!!!!!!
     _changeProduct(req, res, next) {
         const data = req.body;
-
         if (data['tags']) data['tags'] = data['tags'].length === 0 ? "" : data['tags'].split(',')
 
         const id = req.params.id;

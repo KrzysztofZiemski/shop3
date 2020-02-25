@@ -21,9 +21,9 @@ class Product {
 
     async changeProduct(id, data) {
         const product = await this.getProduct(id);
+        data['image'] = `${config.SERVER}/${data.name}.png`;
 
         if (data.name !== product.name) {
-            data['image'] = `${config.SERVER}/${data.name}.png`;
             const pathImg = path.resolve(__dirname, `../static/${product.name}.png`);
             const newPath = path.resolve(__dirname, `../static/${data.name}.png`);
             try {

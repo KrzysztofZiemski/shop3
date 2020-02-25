@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const server = 'http://localhost:8080/';
 
 module.exports = {
     entry: {
@@ -14,8 +15,8 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'disc'),
-        publicPath: "http://localhost:8080/"
+        publicPath: server,
+        path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -51,7 +52,7 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: path.resolve(__dirname, 'disc'),
+            chunkFilename: path.resolve(__dirname, 'dist'),
             ignoreOrder: false,
         }),
     ],

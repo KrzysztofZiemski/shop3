@@ -74,17 +74,15 @@
             box-shadow: 4px 4px 4px $primaryColor;
             border-radius: 25px;
 
-            #addItemTags {
-                border-bottom: 1px solid black;
-            }
-
-            * {
-                margin: 5px;
-            }
-
             h2 {
                 margin: 5%;
                 font-size: 20px;
+            }
+
+            table {
+                * {
+                    margin: 5px;
+                }
             }
 
             button {

@@ -33,11 +33,8 @@ class CreateItems {
     }
     _createProductShop(product, articleContainer) {
         const { name, description, price, count, image, category } = product;
-        const imageHTML = document.createElement('img');
-        const spanImg = document.createElement('span');
-        spanImg.className = 'ImgContainer'
-        imageHTML.setAttribute('alt', name)
-        imageHTML.src = image;
+        const imageHTML = this._createElement('img', { alt: name, src: image });
+        const spanImg = this._createElement('span', { class: 'ImgContainer' });
         spanImg.appendChild(imageHTML)
 
         const nameElement = document.createElement('h1');
@@ -70,13 +67,6 @@ class CreateItems {
         articleContainer.append(countElement);
         articleContainer.append(buttonContainer);
         return articleContainer;
-    }
-
-    singleProductAdmin(product) {
-        const table = this._createTableProducts();
-        //narazie sam szkielet tablicy
-        return table;
-
     }
 
     createTableAdmin() {
@@ -124,63 +114,55 @@ class CreateItems {
         listContainer.appendChild(tbody);
         return listContainer;
     }
+    _createElement(tag, attrs) {
+        const element = document.createElement(tag);
+        for (let attr in attrs) {
+            element.setAttribute(attr, attrs[attr])
+
+        }
+        return element
+    }
 
     adminProduct(product) {
 
         let active = false;
-        const tr = document.createElement('tr');
+        const tr = this._createElement('tr');
 
-        const name = document.createElement('td');
-        const nameInput = document.createElement('input');
-        nameInput.setAttribute("disabled", true);
-        nameInput.value = product.name;
+        const name = this._createElement('td');
+        const nameInput = this._createElement('input', { disabled: true, value: product.name });
         name.appendChild(nameInput);
 
-        const count = document.createElement('td');
-        const countInput = document.createElement('input');
-        countInput.setAttribute("disabled", true);
-        countInput.setAttribute("type", "number");
-        countInput.value = product.count;
+        const count = this._createElement('td');
+        const countInput = this._createElement('input', { disabled: true, type: "number", value: product.count });
         count.appendChild(countInput);
 
-        const price = document.createElement('td');
-        const priceInput = document.createElement('input');
-        priceInput.setAttribute("disabled", true);
-        priceInput.setAttribute("type", "number");
-
-        priceInput.value = product.price;
+        const price = this._createElement('td');
+        const priceInput = this._createElement('input', { disabled: true, type: "number", value: product.price });
         price.appendChild(priceInput);
 
-        const id = document.createElement('td');
+        const id = this._createElement('td');
         id.innerText = product._id;
 
-        const desc = document.createElement('td');
-        const descInput = document.createElement('input');
-        descInput.setAttribute("disabled", true);
-        descInput.value = product.description;
+        const desc = this._createElement('td');
+        const descInput = this._createElement('input', { disabled: true, value: product.description });
         desc.appendChild(descInput);
 
 
-        const imgTd = document.createElement('td');
-        imgTd.classList.add('imageCell')
-        const img = document.createElement('img');
-        img.src = product.image;
-        img.alt = product.name;
-        const imgInput = document.createElement('input');
-        imgInput.setAttribute("disabled", true);
-        imgInput.setAttribute("type", "file");
+        const imgTd = this._createElement('td', { class: 'imageCell' });
+        const img = this._createElement('img', { src: product.image, alt: product.name });
+
+        const imgInput = this._createElement('input', { disabled: true, type: "file" });
+
         imgTd.appendChild(img);
         imgTd.appendChild(imgInput);
 
-        const tags = document.createElement('td');
-        tags.className = "adminTagsProduct"
+        const tags = this._createElement('td', { class: "adminTagsProduct" });
         const tagElementsHTMLar = this.adminTags(product);
         tagElementsHTMLar.forEach(tag => tags.appendChild(tag));
 
         const category = document.createElement('td');
-        const categorySelect = document.createElement('select');
+        const categorySelect = this._createElement('select', { disabled: true, name: 'category' });
         categorySelect.setAttribute("disabled", true);
-        categorySelect.setAttribute('name', 'category')
 
         const categoryElementsHTMLar = this.adminCaregory(product);
         categoryElementsHTMLar.forEach(option => categorySelect.appendChild(option));
@@ -202,11 +184,9 @@ class CreateItems {
                     tags: this._getTags(tags.querySelectorAll('input[type="checkbox"]')),
 
                 }
-                try {
-                    this.api.change(product._id, data)
-                } catch{
-                    console.log('błąd przy próbie modyfikacji produktu')
-                }
+
+                this.api.change(product._id, data)
+                    .catch(err => this.createMessage('błąd przy próbie modyfikacji produktu'))
             }
             active = !active;
             modifierBtn.classList.toggle('active');
@@ -291,17 +271,12 @@ class CreateItems {
         return this.config.tags.map(tag => {
             const tagId = product.name + product._id;
             const singleTag = document.createElement('span');
-            const checkbox = document.createElement('input');
-            checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('disabled', true);
-            checkbox.setAttribute('name', tag);
+            const checkbox = this._createElement('input', { type: 'checkbox', disabled: true, name: tag, id: tagId })
+
             const isChecked = typeof product.tags === 'string' ? product.tags : product.tags.filter(checkedProductTag => checkedProductTag === tag)
             isChecked.length !== 0 ? checkbox.setAttribute('checked', 'true') : ""
 
-            checkbox.id = tagId;
-
-            const label = document.createElement('label');
-            label.setAttribute('for', tagId);
+            const label = this._createElement('label', { for: tagId, })
             label.innerText = tag;
             singleTag.appendChild(checkbox);
             singleTag.appendChild(label);
@@ -327,20 +302,16 @@ class CreateItems {
             const tagId = `addPanel${tag}`;
             const singleTag = document.createElement('span');
 
-            const checkbox = document.createElement('input');
-            checkbox.setAttribute('type', 'checkbox');
-            checkbox.setAttribute('name', 'tags');
-            checkbox.setAttribute('value', tag);
-            checkbox.id = tagId;
+            const checkbox = this._createElement('input', { type: 'checkbox', name: 'tags', value: tag, id: tagId })
 
-            const label = document.createElement('label');
-            label.setAttribute('for', tagId);
+            const label = this._createElement('label', { for: tagId, });
             label.innerText = tag;
             singleTag.appendChild(checkbox);
             singleTag.appendChild(label);
             return singleTag;
         })
     }
+
     createLoader() {
         this.loader = document.createElement('div');
         this.loader.classList.add('loader');
