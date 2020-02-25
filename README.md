@@ -1,23 +1,23 @@
-#SHOP
+# SHOP
 
-##Description
+## Description
 
 The project made for pass a first step bootcamp.
 It consists of backend(folder backend) and frontend(folder src)
 
-##Used
+## Used
 
     JAVASCRIPT
     SASS
     WEBPACK
     NODE.JS
 
-##Required programs
+## Required programs
 
 Node.js
 NPM or yarn
 
-##Installing
+## Installing
 
 Download the project from [pip](https://github.com/KrzysztofZiemski/shop.git)
 
@@ -35,7 +35,7 @@ yarn i webpack webpack-cli -g
 yarn i
 ```
 
-##Running
+## Running
 
 Running backend on localhost:
 
@@ -49,7 +49,7 @@ Running frontend on localhost
 npm start
 ```
 
-Deploy frontend
+## Deploy frontend
 
 In the file webpack.conf.js, change variable "server" to your server's ip.
 
