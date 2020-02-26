@@ -7,7 +7,6 @@ import '../sass/login.scss';
 
 class Login {
     constructor() {
-        this.config = new Config();
         this.form = document.querySelector('#loginForm');
         this.login = document.querySelector('#login');
         this.password = document.querySelector('#password');
@@ -20,7 +19,7 @@ class Login {
         const login = this.login.value;
         const password = this.password.value;
         const data = { login, password }
-        fetch(`${Config}/auth/login`, {
+        fetch(`${Config.url}/auth/login`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

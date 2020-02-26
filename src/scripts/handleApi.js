@@ -74,7 +74,7 @@ class Api {
         for (let prop in data) {
             formData.append(prop, data[prop])
         }
-        let response = await fetch(`${this.urlProducts}${id}`, {
+        let response = await fetch(`${this.urlProducts}/${id}`, {
             method: "PUT",
             body: formData,
             headers: {
