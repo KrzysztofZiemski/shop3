@@ -1,31 +1,14 @@
-import { Config } from './config.js';
+import Config from './config.js';
+import Cookies from './cookies';
 
 class Api {
     constructor() {
-        this.config = new Config();
-        this.urlProducts = this.config.url + 'api/';
-        this.urlUsers = this.config.url + 'users/';
-        this.urlTransactions = this.config.url + 'transactions/';
+        this.urlProducts = `${Config.url}/api`;
+        this.urlUsers = `${Config.url}/users`;
+        this.urlTransactions = `${Config.url}/transactions`;
+        this.urlAuth = `${Config.url}/auth/token`;
     }
 
-    getCookies() {
-        const decoded = decodeURIComponent(document.cookie);
-        const decodedArr = decoded.split(';');
-        if (!decodedArr[0]) return null
-        const objCookies = {};
-        decodedArr.forEach(cookie => {
-            const cookieParts = cookie.split("=");
-            const name = cookieParts[0].trim();
-            const value = cookieParts[1].trim();
-            objCookies[name] = value;
-        })
-        return objCookies;
-    }
-    setCookie(name, value, maxAge = 2592000) {
-        let checkedValue = value;
-        if (typeof value === 'object') checkedValue = JSON.stringify(value);
-        document.cookie = `${name}=${checkedValue};Max-Age=${maxAge};path=/`
-    }
     getAll() {
         return fetch(this.urlProducts)
             .then(res => {
@@ -50,7 +33,7 @@ class Api {
             })
     }
     async add(data) {
-        const cookies = this.getCookies();
+        const cookies = Cookies.get();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
         const formData = new FormData();
@@ -67,9 +50,9 @@ class Api {
         if (response.status === 401) {
             const successRefresh = await this.refreshToken(refreshToken);
             if (successRefresh) {
-                const cookies = this.getCookies();
+                const cookies = Cookies.get();
                 const accessToken = cookies.accessToken;
-                response = await fetch(`${this.urlProducts}`, {
+                response = await fetch(`/${this.urlProducts}`, {
                     method: "POST",
                     body: formData,
                     headers: {
@@ -82,7 +65,7 @@ class Api {
     }
 
     async change(id, data) {
-        const cookies = this.getCookies();
+        const cookies = Cookies.get();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
 
@@ -92,7 +75,7 @@ class Api {
             formData.append(prop, data[prop])
         }
         let response = await fetch(`${this.urlProducts}${id}`, {
-            method: "put",
+            method: "PUT",
             body: formData,
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -102,10 +85,10 @@ class Api {
         if (response.status === 401) {
             const successRefresh = await this.refreshToken(refreshToken);
             if (successRefresh) {
-                const cookies = this.getCookies();
+                const cookies = Cookies.get();
                 const accessToken = cookies.accessToken;
-                response = await fetch(`${this.urlProducts}${id}`, {
-                    method: "put",
+                response = await fetch(`/${this.urlProducts}/${id}`, {
+                    method: "PUT",
                     body: formData,
                     headers: {
                         Authorization: `Bearer ${accessToken}`
@@ -115,11 +98,11 @@ class Api {
         }
     }
     async getUser() {
-        let cookie = this.getCookies();
+        let cookie = Cookies.get();
         if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
             const successRefresh = await this.refreshToken(cookie.refreshToken);
             if (!successRefresh) return;
-            cookie = this.api.getCookies();
+            cookie = Cookies.get();
         }
         try {
             const user = await cookie.hasOwnProperty('accessToken') ? await this.getUserByToken() : null;
@@ -131,12 +114,12 @@ class Api {
     }
 
     async remove(id) {
-        const cookies = this.getCookies();
+        const cookies = Cookies.get();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
 
-        let response = fetch(`${this.urlProducts}${id}`, {
-            method: "delete",
+        let response = fetch(`${this.urlProducts}/${id}`, {
+            method: "DELETE",
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }
@@ -144,10 +127,10 @@ class Api {
         if (response.status === 401) {
             const successRefresh = await this.refreshToken(refreshToken);
             if (successRefresh) {
-                const cookies = this.getCookies();
+                const cookies = Cookies.get();
                 const accessToken = cookies.accessToken;
-                response = await fetch(`${this.urlProducts}${id}`, {
-                    method: "delete",
+                response = await fetch(`${this.urlProducts}/${id}`, {
+                    method: "DELETE",
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -158,9 +141,9 @@ class Api {
         }
     }
     async getUserByToken(token) {
-        const cookies = this.getCookies();
+        const cookies = Cookies.get();
         const accessToken = cookies.accessToken;
-        const user = await fetch(`${this.urlUsers}user`, {
+        const user = await fetch(`${this.urlUsers}/user`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -170,11 +153,11 @@ class Api {
     }
     //nie działa przy odpalaniu strony na pewno. wyskakuje tez czasami jakiś błąd
     async refreshToken(refreshToken) {
-        const refreshUrl = this.config.url + 'auth/token';
         const data = {
             refreshToken: refreshToken
         }
-        const refresh = await fetch(refreshUrl, {
+
+        const refresh = await fetch(this.urlAuth, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -184,8 +167,8 @@ class Api {
         if (refresh.status === 200) {
             const tokens = await refresh.json();
             //////////////////////
-            this.setCookie("accessToken", tokens.accessToken, 600);
-            this.setCookie("refreshToken", tokens.refreshToken, 10800);
+            Cookies.set("accessToken", tokens.accessToken, 600);
+            Cookies.set("refreshToken", tokens.refreshToken, 10800);
             return true
         } else {
             console.log('refreshTokenStatus ', refresh.status)
@@ -193,11 +176,11 @@ class Api {
         return false
     }
     async uploadBasket(data) {
-        const cookies = this.getCookies();
+        const cookies = Cookies.get();
         const accessToken = cookies.accessToken;
         const refreshToken = cookies.refreshToken;
         let response = await fetch(`${this.urlUsers}basket`, {
-            method: "put",
+            method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -208,10 +191,10 @@ class Api {
         if (response.status === 401) {
             const successRefresh = await this.refreshToken(refreshToken);
             if (successRefresh) {
-                const cookies = this.getCookies();
+                const cookies = Cookies.get();
                 const accessToken = cookies.accessToken;
                 response = await fetch(`${this.urlUsers}basket`, {
-                    method: "put",
+                    method: "PUT",
                     body: data,
                     headers: {
                         'Content-Type': 'application/json',
@@ -223,9 +206,9 @@ class Api {
     }
 
     buy(data) {
-        const url = `${this.urlTransactions}buy`;
+        const url = `${this.urlTransactions}/buy`;
         return fetch(url, {
-            method: "post",
+            method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',

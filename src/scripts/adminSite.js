@@ -1,16 +1,15 @@
 import { Api } from './handleApi.js';
-import { CreateItems } from './createItems.js';
-import { Config } from './config.js';
+import CreateItems from './createItems.js';
+import Config from './config.js';
+import Cookies from './cookies';
 import '../sass/admin.scss';
 
 class Admin {
     constructor() {
         this.api = new Api();
-        this.config = new Config();
-        this.createItems = new CreateItems();
         this.root = document.querySelector('#root');
         this.checkToken();
-        this.productsTable = this.createItems.createTableAdmin();
+        this.productsTable = CreateItems.createTableAdmin();
         document.getElementById('productsContainer').append(this.productsTable);
         this.productList = this.productsTable.querySelector('tbody');
         this.formGetItem = document.getElementById('formGetItem');
@@ -42,14 +41,14 @@ class Admin {
     async checkToken() {
         try {
 
-            let cookie = this.api.getCookies();
+            let cookie = Cookies.get();
             if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
                 const successRefresh = await this.api.refreshToken(cookie.refreshToken);
                 if (!successRefresh) return;
-                cookie = await this.api.getCookies();
+                cookie = await Cookies.get();
             }
             let response
-            const url = `${this.config.url}/auth/check`;
+            const url = `${Config.url}/auth/check`;
             const accessToken = cookie ? cookie.accessToken : null;
             const refreshToken = cookie ? cookie.refreshToken : null;
             if (cookie !== null) {
@@ -71,7 +70,7 @@ class Admin {
     }
 
     addTagsToPanelItem() {
-        const tags = this.createItems.addTagsToAddPanel();
+        const tags = CreateItems.addTagsToAddPanel();
         tags.forEach(tag => {
             this.addItemTagcontainerTr.appendChild(tag)
         });
@@ -91,70 +90,40 @@ class Admin {
         const data = { name: name.value, count: count.value, description: description.value, price: price.value, category: category.value, image: image.files[0], tags };
 
 
-        this.root.append(this.createItems.createLoader());
+        this.root.append(CreateItems.createLoader());
         this.api.add(data)
             .then(data => {
                 if (data.ok) {
-                    this.createItems.createMessage('dodano produkt')
+                    CreateItems.createMessage('dodano produkt')
                     name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
                     tagsListChecked.forEach(element => element.checked = false);
-                    this.createItems.removeLoader();
+                    CreateItems.removeLoader();
                 } else {
-                    this.createItems.createMessage('błąd podczas dodawania produktu. Sprawdź wszystkie dane');
-                    this.createItems.removeLoader();
+                    CreateItems.createMessage('błąd podczas dodawania produktu. Sprawdź wszystkie dane');
+                    CreateItems.removeLoader();
                 }
             })
             .catch(err => {
-                this.createItems.removeLoader();
-                this.createItems.createMessage('Nie udało się dodać produktu - pracujemy nad rozwiązaniem problemu');
+                CreateItems.removeLoader();
+                CreateItems.createMessage('Nie udało się dodać produktu - pracujemy nad rozwiązaniem problemu');
             })
-        // .then(data => {
-
-        //     if (data === succes) {
-        //         message.className = "success";
-        //         message.innerText = `Dodano produkt: ${name.value}`;
-        //         name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
-        //         tagsListChecked.forEach(element => element.checked = false);
-        //     } else {
-        //         message.className = "error";
-        //         message.innerText = `Błąd dodawania produktu: ${name.value}`;
-        //     }
-        //     this.createItems.removeLoader();
-        // })
-        //     .catch(err => {
-        //         console.log('eee', data)
-        //         this.createItems.removeLoader();
-        //         this.createItems.createMessage();
-        //     })
-
-        //     const message = document.querySelector('#addMessage');
-        //     if (response.ok) {
-        //         message.className = "success";
-        //         message.innerText = `Dodano produkt: ${name.value}`;
-        //         name.value = ""; count.value = ""; description.value = ""; price.value = ""; category.value = ""; image.value = "";
-        //         tagsListChecked.forEach(element => element.checked = false);
-        //     } else {
-        //         alert('sdsd')
-        //     }
-
-
     }
-    //////////////////////////////////////////////
+
     getAllProducts() {
-        this.root.appendChild(this.createItems.createLoader());
+        this.root.appendChild(CreateItems.createLoader());
         this.productList.innerText = "";
         this.api.getAll()
             .then(products => {
-                this.createItems.removeLoader()
+                CreateItems.removeLoader()
                 this.productList.innerText = "";
                 Array.prototype.forEach.call(products.rows, function (product) {
-                    const productHTML = this.createItems.adminProduct(product.doc);
+                    const productHTML = CreateItems.adminProduct(product.doc);
                     this.productList.append(productHTML);
-                    this.createItems.removeLoader()
+                    CreateItems.removeLoader()
                 }.bind(this))
             }).catch(e => {
-                this.createItems.removeLoader();
-                this.createItems.createMessage();
+                CreateItems.removeLoader();
+                CreateItems.createMessage();
             })
 
     }
@@ -163,7 +132,7 @@ class Admin {
             this.api.get(id)
                 .then(product => {
                     this.productList.innerText = "";
-                    const productHTML = this.createItems.adminProduct(product);
+                    const productHTML = CreateItems.adminProduct(product);
                     this.productList.append(productHTML);
                 })
         } catch (e) {
@@ -175,5 +144,4 @@ class Admin {
 
 const admin = new Admin();
 window.onload = () => admin.checkToken();
-export { admin }
 

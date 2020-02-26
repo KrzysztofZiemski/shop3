@@ -1,10 +1,9 @@
-import { Config } from './config.js';
+import Config from './config.js';
 import { Api } from './handleapi.js';
 import { basket } from './basket.js';
 
 class CreateItems {
     constructor() {
-        this.config = new Config();
         this.api = new Api();
         this.admin = new Api();
         this.basket = basket;
@@ -248,7 +247,7 @@ class CreateItems {
     }
     //  <option value="beads">Koraliki</option>
     adminCaregory(product) {
-        return this.config.category.map(singleCategory => {
+        return Config.category.map(singleCategory => {
             const option = document.createElement('option');
             for (let element in singleCategory) {
                 option.setAttribute('value', element)
@@ -268,7 +267,7 @@ class CreateItems {
     }
 
     adminTags(product) {
-        return this.config.tags.map(tag => {
+        return Config.tags.map(tag => {
             const tagId = product.name + product._id;
             const singleTag = document.createElement('span');
             const checkbox = this._createElement('input', { type: 'checkbox', disabled: true, name: tag, id: tagId })
@@ -298,7 +297,7 @@ class CreateItems {
         document.body.append(bgcMessage);
     }
     addTagsToAddPanel() {
-        return this.config.tags.map(tag => {
+        return Config.tags.map(tag => {
             const tagId = `addPanel${tag}`;
             const singleTag = document.createElement('span');
 
@@ -324,4 +323,4 @@ class CreateItems {
     }
 
 }
-export { CreateItems }
+export default new CreateItems();

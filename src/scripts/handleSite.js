@@ -1,17 +1,16 @@
 import { Api } from './handleApi.js';
-import { CreateItems } from './createItems.js';
-import { Config } from './config.js';
+import CreateItems from './createItems.js';
+import Config from './config.js';
 import { basket } from './basket.js';
+import Cookies from './cookies';
 import '../sass/shop.scss';
 class HandleSite {
     constructor() {
         this.basket = basket;;
         this.user = null;
-        this.createItems = new CreateItems();
         this.api = new Api();
         this.productContainer = document.getElementById('products');
         this.products = [];
-        this.config = new Config();
         this.basket = basket;
         this.filters = {
             color: "",
@@ -38,11 +37,11 @@ class HandleSite {
         this.minPriceFilter.addEventListener('change', this.runFilter.bind(this));
     }
     async StartSite() {
-        let cookie = this.api.getCookies();
+        let cookie = Cookies.get();
         if (cookie !== null && !cookie.hasOwnProperty('accessToken') && cookie.hasOwnProperty('refreshToken')) {
             const successRefresh = await this.api.refreshToken(cookie.refreshToken);
             if (!successRefresh) return;
-            cookie = this.api.getCookies();
+            cookie = Cookies.get();
         }
         this.user = await this.api.getUser();
         if (this.user && this.user.activeBasket.length > 0) {
@@ -65,8 +64,8 @@ class HandleSite {
         const loginLink = document.querySelector('#login');
         loginLink.innerText = this.user ? 'Wyloguj' : 'Zaloguj';
         loginLink.href = this.user ? '/logout' : '/login';
-        this.root.append(this.createItems.createLoader());
-        this.showAll().then(data => this.createItems.removeLoader())
+        this.root.append(CreateItems.createLoader());
+        this.showAll().then(data => CreateItems.removeLoader())
     }
     toggleNav() {
         document.querySelector('#categoryNav').classList.toggle('show');
@@ -133,7 +132,7 @@ class HandleSite {
                 })
         } else if (path.length > 1 && checkQueriesName[0] === 'message') {
             const message = decodeURIComponent(checkQueriesName[1]);
-            const messageElement = this.createItems.createMessageElement(message);
+            const messageElement = CreateItems.createMessageElement(message);
             try {
                 await this.api.getAll().then(products => products.rows.forEach(product => this.products.push(product.doc)))
             } catch {
@@ -154,7 +153,7 @@ class HandleSite {
         const selectFilter = document.getElementById('colorFilter');
         const nullFirstOption = document.createElement('option');
         selectFilter.append(nullFirstOption);
-        this.config.tags.forEach(tag => {
+        Config.tags.forEach(tag => {
             const option = document.createElement('option');
             option.setAttribute('value', tag);
             option.text = tag;
@@ -162,26 +161,15 @@ class HandleSite {
 
         })
     }
+    //TODO
+    //element.addEventListener('click', this.showSingle.bind(this)) //pokazanie pojedyńczego elementu jeszcze nie wdrożone
     _refreshSite(products) {
         this.productContainer.innerHTML = "";
-        const articlesProducts = this.createItems.productsShop(products);
+        const articlesProducts = CreateItems.productsShop(products);
         articlesProducts.forEach(element => {
-            //element.addEventListener('click', this.showSingle.bind(this)) //pokazanie pojedyńczego elementu jeszcze nie wdrożone
             this.productContainer.append(element);
         })
     }
-    //////////////////////////////////////////////////////
-    ////////////////pojedyńczy produkt - jeszzcze nie wdrożyłem
-    // showSingle(e) {
-    //     const articleId = e.currentTarget.getAttribute('data-id');
-    //     try {
-    //         this.api.get(articleId)
-    //             .then(product => this.createItems.singleProductShop(product))
-    //             .then(elementHTML => this.productContainer.append(elementHTML))
-    //     } catch{
-    //         console.log('błąd przy próbie pobrania produktu do sklepu')
-    //     }
-    // }
 
 }
 const site = new HandleSite()

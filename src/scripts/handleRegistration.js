@@ -1,10 +1,9 @@
-import { Config } from './config.js';
+import Config from './config.js';
 import '../sass/registration.scss';
-import { CreateItems } from './createItems.js';
+import CreateItems from './createItems.js';
 
 class Registration {
     constructor() {
-        this.createItems = new CreateItems();
         this.form = document.querySelector('#registration');
         this.login = document.querySelector('#login');
         this.password = document.querySelector('#password');
@@ -49,10 +48,10 @@ class Registration {
         const correct = this.validate(login, password, passwordConfirm, mail);
         if (!correct) return
 
-        if (password !== passwordConfirm) return this.createItems.createMessage('podane hasła nie są identyczne');
-        if (!login, !password, !mail) return this.createItems.createMessage('nie wypełniono wszystkich potrzebnych pól');
+        if (password !== passwordConfirm) return CreateItems.createMessage('podane hasła nie są identyczne');
+        if (!login, !password, !mail) return CreateItems.createMessage('nie wypełniono wszystkich potrzebnych pól');
         const data = { login, password, mail }
-        const loader = this.createItems.createLoader();
+        const loader = CreateItems.createLoader();
         this.message.appendChild(loader);
 
         fetch(this.urlusers, {
@@ -66,10 +65,10 @@ class Registration {
             return response.json()
         })
             .then(response => {
-                this.createItems.createMessage('Dziękujemy za rejestrację. Zapraszamy do zalogowania się');
+                CreateItems.createMessage('Dziękujemy za rejestrację. Zapraszamy do zalogowania się');
             })
             .catch(err => {
-                this.createItems.createMessage('Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie');
+                CreateItems.createMessage('Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie');
             })
     }
 }

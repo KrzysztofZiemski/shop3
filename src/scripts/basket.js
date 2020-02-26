@@ -1,5 +1,7 @@
 import { Api } from './handleapi.js';
-let activeProducts = []
+import Cookies from './cookies.js';
+
+let activeProducts = [];
 class Basket {
     constructor() {
         this.api = new Api();
@@ -8,7 +10,6 @@ class Basket {
         this.basketProductsContainer = document.querySelector('#basketProductsContainer');
         this.sumPrice = document.querySelector('#sumPrice');
         this.orderForm = document.querySelector('#orderForm');
-        //this.orderForm.addEventListener("submit",)
         this.addListeners();
         this.updateBasketByCookies()
     }
@@ -149,14 +150,14 @@ class Basket {
         if (orderFormBack) orderFormBack.addEventListener('click', () => this.backToBasket());
     }
     updateBasketByCookies() {
-        const cookies = this.api.getCookies();
+        const cookies = Cookies.get();
         if (!cookies) return
         activeProducts = cookies.hasOwnProperty("basket") ? JSON.parse(cookies.basket) : [];
         this.refreshIconBasket();
         this.refreshBasket(activeProducts);
     }
     uploadBasket() {
-        const cookies = this.api.getCookies();
+        const cookies = Cookies.get();
         if (cookies && cookies.refreshToken) this.api.uploadBasket(activeProducts);
     }
 
@@ -238,7 +239,7 @@ class Basket {
         this.refreshTotalPrice()
     }
     updateBasketCookies() {
-        this.api.setCookie('basket', activeProducts);
+        Cookies.set('basket', activeProducts);
     }
 
     refreshBasket(products) {

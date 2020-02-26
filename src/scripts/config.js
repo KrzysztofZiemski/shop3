@@ -1,6 +1,6 @@
 class Config {
     constructor() {
-        this.url = 'http://localhost:3000/server/';
+        this.url = 'http://localhost:3000/server';
         this.tags = ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwnoy', 'biały', 'brązowy', 'żółty', 'szary', 'złoty', 'zielony', 'fioletowy'];
         this.category = [
             { brooches: 'Broszki' },
@@ -16,4 +16,4 @@ class Config {
 }
 
 
-export { Config }
+export default new Config();

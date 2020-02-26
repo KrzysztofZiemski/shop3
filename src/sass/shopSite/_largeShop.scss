@@ -538,6 +538,20 @@
 
     }
 
+    .orderForm {
+      display: flex;
+      flex-direction: column;
+
+      .orderField {
+        @include inputs;
+      }
+
+      .orderFormButtons {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
     #closeBasketBtn {
       position: fixed;
       font-size: 70px;

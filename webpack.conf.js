@@ -3,8 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const server = 'http://localhost:8080/';
-
 module.exports = {
     entry: {
         app: path.resolve(__dirname, './src/scripts/handleSite.js'),
@@ -15,7 +13,6 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        publicPath: server,
         path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
