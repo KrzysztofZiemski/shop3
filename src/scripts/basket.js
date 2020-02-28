@@ -1,4 +1,4 @@
-import { Api } from './handleapi.js';
+import { Api } from './handleApi.js';
 import Cookies from './cookies.js';
 
 let activeProducts = [];

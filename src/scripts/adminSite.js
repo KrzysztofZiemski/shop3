@@ -1,43 +1,49 @@
 import { Api } from './handleApi.js';
 import CreateItems from './createItems.js';
-import Config from './config.js';
+import config from './config.js';
 import Cookies from './cookies';
 import '../sass/admin.scss';
 
 class Admin {
     constructor() {
         this.api = new Api();
-        this.root = document.querySelector('#root');
         this.checkToken();
+        this.getElemntsHTML();
+        this.setListeners();
+        this.addTagsToPanelItem();
+
+    }
+    getElemntsHTML(){
+        this.root = document.querySelector('#root');
         this.productsTable = CreateItems.createTableAdmin();
         document.getElementById('productsContainer').append(this.productsTable);
         this.productList = this.productsTable.querySelector('tbody');
         this.formGetItem = document.getElementById('formGetItem');
         this.idGetProduct = document.getElementById('idGetProduct');
         this.formAddItem = document.getElementById('formAddItem');
-        this.formAddItem.addEventListener('submit', this._addProduct.bind(this))
-
         this.addItemPanel = document.querySelector('.addItemContainer');
         this.showPanelNewItem = document.getElementById('showPanelNewItem');
-        this.showPanelNewItem.addEventListener('click', () => this.addItemPanel.classList.add('show'));
         this.closeAddPanel = document.getElementById('closeAddContainer');
-        this.closeAddPanel.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.addItemPanel.classList.remove('show');
-        });
-
         this.addItemTagcontainerTr = document.getElementById('addItemTags');
-        this.addTagsToPanelItem();
-
-        this.formGetItem.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const id = this.idGetProduct.value;
-            if (id.length !== 0) this.getSingleProduct(id)
-            else this.getAllProducts();
-        })
-
+    }
+    setListeners(){
+        this.formAddItem.addEventListener('submit', this._addProduct.bind(this));
+        this.showPanelNewItem.addEventListener('click', () => this.addItemPanel.classList.add('show'));
+        this.closeAddPanel.addEventListener('click',this.handleCloseAddPanel.bind(this));
+        this.formGetItem.addEventListener('submit', this.handleGetProducts.bind(this))
     }
 
+    handleGetProducts(e){
+        e.preventDefault();
+        const id = this.idGetProduct.value;
+        if (id.length !== 0) this.getSingleProduct(id)
+        else this.getAllProducts();
+    }
+
+    handleCloseAddPanel(e){
+        e.preventDefault();
+        this.addItemPanel.classList.remove('show');
+    }
     async checkToken() {
         try {
 
@@ -48,7 +54,7 @@ class Admin {
                 cookie = await Cookies.get();
             }
             let response
-            const url = `${Config.url}/auth/check`;
+            const url = `${config.url}/auth/check`;
             const accessToken = cookie ? cookie.accessToken : null;
             const refreshToken = cookie ? cookie.refreshToken : null;
             if (cookie !== null) {

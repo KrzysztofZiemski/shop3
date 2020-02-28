@@ -31,8 +31,8 @@ class Users {
         if (isExist) {
             return new Promise('exist')
         }
-
         user.password = await bcrypt.hashSync(user.password, Number(process.env.HASH_ROUND));
+
         const userValidated = await this.validate.validateUser(user);
 
         if (user.login === 'admin') userValidated.permission = "admin";

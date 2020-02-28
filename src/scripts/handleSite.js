@@ -1,6 +1,6 @@
 import { Api } from './handleApi.js';
 import CreateItems from './createItems.js';
-import Config from './config.js';
+import config from './config.js';
 import { basket } from './basket.js';
 import Cookies from './cookies';
 import '../sass/shop.scss';
@@ -153,7 +153,7 @@ class HandleSite {
         const selectFilter = document.getElementById('colorFilter');
         const nullFirstOption = document.createElement('option');
         selectFilter.append(nullFirstOption);
-        Config.tags.forEach(tag => {
+        config.tags.forEach(tag => {
             const option = document.createElement('option');
             option.setAttribute('value', tag);
             option.text = tag;

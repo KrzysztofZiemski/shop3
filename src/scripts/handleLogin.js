@@ -1,4 +1,4 @@
-import Config from './config.js';
+import config from './config.js';
 import { Api } from './handleApi.js';
 import CreateItems from './createItems';
 import Cookies from './cookies'
@@ -19,7 +19,7 @@ class Login {
         const login = this.login.value;
         const password = this.password.value;
         const data = { login, password }
-        fetch(`${Config.url}/auth/login`, {
+        fetch(`${config.url}/auth/login`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

@@ -1,5 +1,5 @@
-import Config from './config.js';
-import { Api } from './handleapi.js';
+import config from './config.js';
+import { Api } from './handleApi.js';
 import { basket } from './basket.js';
 
 class CreateItems {
@@ -247,7 +247,7 @@ class CreateItems {
     }
     //  <option value="beads">Koraliki</option>
     adminCaregory(product) {
-        return Config.category.map(singleCategory => {
+        return config.category.map(singleCategory => {
             const option = document.createElement('option');
             for (let element in singleCategory) {
                 option.setAttribute('value', element)
@@ -267,7 +267,7 @@ class CreateItems {
     }
 
     adminTags(product) {
-        return Config.tags.map(tag => {
+        return config.tags.map(tag => {
             const tagId = product.name + product._id;
             const singleTag = document.createElement('span');
             const checkbox = this._createElement('input', { type: 'checkbox', disabled: true, name: tag, id: tagId })
@@ -297,7 +297,7 @@ class CreateItems {
         document.body.append(bgcMessage);
     }
     addTagsToAddPanel() {
-        return Config.tags.map(tag => {
+        return config.tags.map(tag => {
             const tagId = `addPanel${tag}`;
             const singleTag = document.createElement('span');
 

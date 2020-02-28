@@ -1,4 +1,4 @@
-import Config from './config.js';
+import config from './config.js';
 import '../sass/registration.scss';
 import CreateItems from './createItems.js';
 
@@ -11,8 +11,7 @@ class Registration {
         this.mail = document.querySelector('#mail');
         this.message = document.querySelector('#message');
         this.form.addEventListener('submit', this.register.bind(this));
-        this.config = new Config();
-        this.urlusers = this.config.url + '/users/';
+        this.urlUsers = config.url + '/users';
 
     }
     validate(login, password, passwordConfirm, mail) {
@@ -53,8 +52,8 @@ class Registration {
         const data = { login, password, mail }
         const loader = CreateItems.createLoader();
         this.message.appendChild(loader);
-
-        fetch(this.urlusers, {
+        console.log(this.urlUsers)
+        fetch(this.urlUsers, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

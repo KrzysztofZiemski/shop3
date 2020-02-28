@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const AppRouters = require('./routers');
+const AppRouters = require(path.resolve(__dirname, './routers'));
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 require('dotenv').config();

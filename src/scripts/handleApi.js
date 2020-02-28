@@ -1,12 +1,12 @@
-import Config from './config.js';
+import config from './config.js';
 import Cookies from './cookies';
 
 class Api {
     constructor() {
-        this.urlProducts = `${Config.url}/api`;
-        this.urlUsers = `${Config.url}/users`;
-        this.urlTransactions = `${Config.url}/transactions`;
-        this.urlAuth = `${Config.url}/auth/token`;
+        this.urlProducts = `${config.url}/api`;
+        this.urlUsers = `${config.url}/users`;
+        this.urlTransactions = `${config.url}/transactions`;
+        this.urlAuth = `${config.url}/auth/token`;
     }
 
     getAll() {

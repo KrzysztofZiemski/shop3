@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 module.exports = {
     entry: {
         app: path.resolve(__dirname, './src/scripts/handleSite.js'),
@@ -13,7 +13,8 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(path.join('dist', '/')),
+        publicPath: ASSET_PATH,
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -66,7 +67,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.html$/,
+                test: /\.(html)$/,
                 loader: 'html-loader',
             },
             {

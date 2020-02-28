@@ -50,6 +50,7 @@ class ApiRouter {
             })
     }
     _getAllProducts(req, res) {
+        console.log('add prod')
         this.products.getAll()
             .then(response => {
                 res.status(200).json(response);
