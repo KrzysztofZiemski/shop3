@@ -3,23 +3,21 @@
 ## Description
 
 The project made for pass a first step bootcamp.
-It consists of backend(folder backend) and frontend(folder src)
+The projekt works with shop-backend project
 
 ## Used
 
     JAVASCRIPT
     SASS
     WEBPACK
-    NODE.JS
 
 ## Required programs
 
-Node.js
 NPM or yarn
 
 ## Installing
 
-Download the project from [pip](https://github.com/KrzysztofZiemski/shop.git)
+Download the project from [pip](https://github.com/KrzysztofZiemski/shop-frontend.git)
 
 Open folder witch project in command-line and put command:
 
@@ -36,14 +34,6 @@ yarn i
 ```
 
 ## Running
-
-Running backend on localhost:
-
-```
-npm run server
-```
-
-Running frontend on localhost
 
 ```
 npm start
