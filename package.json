@@ -1,31 +1,15 @@
 {
-  "name": "shop-backend",
+  "name": "shop-frontend",
   "version": "1.0.0",
-  "description": "project backend shop to learning express",
+  "description": "shop-frontend working with shop-backend",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.conf.js",
-    "start": "webpack-dev-server --open --config webpack.conf.js",
-    "server": "node backend/index.js"
+    "start": "webpack-dev-server --open --config webpack.conf.js"
   },
   "author": "Krzysztof Ziemski <k.b.ziemski@gmail.com>",
   "license": "UNLICENSED",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "gulp-sass": "^4.0.2",
-    "html-loader": "^0.5.5",
-    "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.2",
-    "nodemailer": "^6.4.2",
-    "pouchdb": "^7.1.1",
-    "pouchdb-find": "^7.1.1",
-    "schema": "^0.2.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "babel-loader": "^8.0.6",

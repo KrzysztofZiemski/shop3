@@ -3,21 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="49835345-d5e1-4b93-941a-db806fe57745" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routers/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routers/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/adminSite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/adminSite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/basket.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/basket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/createItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/createItems.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/handleApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/handleApi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/handleLogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/handleLogin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/handleRegistration.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/handleRegistration.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scripts/handleSite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/scripts/handleSite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.conf.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +38,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Projekty-z-kursow/shop" />
   </component>
   <component name="RunManager" selected="Node.js.adminSite.js">
     <configuration name="adminSite.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/scripts/adminSite.js" working-dir="$PROJECT_DIR$/src/scripts">
@@ -86,6 +71,8 @@
       <workItem from="1582707770719" duration="1852000" />
       <workItem from="1582819905470" duration="20000" />
       <workItem from="1582819927179" duration="6433000" />
+      <workItem from="1582873625047" duration="267000" />
+      <workItem from="1582874284939" duration="20000" />
     </task>
     <servers />
   </component>
@@ -118,10 +105,10 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state x="583" y="86" key="CommitChangelistDialog2/0.0.1920.1160/-1920.0.1920.1160@0.0.1920.1160" timestamp="1582708300403" />
-    <state x="740" y="333" key="FileChooserDialogImpl" timestamp="1582819923835">
+    <state x="740" y="333" key="FileChooserDialogImpl" timestamp="1582874302783">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
-    <state x="740" y="333" key="FileChooserDialogImpl/0.0.1920.1160/-1920.0.1920.1160@0.0.1920.1160" timestamp="1582819923835" />
+    <state x="740" y="333" key="FileChooserDialogImpl/0.0.1920.1160/-1920.0.1920.1160@0.0.1920.1160" timestamp="1582874302783" />
     <state width="1362" height="294" key="GridCell.Tab.0.bottom" timestamp="1582828766573">
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
