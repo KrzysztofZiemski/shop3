@@ -1,6 +1,7 @@
 import config from './config.js';
 import '../sass/registration.scss';
 import CreateItems from './createItems.js';
+import { Api } from './handleApi';
 
 class Registration {
     constructor() {
@@ -9,10 +10,8 @@ class Registration {
         this.password = document.querySelector('#password');
         this.passwordConfirm = document.querySelector('#passwordConfirm');
         this.mail = document.querySelector('#mail');
-        this.message = document.querySelector('#message');
         this.form.addEventListener('submit', this.register.bind(this));
-        this.urlUsers = config.url + '/users';
-
+        this.api = new Api();
     }
     validate(login, password, passwordConfirm, mail) {
         const regExp = /\S+@\S+\.\S+/;
@@ -32,7 +31,6 @@ class Registration {
                 isOk = false
             };
         }
-        this.message.innerText = message;
         return isOk
     }
 
@@ -50,21 +48,11 @@ class Registration {
         if (password !== passwordConfirm) return CreateItems.createMessage('podane hasła nie są identyczne');
         if (!login, !password, !mail) return CreateItems.createMessage('nie wypełniono wszystkich potrzebnych pól');
         const data = { login, password, mail }
-        const loader = CreateItems.createLoader();
-        this.message.appendChild(loader);
-        console.log(this.urlUsers)
-        fetch(this.urlUsers, {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            },
-        }).then(response => {
-            if (response.status !== 200) throw error()
-            return response.json()
-        })
+        CreateItems.createLoader();
+        this.api.addUser(data)
             .then(response => {
                 CreateItems.createMessage('Dziękujemy za rejestrację. Zapraszamy do zalogowania się');
+                setTimeout(() => window.location.replace("/"), 7000);
             })
             .catch(err => {
                 CreateItems.createMessage('Podczas próby rejestracji wystąpił błąd. Spróbuj ponownie');

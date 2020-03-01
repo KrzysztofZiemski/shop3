@@ -88,12 +88,13 @@
             button {
                 @include buttonPattern;
                 align-self: flex-end;
+                margin: 3%;
             }
 
             .close {
                 position: absolute;
-                top: 5px;
-                right: 5px;
+                top: 3%;
+                right: 2%;
                 padding: 0;
                 margin: 0;
                 width: 30px;

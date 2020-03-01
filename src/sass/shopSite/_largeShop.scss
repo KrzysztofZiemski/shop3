@@ -50,23 +50,11 @@
       width: 30%;
       width: 100%;
 
-
-
       li {
         border-bottom: 1px solid black;
         position: relative;
         flex-grow: 1;
         text-align: center;
-
-        &.navLogoContainer {
-          a {
-            padding: 0;
-
-            img {
-              height: 50px;
-            }
-          }
-        }
 
         a {
           display: block;
@@ -90,21 +78,18 @@
           }
 
           &:hover:before {
-            height: 5px;
+            height: 3px;
           }
+        }
 
-          &.pickedNav:after {
-            content: "";
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 5px;
-            width: 100%;
-            background-color: $primaryColor;
-            transition: .3s;
+        &.navBack {
+          a {
+            padding: 0;
+
+            img {
+              height: 50px;
+            }
           }
-
         }
       }
     }
@@ -160,7 +145,7 @@
         flex-direction: column;
 
         .login {
-          @include buttonPattern(5px);
+          @include buttonPattern;
           text-align: center;
           margin: 0;
         }
@@ -364,7 +349,7 @@
         }
 
         button {
-          @include buttonPattern();
+          @include buttonPattern;
         }
       }
 
@@ -519,7 +504,7 @@
     }
 
     #confirmOrderBtn {
-      @include buttonPattern(10px, 50%);
+      @include buttonPattern;
       align-self: center;
     }
 

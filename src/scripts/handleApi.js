@@ -63,7 +63,18 @@ class Api {
         }
         return response
     }
-
+    addUser(data) {
+        return fetch(this.urlUsers, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            },
+        }).then(response => {
+            if (response.status !== 200) throw error()
+            return response.json()
+        })
+    }
     async change(id, data) {
         const cookies = Cookies.get();
         const accessToken = cookies.accessToken;

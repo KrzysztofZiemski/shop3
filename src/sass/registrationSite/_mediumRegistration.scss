@@ -51,12 +51,16 @@
                 justify-content: flex-end;
 
                 button {
-                    @include buttonPattern(5px, 150px);
+                    @include buttonPattern;
 
                 }
             }
 
         }
 
+    }
+
+    .loader {
+        @include loader
     }
 }

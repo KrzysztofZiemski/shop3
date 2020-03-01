@@ -55,7 +55,7 @@
                 display: flex;
                 align-items: center;
 
-                &.navLogoContainer {
+                &.navBack {
                     a {
                         img {
                             height: 40px;
@@ -112,7 +112,7 @@
                 flex-direction: column;
 
                 .login {
-                    @include buttonPattern(5px);
+                    @include buttonPattern;
                     text-align: center;
                     margin: 0;
                 }
@@ -533,7 +533,7 @@
     }
 
     #confirmOrderBtn {
-        @include buttonPattern(10px, 50%);
+        @include buttonPattern;
         align-self: center;
     }
 

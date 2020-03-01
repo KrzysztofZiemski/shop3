@@ -52,11 +52,11 @@
             font-size: 9px;
 
             .login {
-                @include buttonPattern(6px);
+                @include buttonPattern;
             }
 
             .registration {
-                @include buttonPattern(6px);
+                @include buttonPattern;
             }
 
 
@@ -83,7 +83,7 @@
                 flex-grow: 1;
                 text-align: center;
 
-                &.navLogoContainer {
+                &.navBack {
                     a {
                         display: flex;
                         justify-content: center;
@@ -179,7 +179,7 @@
                 flex-direction: column;
 
                 .login {
-                    @include buttonPattern(2px);
+                    @include buttonPattern;
                     text-align: center;
                     font-size: 12px;
                     margin: 0;
@@ -423,7 +423,7 @@
         justify-content: space-between;
 
         button {
-            @include buttonPattern
+            @include buttonPattern;
         }
     }
 
@@ -622,7 +622,7 @@
 }
 
 #confirmOrderBtn {
-    @include buttonPattern(10px, 50%);
+    @include buttonPattern;
     align-self: center;
 }
 
