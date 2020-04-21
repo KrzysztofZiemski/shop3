@@ -81,8 +81,9 @@ class HandleSite {
         this.filters.price.min = min;
         this.filters.color = this.colorFilter.value;
         let filterList = [...this.products];
-        filterList = this.getFilterColor(filterList);
         filterList = this.getFilterPrice(filterList);
+        //todo color filter
+        filterList = this.getFilterColor(filterList);
         this._refreshSite(filterList);
     }
     getFilterColor(filterList) {
@@ -91,7 +92,6 @@ class HandleSite {
             let isOk = false;
             if (product.tags !== "") {
                 product.tags.forEach(tag => {
-                    console.log(tag)
                     if (tag === this.filters.color) isOk = true
                 })
             }
@@ -100,12 +100,14 @@ class HandleSite {
     }
     getFilterPrice(filterList) {
         const { min, max } = this.filters.price;
+        console.log(min, max)
+        console.log(filterList)
         return filterList.filter(product => {
-            if (min !== "" && product.price >= min) {
-                if (max !== "" && product.price <= max) return product
+            if (min !== "" && Number(product.price) >= Number(min)) {
+                if (max !== "" && Number(product.price) <= Number(max)) return product
                 if (max === "") return product
             } else if (min === "") {
-                if (max !== "" && product.price <= max) return product
+                if (max !== "" && Number(product.price) <= Number(max)) return product
                 if (max === "") return product
             }
         })

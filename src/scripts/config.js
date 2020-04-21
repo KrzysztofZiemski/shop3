@@ -1,5 +1,5 @@
-const config ={
-    url: 'http://localhost:3000/server',
+const config = {
+    url: 'https://peaceful-shore-16081.herokuapp.com/server/',
     tags: ['niebieski', 'czarny', 'różowy', 'pomarańczowy', 'srebrny', 'czerwnoy', 'biały',
         'brązowy', 'żółty', 'szary', 'złoty', 'zielony', 'fioletowy'],
     category: [

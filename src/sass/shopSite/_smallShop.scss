@@ -52,11 +52,13 @@
             font-size: 9px;
 
             .login {
-                @include buttonPattern;
+                margin: 2px;
+                @include buttonPattern(12px, 3px 6px, 50%);
             }
 
             .registration {
-                @include buttonPattern;
+                margin: 2px;
+                @include buttonPattern(12px, 3px 6px, 50%);
             }
 
 
@@ -409,7 +411,6 @@
 }
 
 .orderForm {
-
 
     display: flex;
     flex-direction: column;

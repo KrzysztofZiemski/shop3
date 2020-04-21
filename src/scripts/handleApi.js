@@ -181,8 +181,6 @@ class Api {
             Cookies.set("accessToken", tokens.accessToken, 600);
             Cookies.set("refreshToken", tokens.refreshToken, 10800);
             return true
-        } else {
-            console.log('refreshTokenStatus ', refresh.status)
         }
         return false
     }

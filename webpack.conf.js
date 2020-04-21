@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(path.join('dist', '/')),
+        path: path.resolve(path.join('build', '/')),
         publicPath: ASSET_PATH,
     },
     plugins: [
@@ -50,7 +50,7 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: '[name].css',
-            chunkFilename: path.resolve(__dirname, 'dist'),
+            chunkFilename: path.resolve(__dirname, 'build'),
             ignoreOrder: false,
         }),
     ],
@@ -84,7 +84,7 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: './dist',
+        contentBase: './build',
         hot: true,
         port: 8080,
     }
